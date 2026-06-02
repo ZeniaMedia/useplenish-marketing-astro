@@ -5,166 +5,247 @@ import Footer from '../components/Footer.astro';
 
 const categories = [
   {
-    name: 'Getting Started',
+    id: 'getting-started',
+    title: 'Getting Started',
     items: [
-      {
-        q: 'What is Plenish?',
-        a: 'Plenish is a meal prep tracking and planning web app that helps you manage your food inventory and stay on top of your nutrition goals. It tracks what you have in your fridge, freezer, pantry, and snack stash, then builds personalized meal plans around what you already have.',
-      },
-      {
-        q: 'Is Plenish free?',
-        a: 'Yes — Plenish is free to start. Create an account and begin tracking your inventory and nutrition right away.',
-      },
-      {
-        q: 'How is Plenish different from MyFitnessPal or other calorie trackers?',
-        a: "Most calorie trackers focus only on logging what you eat after the fact. Plenish is built around what you've already prepped — it takes your actual inventory, accounts for freshness, and builds a meal plan so you always know what to eat next. It combines inventory management, nutrition tracking, and meal planning in one place.",
-      },
-      {
-        q: "How do I use Plenish like a mobile app if it's not in the app store?",
-        a: "Plenish is a progressive web app (PWA). On iPhone, open the site in Safari and tap \"Add to Home Screen.\" On Android, tap the browser menu and select \"Add to Home Screen\" or \"Install App.\" You'll get a full app-like experience without an app store download.",
-      },
-      {
-        q: 'Does Plenish work on mobile?',
-        a: 'Yes. Plenish is fully mobile-responsive and works great on phones and tablets through your browser.',
-      },
+      { id: 'what-is-plenish', q: 'What is Plenish?', a: 'Plenish is a meal prep tracking and meal planning app. You log what you\'ve prepped — meals, snacks, and pantry items across your fridge, freezer, and pantry — set daily and weekly nutrition goals, and Plenish builds a personalized meal plan around what you already have. It\'s designed to reduce food waste, simplify decision-making, and help you hit your nutrition goals consistently.' },
+      { id: 'is-plenish-free', q: 'Is Plenish free?', a: 'Yes. Plenish is free during our open beta. Create an account to get started.' },
+      { id: 'how-is-plenish-different', q: 'How is Plenish different from MyFitnessPal or other calorie trackers?', a: 'Most nutrition trackers ask you to log what you ate after the fact. Plenish works differently — it starts with what you\'ve already prepped and builds your meal plan around it, prioritizing what\'s freshest and closest to expiring. You get a plan before you eat, not a log after. The nutrition tracking is built into that workflow, not the other way around.' },
+      { id: 'use-like-mobile-app', q: "How do I use Plenish like a mobile app if it's not in the app store?", a: 'Plenish runs in your mobile browser and can be added to your home screen just like a native app. On iPhone, open Plenish in Safari, tap the Share button, and select "Add to Home Screen." On Android, open it in Chrome, tap the three-dot menu, and select "Add to Home Screen." Once added, it opens full-screen without the browser bar — it looks and feels like a downloaded app.' },
+      { id: 'does-plenish-work-on-mobile', q: 'Does Plenish work on mobile?', a: 'Yes. Plenish is a web app that works on any device — desktop, tablet, or mobile browser. No app download required.' },
     ],
   },
   {
-    name: 'Nutrition Tracking',
+    id: 'nutrition-tracking',
+    title: 'Nutrition Tracking',
     items: [
-      {
-        q: 'Can Plenish track my calories, protein, and fiber?',
-        a: 'Yes. Plenish tracks calories, protein, and fiber by default — the three nutrients most relevant to managing weight and optimizing health. You can also enable full macro tracking (carbs and fat) if you want it.',
-      },
-      {
-        q: 'Does Plenish track daily AND weekly nutrition goals?',
-        a: 'Yes. Plenish tracks both. Weekly goals are especially useful on lower-appetite days (common on GLP-1 medications) — if you eat less one day, you can make it up over the week without feeling like you failed.',
-      },
-      {
-        q: 'Does Plenish support full macro tracking including carbs and fat?',
-        a: 'Yes. Carbs and fat tracking is available when you want it. You can enable full macro tracking in your nutrition settings at any time.',
-      },
-      {
-        q: "What if I don't know the nutrition info for a meal I prepped?",
-        a: "Use the AI nutrition estimator. Describe your meal — ingredients, portions, cooking method — and Plenish will estimate calories, protein, and fiber for you. It works for home-cooked meals, takeout, and restaurant dishes.",
-      },
-      {
-        q: 'How accurate is the AI nutrition estimator?',
-        a: "The AI estimator provides reasonable estimates based on standard nutritional databases and your description. It's especially useful when exact labels aren't available. For precision, you can always adjust the values after the estimate is generated.",
-      },
-      {
-        q: 'Can I use voice input to describe a meal for nutrition estimation?',
-        a: "On supported browsers and devices, you can use your device's built-in dictation to describe a meal when using the AI estimator.",
-      },
-      {
-        q: 'Can I see how my nutrition is trending over time, not just this week?',
-        a: 'Yes. Plenish tracks your nutrition history so you can review weekly trends and see how your intake has changed over time.',
-      },
+      { id: 'track-calories-protein-fiber', q: 'Can Plenish track my calories, protein, and fiber?', a: 'Yes. Plenish tracks calories, protein, and fiber for every meal and snack in your plan. You can set daily and weekly goals for each, and Plenish shows you how you\'re tracking against them in real time. Full macro tracking including carbohydrates and fat is also available — turn it on anytime in your nutrition settings.' },
+      { id: 'daily-and-weekly-goals', q: 'Does Plenish track daily AND weekly nutrition goals?', a: "Yes — and the weekly view is intentional. Hitting every daily goal perfectly isn't realistic for most people. Plenish shows you both so you can see that missing Tuesday's protein target doesn't derail your week. Consistency over time matters more than perfection on any given day." },
+      { id: 'full-macro-tracking', q: 'Does Plenish support full macro tracking including carbs and fat?', a: 'Plenish tracks calories, protein, and fiber by default — the three metrics most important to GLP-1 users and people focused on fitness. Carbohydrate and fat tracking are also available and can be turned on in your nutrition settings if you want the full picture.' },
+      { id: 'ai-nutrition-estimator', q: "What if I don't know the nutrition info for a meal I prepped?", a: 'Plenish has a built-in AI nutrition estimator. Describe your dish — ingredients, portion size, cooking method — and Plenish will estimate the calories, protein, and fiber for you. It\'s especially useful for home-cooked meals, takeout, and restaurant food that don\'t come with a label.' },
+      { id: 'ai-accuracy', q: 'How accurate is the AI nutrition estimator?', a: 'The AI nutrition estimator uses a combination of AI and USDA nutritional data to generate estimates. Accuracy depends on how detailed your description is — the more specific you are about ingredients, portions, and cooking method, the better the estimate. For well-known foods and standard preparations, estimates are typically close to label values. For complex or highly customized dishes, treat them as a reasonable approximation rather than an exact figure. Plenish shows a confidence level with each estimate so you always know how much to rely on it.' },
+      { id: 'voice-input', q: 'Can I use voice input to describe a meal for nutrition estimation?', a: 'Yes. Instead of typing out a food description, you can use your microphone to describe it out loud. Plenish transcribes it and runs the AI estimate from there.' },
+      { id: 'nutrition-trends', q: 'Can I see how my nutrition is trending over time, not just this week?', a: "Yes. Plenish keeps a history of your past meal plans and nutrition totals so you can see how you've been tracking week over week — not just how today is going." },
     ],
   },
   {
-    name: 'GLP-1 & Fitness',
+    id: 'glp1-fitness',
+    title: 'GLP-1 & Fitness',
     items: [
-      {
-        q: 'Is Plenish good for people on GLP-1 medications like Ozempic or Wegovy?',
-        a: "Yes — Plenish was built with GLP-1 users in mind. Appetite suppression can make it hard to hit daily protein and fiber targets. Plenish's weekly goal tracking means a low-intake day doesn't derail your week, and meal plans prioritize high-protein, high-fiber foods to maximize nutrition even when appetite is reduced.",
-      },
-      {
-        q: 'Can Plenish help me hit my fitness and protein goals?',
-        a: 'Absolutely. Set a daily or weekly protein target and Plenish will factor it into every meal plan it builds. You can also track calories relative to your training load and see your nutrition trends over time.',
-      },
+      { id: 'good-for-glp1', q: 'Is Plenish good for people on GLP-1 medications like Ozempic or Wegovy?', a: "Yes. Plenish was designed with GLP-1 users in mind. Appetite on GLP-1 medications varies significantly day to day, which makes rigid daily tracking frustrating. Plenish's weekly goal view accounts for that variation — a low-appetite day doesn't look like a failure. The focus on protein and fiber tracking also aligns with the nutritional guidance most GLP-1 users receive, and the meal planning ensures you're eating what's fresh even when appetite is low." },
+      { id: 'fitness-protein-goals', q: 'Can Plenish help me hit my fitness and protein goals?', a: 'Yes. Set a daily or weekly protein target and Plenish tracks your intake against it across every meal and snack. The meal planning prioritizes foods that fit your preferred meal types, so your plan works around your training schedule rather than against it.' },
     ],
   },
   {
-    name: 'Meal Planning',
+    id: 'meal-planning',
+    title: 'Meal Planning',
     items: [
-      {
-        q: 'How does Plenish build my meal plan?',
-        a: "Plenish starts with what's in your inventory, prioritizes items that are closest to expiring, and then builds meals around your nutrition goals and meal preferences. The result is a plan you can actually follow — because it's built around what you already have.",
-      },
-      {
-        q: 'How many weeks of meal planning can I do at once?',
-        a: 'You can plan 1 to 4 weeks at a time. Choose one week if your schedule changes frequently, or plan up to four weeks ahead if you batch cook and freeze.',
-      },
-      {
-        q: 'Can I track snacks in Plenish, not just meal-prepped food?',
-        a: "Yes. You can log snacks directly from your inventory or add one-off foods on the fly. Snacks are tracked separately so they don't clutter your meal prep view.",
-      },
-      {
-        q: "What if I want to eat something that's not in my meal prep inventory?",
-        a: 'You can add one-off foods at any time — meals eaten out, delivery, or anything else. Plenish will factor them into your daily and weekly nutrition totals.',
-      },
+      { id: 'how-meal-plan-built', q: 'How does Plenish build my meal plan?', a: "Plenish looks at what you have in your inventory, when each item was prepped, and when it expires. It then schedules meals across your plan to use the freshest ingredients first, match each food to your preferred meal types (breakfast, lunch, dinner), and respect how many servings you have left. You can swap, skip, or lock any meal manually." },
+      { id: 'weeks-of-planning', q: 'How many weeks of meal planning can I do at once?', a: 'Between 1 and 4 weeks, your choice. Set it to one week if your schedule changes frequently, or up to four weeks if you batch cook and freeze. You can change the setting anytime.' },
+      { id: 'track-snacks', q: 'Can I track snacks in Plenish, not just meal-prepped food?', a: "Yes. Plenish has a dedicated snack section separate from your main meals. You can add snacks from your inventory or log a one-time snack without adding it to your inventory. Snack nutrition counts toward your daily and weekly totals." },
+      { id: 'quick-add', q: "What if I want to eat something that's not in my meal prep inventory?", a: "Use Quick Add. Quick Add lets you log a one-off food directly to a meal without adding it to your inventory. It's useful for restaurant meals, spontaneous snacks, or anything that doesn't fit your usual prep routine." },
     ],
   },
   {
-    name: 'Inventory & Food Waste',
+    id: 'inventory-food-waste',
+    title: 'Inventory & Food Waste',
     items: [
-      {
-        q: 'How does Plenish help me stop wasting food?',
-        a: "Plenish tracks the freshness of everything in your inventory and prioritizes items that are closest to expiring when building your meal plan. You'll use what you have before it goes bad — not after.",
-      },
-      {
-        q: 'Can I track food in my freezer, not just my fridge?',
-        a: 'Yes. Plenish supports fridge, freezer, pantry, and snacks as separate storage locations. Freezer items are tracked with longer freshness windows and included in meal planning.',
-      },
+      { id: 'stop-wasting-food', q: 'How does Plenish help me stop wasting food?', a: "Plenish tracks expiration dates for everything in your inventory and prioritizes items that are closest to expiring when building your meal plan. You'll also see expiration warnings on individual items so nothing sneaks up on you. The goal is a freshness-first plan that uses what you have before it goes bad." },
+      { id: 'track-freezer', q: 'Can I track food in my freezer, not just my fridge?', a: 'Yes. Plenish tracks food across three storage locations — fridge, freezer, and pantry — each with appropriate default expiration windows. Freezer items default to a longer shelf life, and the meal planner considers all three when building your plan.' },
     ],
   },
   {
-    name: 'Account & Privacy',
+    id: 'account-privacy',
+    title: 'Account & Privacy',
     items: [
-      {
-        q: 'How do I create a Plenish account?',
-        a: 'Go to app.useplenish.com and sign up with your email address. No app store download required.',
-      },
-      {
-        q: 'Is my data private?',
-        a: 'Yes. Plenish does not sell your data or share it with third parties for advertising. See our Privacy Policy for full details.',
-      },
-      {
-        q: 'Can I delete my account and data?',
-        a: 'Yes. You can request full deletion of your account and all associated data by emailing support@useplenish.com.',
-      },
+      { id: 'how-do-i-create-a-plenish-account', q: 'How do I create a Plenish account?', a: 'Visit app.useplenish.com and sign up with your email or Google account. No invite required during open beta.' },
+      { id: 'is-my-data-private', q: 'Is my data private?', a: 'Yes. Your meal prep inventory, nutrition goals, and meal plans are private to your account. Plenish does not sell your personal data. You can review our full privacy policy at useplenish.com/privacy.' },
+      { id: 'can-i-delete-my-account', q: 'Can I delete my account and data?', a: "Yes. You can request account deletion by contacting us through the feedback form in the app. We'll remove your data promptly." },
     ],
   },
 ];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: categories.flatMap(cat =>
+    cat.items.map(i => ({
+      "@type": "Question",
+      name: i.q,
+      acceptedAnswer: { "@type": "Answer", text: i.a },
+    }))
+  ),
+};
 ---
 
 <BaseLayout
-  title="FAQ — Plenish"
-  description="Answers to common questions about Plenish — meal prep tracking, nutrition goals, GLP-1 support, meal planning, and more."
+  title="FAQ — Plenish | Meal Prep, Nutrition & Meal Planning"
+  description="Answers to common questions about Plenish: how meal planning works, what nutrients we track, AI nutrition estimates, account, and privacy."
   canonical="https://useplenish.com/faq/"
 >
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} slot="head" />
+
   <Header />
 
-  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
-    <h1 class="text-4xl font-bold text-gray-900 mb-3">Frequently Asked Questions</h1>
-    <p class="text-gray-500 text-lg mb-12">Everything you need to know about Plenish.</p>
+  <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-6xl">
 
-    <div class="space-y-12">
-      {categories.map((cat) => (
-        <div>
-          <h2 class="text-xl font-semibold text-brand mb-5 pb-2 border-b border-green-100">{cat.name}</h2>
-          <div class="space-y-6">
-            {cat.items.map((item) => (
-              <div>
-                <h3 class="font-semibold text-gray-900 mb-1">{item.q}</h3>
-                <p class="text-gray-500 leading-relaxed">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
+    <!-- Page header -->
+    <div class="max-w-3xl mb-10">
+      <h1 class="text-4xl md:text-5xl font-bold text-[hsl(var(--foreground))] mb-4">Frequently Asked Questions</h1>
+      <p class="text-lg text-[hsl(var(--muted-foreground))]">
+        Everything you need to know about Plenish — meal planning, nutrition tracking, AI estimates, and your account.
+      </p>
     </div>
 
-    <div class="mt-14 p-6 bg-brand-light rounded-xl text-center">
-      <p class="text-gray-700 font-medium">Still have questions?</p>
-      <p class="text-gray-500 mt-1 text-sm">
-        Email us at{' '}
-        <a href="mailto:support@useplenish.com" class="text-brand hover:underline">support@useplenish.com</a>
-        {' '}and we'll get back to you.
-      </p>
+    <!-- Search -->
+    <div class="relative mb-8 max-w-xl">
+      <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 pointer-events-none text-[hsl(var(--muted-foreground))]"
+           fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input
+        id="faq-search"
+        type="search"
+        placeholder="Search questions…"
+        aria-label="Search frequently asked questions"
+        class="w-full pl-9 pr-4 py-2.5 rounded-[var(--radius)] border border-[hsl(var(--border))] bg-[hsl(var(--background))] text-[hsl(var(--foreground))] placeholder-[hsl(var(--muted-foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+      />
+    </div>
+
+    <div class="lg:grid lg:grid-cols-[220px_1fr] lg:gap-12">
+
+      <!-- Sticky sidebar -->
+      <aside class="hidden lg:block">
+        <nav id="faq-sidebar" aria-label="FAQ categories" class="sticky top-24 space-y-1">
+          <p class="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))] mb-3">Categories</p>
+          {categories.map(cat => (
+            <a
+              href={`#cat-${cat.id}`}
+              class="flex items-center justify-between px-3 py-2 rounded-md text-sm text-[hsl(var(--foreground))] hover:bg-[hsl(var(--secondary))] hover:text-[hsl(var(--primary))] transition-colors"
+            >
+              <span>{cat.title}</span>
+              <span class="ml-2 text-xs text-[hsl(var(--muted-foreground))]">{cat.items.length}</span>
+            </a>
+          ))}
+        </nav>
+      </aside>
+
+      <!-- FAQ content -->
+      <div id="faq-content">
+        {categories.map(cat => (
+          <section
+            id={`cat-${cat.id}`}
+            class="mb-12 scroll-mt-24 faq-category"
+            data-category={cat.id}
+          >
+            <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">{cat.title}</h2>
+            <div class="divide-y divide-[hsl(var(--border))]">
+              {cat.items.map(item => (
+                <div class="faq-item" id={item.id} data-question={item.q.toLowerCase()} data-answer={item.a.toLowerCase()}>
+                  <button
+                    type="button"
+                    class="faq-trigger w-full text-left py-5 flex items-center justify-between gap-4 focus:outline-none group"
+                    aria-expanded="false"
+                  >
+                    <h3 class="text-base font-semibold text-[hsl(var(--foreground))] group-hover:text-[hsl(var(--primary))] transition-colors">
+                      {item.q}
+                    </h3>
+                    <svg class="faq-chevron shrink-0 w-5 h-5 text-[hsl(var(--muted-foreground))] transition-transform duration-200"
+                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/>
+                    </svg>
+                  </button>
+                  <div class="faq-answer hidden pb-5 text-[hsl(var(--muted-foreground))] leading-relaxed">
+                    {item.a}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
+
+        <!-- No results -->
+        <p id="faq-no-results" class="hidden text-[hsl(var(--muted-foreground))] py-12 text-center">
+          No questions match your search. Try a different term.
+        </p>
+
+        <!-- Contact CTA -->
+        <div class="mt-12 p-8 rounded-2xl border border-[hsl(var(--border))] text-center"
+             style="background: hsl(142 40% 96% / 0.5);">
+          <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-2">Still have questions?</h2>
+          <p class="text-[hsl(var(--muted-foreground))] mb-6">We're happy to help. Reach out and we'll get back to you.</p>
+          <a href="mailto:support@useplenish.com"
+             class="inline-flex items-center gap-2 px-6 py-3 rounded-[var(--radius)] text-sm font-semibold transition-colors"
+             style="background: hsl(var(--primary)); color: white;"
+             onmouseover="this.style.background='hsl(142 76% 30%)'" onmouseout="this.style.background='hsl(var(--primary))'">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            support@useplenish.com
+          </a>
+        </div>
+      </div>
     </div>
   </main>
 
   <Footer />
 </BaseLayout>
+
+<script is:inline>
+  // Accordion
+  document.querySelectorAll('.faq-trigger').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = btn.closest('.faq-item');
+      var answer = item.querySelector('.faq-answer');
+      var chevron = btn.querySelector('.faq-chevron');
+      var open = !answer.classList.contains('hidden');
+      answer.classList.toggle('hidden', open);
+      chevron.style.transform = open ? '' : 'rotate(180deg)';
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  });
+
+  // Open item from URL hash
+  (function() {
+    var hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+    var el = document.getElementById(hash);
+    if (!el || !el.classList.contains('faq-item')) return;
+    var btn = el.querySelector('.faq-trigger');
+    var answer = el.querySelector('.faq-answer');
+    var chevron = el.querySelector('.faq-chevron');
+    if (btn && answer) {
+      answer.classList.remove('hidden');
+      if (chevron) chevron.style.transform = 'rotate(180deg)';
+      btn.setAttribute('aria-expanded', 'true');
+      requestAnimationFrame(function() {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  })();
+
+  // Search
+  var searchInput = document.getElementById('faq-search');
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      var q = this.value.trim().toLowerCase();
+      var anyVisible = false;
+      document.querySelectorAll('.faq-category').forEach(function(section) {
+        var items = section.querySelectorAll('.faq-item');
+        var catVisible = false;
+        items.forEach(function(item) {
+          var show = !q ||
+            item.dataset.question.includes(q) ||
+            item.dataset.answer.includes(q);
+          item.style.display = show ? '' : 'none';
+          if (show) catVisible = true;
+        });
+        section.style.display = catVisible ? '' : 'none';
+        if (catVisible) anyVisible = true;
+      });
+      var noResults = document.getElementById('faq-no-results');
+      if (noResults) noResults.classList.toggle('hidden', anyVisible);
+    });
+  }
+</script>

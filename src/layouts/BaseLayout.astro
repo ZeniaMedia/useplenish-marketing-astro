@@ -38,7 +38,10 @@ const {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/favicon-192.png" />
 
     <!-- PostHog Analytics -->
     <script is:inline>
@@ -48,8 +51,39 @@ const {
         person_profiles: 'identified_only',
       });
     </script>
+
+    <style>
+      :root {
+        --background: 0 0% 100%;
+        --foreground: 142 71% 15%;
+        --card: 0 0% 100%;
+        --card-foreground: 142 71% 15%;
+        --primary: 142 76% 36%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 142 40% 96%;
+        --secondary-foreground: 142 71% 15%;
+        --muted: 142 20% 96%;
+        --muted-foreground: 142 20% 40%;
+        --accent: 32 95% 44%;
+        --accent-foreground: 0 0% 100%;
+        --border: 142 20% 90%;
+        --input: 142 20% 90%;
+        --ring: 142 76% 36%;
+        --radius: 0.75rem;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; }
+
+      body {
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        margin: 0;
+      }
+    </style>
   </head>
-  <body class="font-sans text-gray-800 bg-white">
+  <body class="font-sans">
     <slot />
   </body>
 </html>

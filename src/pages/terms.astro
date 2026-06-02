@@ -11,29 +11,29 @@ import Footer from '../components/Footer.astro';
 >
   <Header />
 
-  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
-    <h1 class="text-4xl font-bold text-gray-900 mb-2">Terms &amp; Conditions</h1>
-    <p class="text-sm text-gray-400 mb-12">Last Updated: May 05, 2026</p>
+  <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-3xl">
+    <h1 class="text-4xl font-bold text-[hsl(var(--foreground))] mb-2">Terms &amp; Conditions</h1>
+    <p class="text-sm text-[hsl(var(--muted-foreground))] mb-12">Last Updated: May 05, 2026</p>
 
-    <div class="space-y-10 text-gray-600 leading-relaxed">
+    <div class="space-y-10 text-[hsl(var(--muted-foreground))] leading-relaxed">
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">Agreement to Our Legal Terms</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">Agreement to Our Legal Terms</h2>
         <p>
-          We are Plenish ("Company," "we," "us," "our"), a company registered in New York, United States at 24-41 31st St, #1088, Astoria, NY 11102. We operate the website <a href="https://useplenish.com" class="text-brand hover:underline">https://useplenish.com</a> and any other related products and services that refer or link to these legal terms (collectively, the "Services").
+          We are Plenish ("Company," "we," "us," "our"), a company registered in New York, United States at 24-41 31st St, #1088, Astoria, NY 11102. We operate the website <a href="https://useplenish.com" class="text-[hsl(var(--primary))] hover:underline">https://useplenish.com</a> and any other related products and services that refer or link to these legal terms (collectively, the "Services").
         </p>
         <p class="mt-3">
-          Plenish is a meal prep tracking and planning web application that helps users manage their food inventory and generate personalized meal plans. You can contact us by phone at (201) 677-8410, email at <a href="mailto:support@useplenish.com" class="text-brand hover:underline">support@useplenish.com</a>, or by mail to the address above.
+          Plenish is a meal prep tracking and planning web application that helps users manage their food inventory and generate personalized meal plans. You can contact us by phone at (201) 677-8410, email at <a href="mailto:support@useplenish.com" class="text-[hsl(var(--primary))] hover:underline">support@useplenish.com</a>, or by mail to the address above.
         </p>
         <p class="mt-3">
-          These Legal Terms constitute a legally binding agreement made between you and Plenish concerning your access to and use of the Services. By accessing the Services, you have read, understood, and agreed to be bound by all of these Legal Terms. <strong>IF YOU DO NOT AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.</strong>
+          These Legal Terms constitute a legally binding agreement between you and Plenish concerning your access to and use of the Services. By accessing the Services, you have read, understood, and agreed to be bound by all of these Legal Terms. <strong class="text-[hsl(var(--foreground))]">IF YOU DO NOT AGREE WITH ALL OF THESE LEGAL TERMS, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SERVICES AND YOU MUST DISCONTINUE USE IMMEDIATELY.</strong>
         </p>
         <p class="mt-3">The Services are intended for users who are at least 18 years old. Persons under the age of 18 are not permitted to use or register for the Services.</p>
       </section>
 
       <nav>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">Table of Contents</h2>
-        <ol class="list-decimal list-inside space-y-1 text-sm text-brand">
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">Table of Contents</h2>
+        <ol class="list-decimal list-inside space-y-1 text-sm text-[hsl(var(--primary))]">
           {[
             'OUR SERVICES','INTELLECTUAL PROPERTY RIGHTS','USER REPRESENTATIONS','USER REGISTRATION',
             'PURCHASES AND PAYMENT','PROHIBITED ACTIVITIES','USER GENERATED CONTRIBUTIONS','CONTRIBUTION LICENSE',
@@ -43,159 +43,149 @@ import Footer from '../components/Footer.astro';
             'DISCLAIMER','LIMITATIONS OF LIABILITY','INDEMNIFICATION','USER DATA',
             'ELECTRONIC COMMUNICATIONS, TRANSACTIONS, AND SIGNATURES','CALIFORNIA USERS AND RESIDENTS',
             'MISCELLANEOUS','CONTACT US',
-          ].map((item, i) => (
-            <li><span class="text-gray-600">{item}</span></li>
+          ].map((item) => (
+            <li><span class="text-[hsl(var(--muted-foreground))]">{item}</span></li>
           ))}
         </ol>
       </nav>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">1. Our Services</h2>
-        <p>
-          The information provided when using the Services is not intended for distribution to or use by any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation. The Services are not tailored to comply with industry-specific regulations (HIPAA, FISMA, etc.).
-        </p>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">1. Our Services</h2>
+        <p>The information provided when using the Services is not intended for distribution to or use by any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation. The Services are not tailored to comply with industry-specific regulations (HIPAA, FISMA, etc.).</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">2. Intellectual Property Rights</h2>
-        <p>
-          We are the owner or licensee of all intellectual property rights in our Services, including all source code, databases, functionality, software, website designs, text, photographs, and graphics, as well as the trademarks, service marks, and logos contained therein. Our Content and Marks are protected by copyright and trademark laws in the United States and around the world.
-        </p>
-        <p class="mt-3">
-          Subject to your compliance with these Legal Terms, we grant you a non-exclusive, non-transferable, revocable license to access the Services solely for your personal, non-commercial use.
-        </p>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">2. Intellectual Property Rights</h2>
+        <p>We are the owner or licensee of all intellectual property rights in our Services, including all source code, databases, functionality, software, website designs, text, photographs, and graphics, as well as the trademarks, service marks, and logos contained therein. Our Content and Marks are protected by copyright and trademark laws in the United States and around the world.</p>
+        <p class="mt-3">Subject to your compliance with these Legal Terms, we grant you a non-exclusive, non-transferable, revocable license to access the Services solely for your personal, non-commercial use.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">3. User Representations</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">3. User Representations</h2>
         <p>By using the Services, you represent and warrant that all registration information you submit will be true, accurate, current, and complete; you have the legal capacity to agree to these Legal Terms; you are not a minor in the jurisdiction in which you reside; and your use of the Services will not violate any applicable law or regulation.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">4. User Registration</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">4. User Registration</h2>
         <p>You may be required to register to use the Services. You agree to keep your password confidential and will be responsible for all use of your account and password.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">5. Purchases and Payment</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">5. Purchases and Payment</h2>
         <p>You agree to provide current, complete, and accurate purchase and account information for all purchases made via the Services. We may change prices at any time. We reserve the right to refuse any order placed through the Services.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">6. Prohibited Activities</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">6. Prohibited Activities</h2>
         <p>You may not access or use the Services for any purpose other than that for which we make the Services available. Prohibited activities include but are not limited to: systematically retrieving data to create a database without permission; circumventing security features; using automated scripts or bots; attempting to impersonate another user; uploading viruses or malicious code; reverse engineering the Services; and using the Services for any unauthorized commercial purpose.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">7. User Generated Contributions</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">7. User Generated Contributions</h2>
         <p>The Services may allow you to create, submit, or post content. When you do, you represent and warrant that your Contributions are original, accurate, do not infringe any third-party rights, and comply with these Legal Terms and all applicable laws.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">8. Contribution License</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">8. Contribution License</h2>
         <p>By posting Contributions, you grant us an unrestricted, unlimited, irrevocable, perpetual, non-exclusive, transferable, royalty-free, worldwide license to use, copy, reproduce, distribute, sell, publish, and exploit your Contributions for any purpose. You retain ownership of your Contributions.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">9. Third-Party Websites and Content</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">9. Third-Party Websites and Content</h2>
         <p>The Services may contain links to third-party websites. We are not responsible for the content, accuracy, or practices of any third-party websites. Accessing third-party websites is at your own risk.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">10. Services Management</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">10. Services Management</h2>
         <p>We reserve the right to monitor the Services for violations, take legal action against violators, restrict access, remove content, and otherwise manage the Services to protect our rights and facilitate proper functioning.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">11. Privacy Policy</h2>
-        <p>We care about data privacy and security. Please review our <a href="/privacy" class="text-brand hover:underline">Privacy Policy</a>. By using the Services, you agree to be bound by our Privacy Policy. The Services are hosted in the United States.</p>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">11. Privacy Policy</h2>
+        <p>We care about data privacy and security. Please review our <a href="/privacy" class="text-[hsl(var(--primary))] hover:underline">Privacy Policy</a>. By using the Services, you agree to be bound by our Privacy Policy. The Services are hosted in the United States.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">12. DMCA Notice and Policy</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">12. DMCA Notice and Policy</h2>
         <p>We respect intellectual property rights. If you believe material on the Services infringes your copyright, contact our Designated Copyright Agent:</p>
-        <address class="not-italic mt-2 text-sm bg-gray-50 p-4 rounded-lg">
+        <address class="not-italic mt-3 text-sm p-4 rounded-[var(--radius)] bg-[hsl(var(--secondary))]">
           Heather Purdy<br />
           Attn: Copyright Agent<br />
           24-41 31st Street #1088<br />
           Astoria, NY 11102, United States<br />
-          <a href="mailto:support@useplenish.com" class="text-brand hover:underline">support@useplenish.com</a>
+          <a href="mailto:support@useplenish.com" class="text-[hsl(var(--primary))] hover:underline">support@useplenish.com</a>
         </address>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">13. Term and Termination</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">13. Term and Termination</h2>
         <p>These Legal Terms remain in full force while you use the Services. We reserve the right to deny access to any person for any reason without notice or liability. If we terminate your account, you are prohibited from creating a new account without our permission.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">14. Modifications and Interruptions</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">14. Modifications and Interruptions</h2>
         <p>We reserve the right to change, modify, or remove the contents of the Services at any time without notice. We cannot guarantee the Services will be available at all times. We have no liability for any loss or inconvenience caused by downtime or discontinuance.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">15. Governing Law</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">15. Governing Law</h2>
         <p>These Legal Terms are governed by the laws of the State of New York, without regard to its conflict of law principles.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">16. Dispute Resolution</h2>
-        <p>The parties agree to first attempt to resolve any dispute through informal negotiations for at least 30 days before initiating arbitration. Disputes not resolved through informal negotiations will be finally resolved by binding arbitration under the Commercial Arbitration Rules of the American Arbitration Association, to take place in Queens, New York. Class action arbitration is not permitted.</p>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">16. Dispute Resolution</h2>
+        <p>The parties agree to first attempt to resolve any dispute through informal negotiations for at least 30 days before initiating arbitration. Disputes not resolved informally will be finally resolved by binding arbitration under the AAA Commercial Arbitration Rules, to take place in Queens, New York. Class action arbitration is not permitted.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">17. Corrections</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">17. Corrections</h2>
         <p>We reserve the right to correct any errors, inaccuracies, or omissions on the Services at any time without prior notice.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">18. Disclaimer</h2>
-        <p class="uppercase text-sm">
-          THE SERVICES ARE PROVIDED ON AN AS-IS AND AS-AVAILABLE BASIS. TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
-        </p>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">18. Disclaimer</h2>
+        <p class="uppercase text-sm">THE SERVICES ARE PROVIDED ON AN AS-IS AND AS-AVAILABLE BASIS. TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">19. Limitations of Liability</h2>
-        <p class="uppercase text-sm">
-          IN NO EVENT WILL WE OR OUR DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES. OUR LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER WILL AT ALL TIMES BE LIMITED TO THE AMOUNT PAID, IF ANY, BY YOU TO US DURING THE SIX (6) MONTH PERIOD PRIOR TO ANY CAUSE OF ACTION ARISING.
-        </p>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">19. Limitations of Liability</h2>
+        <p class="uppercase text-sm">IN NO EVENT WILL WE OR OUR DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES. OUR LIABILITY TO YOU FOR ANY CAUSE WHATSOEVER WILL AT ALL TIMES BE LIMITED TO THE AMOUNT PAID, IF ANY, BY YOU TO US DURING THE SIX (6) MONTH PERIOD PRIOR TO ANY CAUSE OF ACTION ARISING.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">20. Indemnification</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">20. Indemnification</h2>
         <p>You agree to defend, indemnify, and hold us harmless from any loss, damage, liability, claim, or demand made by any third party arising from your Contributions, use of the Services, breach of these Legal Terms, or violation of any third-party rights.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">21. User Data</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">21. User Data</h2>
         <p>We will maintain certain data you transmit to the Services for managing performance. Although we perform regular backups, you are solely responsible for all data you transmit. We have no liability to you for any loss or corruption of such data.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">22. Electronic Communications, Transactions, and Signatures</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">22. Electronic Communications, Transactions, and Signatures</h2>
         <p>Visiting the Services, sending us emails, and completing online forms constitute electronic communications. You consent to receive electronic communications and agree they satisfy any legal requirement for written communication.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">23. California Users and Residents</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">23. California Users and Residents</h2>
         <p>If any complaint with us is not satisfactorily resolved, you can contact the Complaint Assistance Unit of the Division of Consumer Services of the California Department of Consumer Affairs at 1625 North Market Blvd., Suite N 112, Sacramento, California 95834, or by telephone at (800) 952-5210.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">24. Miscellaneous</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">24. Miscellaneous</h2>
         <p>These Legal Terms and any policies posted by us constitute the entire agreement between you and us. If any provision is determined to be unlawful, void, or unenforceable, it is deemed severable from these Legal Terms and does not affect the validity of any remaining provisions.</p>
       </section>
 
       <section>
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">25. Contact Us</h2>
+        <h2 class="text-lg font-semibold text-[hsl(var(--foreground))] mb-3">25. Contact Us</h2>
         <address class="not-italic">
-          <strong>Plenish</strong><br />
+          <strong class="text-[hsl(var(--foreground))]">Plenish</strong><br />
           24-41 31st St, #1088<br />
           Astoria, NY 11102<br />
           United States<br />
           Phone: (201) 677-8410<br />
-          Email: <a href="mailto:support@useplenish.com" class="text-brand hover:underline">support@useplenish.com</a>
+          Email: <a href="mailto:support@useplenish.com" class="text-[hsl(var(--primary))] hover:underline">support@useplenish.com</a>
         </address>
       </section>
 
