@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Blog — Plenish"
+  description="Tips, guides, and insights on meal prep, nutrition tracking, GLP-1 journeys, and reducing food waste from the Plenish team."
+  canonical="https://useplenish.com/blog/"
+>
+  <Header />
+
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+    <h1 class="text-4xl font-bold text-gray-900 mb-3">Blog</h1>
+    <p class="text-gray-500 text-lg mb-12">
+      Tips, guides, and insights on meal prep, nutrition, and reducing food waste.
+    </p>
+
+    <div class="border border-dashed border-gray-200 rounded-xl p-12 text-center text-gray-400">
+      <p class="text-2xl mb-2">✍️</p>
+      <p class="font-medium text-gray-500">Posts coming soon</p>
+      <p class="text-sm mt-1">Check back for articles on meal prep, GLP-1 nutrition, fitness goals, and more.</p>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

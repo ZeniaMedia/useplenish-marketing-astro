@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const categories = [
+  {
+    name: 'Getting Started',
+    items: [
+      {
+        q: 'What is Plenish?',
+        a: 'Plenish is a meal prep tracking and planning web app that helps you manage your food inventory and stay on top of your nutrition goals. It tracks what you have in your fridge, freezer, pantry, and snack stash, then builds personalized meal plans around what you already have.',
+      },
+      {
+        q: 'Is Plenish free?',
+        a: 'Yes — Plenish is free to start. Create an account and begin tracking your inventory and nutrition right away.',
+      },
+      {
+        q: 'How is Plenish different from MyFitnessPal or other calorie trackers?',
+        a: "Most calorie trackers focus only on logging what you eat after the fact. Plenish is built around what you've already prepped — it takes your actual inventory, accounts for freshness, and builds a meal plan so you always know what to eat next. It combines inventory management, nutrition tracking, and meal planning in one place.",
+      },
+      {
+        q: "How do I use Plenish like a mobile app if it's not in the app store?",
+        a: "Plenish is a progressive web app (PWA). On iPhone, open the site in Safari and tap \"Add to Home Screen.\" On Android, tap the browser menu and select \"Add to Home Screen\" or \"Install App.\" You'll get a full app-like experience without an app store download.",
+      },
+      {
+        q: 'Does Plenish work on mobile?',
+        a: 'Yes. Plenish is fully mobile-responsive and works great on phones and tablets through your browser.',
+      },
+    ],
+  },
+  {
+    name: 'Nutrition Tracking',
+    items: [
+      {
+        q: 'Can Plenish track my calories, protein, and fiber?',
+        a: 'Yes. Plenish tracks calories, protein, and fiber by default — the three nutrients most relevant to managing weight and optimizing health. You can also enable full macro tracking (carbs and fat) if you want it.',
+      },
+      {
+        q: 'Does Plenish track daily AND weekly nutrition goals?',
+        a: 'Yes. Plenish tracks both. Weekly goals are especially useful on lower-appetite days (common on GLP-1 medications) — if you eat less one day, you can make it up over the week without feeling like you failed.',
+      },
+      {
+        q: 'Does Plenish support full macro tracking including carbs and fat?',
+        a: 'Yes. Carbs and fat tracking is available when you want it. You can enable full macro tracking in your nutrition settings at any time.',
+      },
+      {
+        q: "What if I don't know the nutrition info for a meal I prepped?",
+        a: "Use the AI nutrition estimator. Describe your meal — ingredients, portions, cooking method — and Plenish will estimate calories, protein, and fiber for you. It works for home-cooked meals, takeout, and restaurant dishes.",
+      },
+      {
+        q: 'How accurate is the AI nutrition estimator?',
+        a: "The AI estimator provides reasonable estimates based on standard nutritional databases and your description. It's especially useful when exact labels aren't available. For precision, you can always adjust the values after the estimate is generated.",
+      },
+      {
+        q: 'Can I use voice input to describe a meal for nutrition estimation?',
+        a: "On supported browsers and devices, you can use your device's built-in dictation to describe a meal when using the AI estimator.",
+      },
+      {
+        q: 'Can I see how my nutrition is trending over time, not just this week?',
+        a: 'Yes. Plenish tracks your nutrition history so you can review weekly trends and see how your intake has changed over time.',
+      },
+    ],
+  },
+  {
+    name: 'GLP-1 & Fitness',
+    items: [
+      {
+        q: 'Is Plenish good for people on GLP-1 medications like Ozempic or Wegovy?',
+        a: "Yes — Plenish was built with GLP-1 users in mind. Appetite suppression can make it hard to hit daily protein and fiber targets. Plenish's weekly goal tracking means a low-intake day doesn't derail your week, and meal plans prioritize high-protein, high-fiber foods to maximize nutrition even when appetite is reduced.",
+      },
+      {
+        q: 'Can Plenish help me hit my fitness and protein goals?',
+        a: 'Absolutely. Set a daily or weekly protein target and Plenish will factor it into every meal plan it builds. You can also track calories relative to your training load and see your nutrition trends over time.',
+      },
+    ],
+  },
+  {
+    name: 'Meal Planning',
+    items: [
+      {
+        q: 'How does Plenish build my meal plan?',
+        a: "Plenish starts with what's in your inventory, prioritizes items that are closest to expiring, and then builds meals around your nutrition goals and meal preferences. The result is a plan you can actually follow — because it's built around what you already have.",
+      },
+      {
+        q: 'How many weeks of meal planning can I do at once?',
+        a: 'You can plan 1 to 4 weeks at a time. Choose one week if your schedule changes frequently, or plan up to four weeks ahead if you batch cook and freeze.',
+      },
+      {
+        q: 'Can I track snacks in Plenish, not just meal-prepped food?',
+        a: "Yes. You can log snacks directly from your inventory or add one-off foods on the fly. Snacks are tracked separately so they don't clutter your meal prep view.",
+      },
+      {
+        q: "What if I want to eat something that's not in my meal prep inventory?",
+        a: 'You can add one-off foods at any time — meals eaten out, delivery, or anything else. Plenish will factor them into your daily and weekly nutrition totals.',
+      },
+    ],
+  },
+  {
+    name: 'Inventory & Food Waste',
+    items: [
+      {
+        q: 'How does Plenish help me stop wasting food?',
+        a: "Plenish tracks the freshness of everything in your inventory and prioritizes items that are closest to expiring when building your meal plan. You'll use what you have before it goes bad — not after.",
+      },
+      {
+        q: 'Can I track food in my freezer, not just my fridge?',
+        a: 'Yes. Plenish supports fridge, freezer, pantry, and snacks as separate storage locations. Freezer items are tracked with longer freshness windows and included in meal planning.',
+      },
+    ],
+  },
+  {
+    name: 'Account & Privacy',
+    items: [
+      {
+        q: 'How do I create a Plenish account?',
+        a: 'Go to app.useplenish.com and sign up with your email address. No app store download required.',
+      },
+      {
+        q: 'Is my data private?',
+        a: 'Yes. Plenish does not sell your data or share it with third parties for advertising. See our Privacy Policy for full details.',
+      },
+      {
+        q: 'Can I delete my account and data?',
+        a: 'Yes. You can request full deletion of your account and all associated data by emailing support@useplenish.com.',
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="FAQ — Plenish"
+  description="Answers to common questions about Plenish — meal prep tracking, nutrition goals, GLP-1 support, meal planning, and more."
+  canonical="https://useplenish.com/faq/"
+>
+  <Header />
+
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+    <h1 class="text-4xl font-bold text-gray-900 mb-3">Frequently Asked Questions</h1>
+    <p class="text-gray-500 text-lg mb-12">Everything you need to know about Plenish.</p>
+
+    <div class="space-y-12">
+      {categories.map((cat) => (
+        <div>
+          <h2 class="text-xl font-semibold text-brand mb-5 pb-2 border-b border-green-100">{cat.name}</h2>
+          <div class="space-y-6">
+            {cat.items.map((item) => (
+              <div>
+                <h3 class="font-semibold text-gray-900 mb-1">{item.q}</h3>
+                <p class="text-gray-500 leading-relaxed">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-14 p-6 bg-brand-light rounded-xl text-center">
+      <p class="text-gray-700 font-medium">Still have questions?</p>
+      <p class="text-gray-500 mt-1 text-sm">
+        Email us at{' '}
+        <a href="mailto:support@useplenish.com" class="text-brand hover:underline">support@useplenish.com</a>
+        {' '}and we'll get back to you.
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

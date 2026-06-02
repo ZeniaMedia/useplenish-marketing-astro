@@ -1,0 +1,42 @@
+---
+const navLinks = [
+  { href: '/blog', label: 'Blog' },
+  { href: '/faq', label: 'FAQ' },
+];
+---
+
+<header class="border-b border-gray-100 bg-white sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2 font-semibold text-xl text-brand">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="14" cy="14" r="14" fill="#1f6b3d"/>
+        <path d="M8 14c0-3.314 2.686-6 6-6s6 2.686 6 6-2.686 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="14" cy="14" r="2.5" fill="white"/>
+      </svg>
+      Plenish
+    </a>
+
+    <nav class="hidden sm:flex items-center gap-6">
+      {navLinks.map((link) => (
+        <a href={link.href} class="text-sm text-gray-600 hover:text-brand transition-colors">
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a
+        href="https://app.useplenish.com"
+        class="hidden sm:inline text-sm text-gray-600 hover:text-brand transition-colors"
+      >
+        Sign In
+      </a>
+      <a
+        href="https://app.useplenish.com"
+        class="inline-flex items-center px-4 py-2 rounded-lg bg-brand text-white text-sm font-medium hover:bg-brand-dark transition-colors"
+      >
+        Join
+      </a>
+    </div>
+  </div>
+</header>
