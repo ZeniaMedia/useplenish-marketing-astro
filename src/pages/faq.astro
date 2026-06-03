@@ -193,16 +193,41 @@ const faqJsonLd = {
 </BaseLayout>
 
 <script is:inline>
-  // Accordion
+  // Accordion — single-open: closing any open item before opening a new one
+  function closeItem(item) {
+    var answer = item.querySelector('.faq-answer');
+    var chevron = item.querySelector('.faq-chevron');
+    var btn = item.querySelector('.faq-trigger');
+    answer.classList.add('hidden');
+    chevron.style.transform = '';
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  function openItem(item) {
+    var answer = item.querySelector('.faq-answer');
+    var chevron = item.querySelector('.faq-chevron');
+    var btn = item.querySelector('.faq-trigger');
+    answer.classList.remove('hidden');
+    chevron.style.transform = 'rotate(180deg)';
+    btn.setAttribute('aria-expanded', 'true');
+  }
+
   document.querySelectorAll('.faq-trigger').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var item = btn.closest('.faq-item');
-      var answer = item.querySelector('.faq-answer');
-      var chevron = btn.querySelector('.faq-chevron');
-      var open = !answer.classList.contains('hidden');
-      answer.classList.toggle('hidden', open);
-      chevron.style.transform = open ? '' : 'rotate(180deg)';
-      btn.setAttribute('aria-expanded', String(!open));
+      var isOpen = !item.querySelector('.faq-answer').classList.contains('hidden');
+
+      // Close every open item
+      document.querySelectorAll('.faq-item').forEach(function(other) {
+        if (!other.querySelector('.faq-answer').classList.contains('hidden')) {
+          closeItem(other);
+        }
+      });
+
+      // If the clicked item was closed, open it now
+      if (!isOpen) {
+        openItem(item);
+      }
     });
   });
 
