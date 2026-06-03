@@ -1,6 +1,14 @@
+import typography from '@tailwindcss/typography';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,ts}'],
+  safelist: [
+    'prose',
+    'prose-lg',
+    'max-w-none',
+    { pattern: /^prose-/ },
+  ],
   theme: {
     container: {
       center: true,
@@ -64,5 +72,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [typography],
 };

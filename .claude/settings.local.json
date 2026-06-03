@@ -13,7 +13,8 @@
       "Bash(Format-Table -HideTableHeaders)",
       "mcp__Claude_Preview__preview_start",
       "WebFetch(domain:lucide.dev)",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(xargs grep -l \"Heather\")"
     ]
   }
 }

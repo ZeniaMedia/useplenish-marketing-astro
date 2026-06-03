@@ -144,16 +144,16 @@ const faqJsonLd = {
                 <div class="faq-item" id={item.id} data-question={item.q.toLowerCase()} data-answer={item.a.toLowerCase()}>
                   <button
                     type="button"
-                    class="faq-trigger w-full text-left py-5 flex items-center justify-between gap-4 focus:outline-none group"
+                    class="faq-trigger w-full py-5 flex items-center gap-3 focus:outline-none group"
                     aria-expanded="false"
                   >
-                    <h3 class="text-base font-semibold text-[hsl(var(--foreground))] group-hover:text-[hsl(var(--primary))] transition-colors">
-                      {item.q}
-                    </h3>
-                    <svg class="faq-chevron shrink-0 w-5 h-5 text-[hsl(var(--muted-foreground))] transition-transform duration-200"
+                    <svg class="faq-chevron shrink-0 h-4 w-4 text-[hsl(var(--muted-foreground))] transition-transform duration-200"
                          fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6"/>
                     </svg>
+                    <h3 class="flex-1 text-left text-base font-semibold text-[hsl(var(--foreground))] group-hover:text-[hsl(var(--primary))] transition-colors">
+                      {item.q}
+                    </h3>
                   </button>
                   <div class="faq-answer hidden pb-5 text-[hsl(var(--muted-foreground))] leading-relaxed">
                     {item.a}

@@ -2,26 +2,97 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import { getFeaturedPost, publishedPosts, formatDate } from '../../data/posts';
+
+const DESCRIPTION = "Tips, guides, and updates on meal prep, nutrition tracking, GLP-1 journeys, and reducing food waste — from the team building Plenish.";
+
+const featured = getFeaturedPost();
+const rest = publishedPosts.filter((p) => p.slug !== featured?.slug);
 ---
 
 <BaseLayout
   title="Blog — Plenish"
-  description="Tips, guides, and insights on meal prep, nutrition tracking, GLP-1 journeys, and reducing food waste from the Plenish team."
+  description={DESCRIPTION}
   canonical="https://useplenish.com/blog/"
 >
   <Header />
 
-  <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-4xl">
-    <h1 class="text-4xl md:text-5xl font-bold text-[hsl(var(--foreground))] mb-3">Blog</h1>
-    <p class="text-lg text-[hsl(var(--muted-foreground))] mb-12">
-      Tips, guides, and insights on meal prep, nutrition, and reducing food waste.
-    </p>
-
-    <div class="border-2 border-dashed border-[hsl(var(--border))] rounded-2xl p-12 text-center">
-      <p class="text-3xl mb-3">✍️</p>
-      <p class="font-semibold text-[hsl(var(--foreground))]">Posts coming soon</p>
-      <p class="text-sm mt-1 text-[hsl(var(--muted-foreground))]">Check back for articles on meal prep, GLP-1 nutrition, fitness goals, and more.</p>
+  <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-6xl">
+    <div class="max-w-3xl mb-10">
+      <h1 class="text-4xl md:text-5xl font-bold text-[hsl(var(--foreground))] mb-4">The Plenish Blog</h1>
+      <p class="text-lg text-[hsl(var(--muted-foreground))]">{DESCRIPTION}</p>
     </div>
+
+    {publishedPosts.length === 0 ? (
+      <p class="text-[hsl(var(--muted-foreground))] py-12 text-center">No posts yet. Check back soon.</p>
+    ) : (
+      <>
+        {featured && (
+          <div class="mb-12">
+            <article class="group grid md:grid-cols-2 gap-8 items-center rounded-3xl overflow-hidden border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 md:p-8">
+              <a href={`/blog/${featured.slug}`} class="block aspect-[16/10] overflow-hidden rounded-2xl bg-[hsl(var(--secondary))]">
+                <img
+                  src={featured.heroImage}
+                  alt={featured.heroImageAlt}
+                  loading="eager"
+                  class={`w-full h-full ${featured.heroFit === "contain" ? "object-contain" : "object-cover group-hover:scale-105 transition-transform duration-500"}`}
+                />
+              </a>
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-bold uppercase tracking-wider text-[hsl(var(--accent))]">Featured</span>
+                  <a href={`/blog/category/${featured.categorySlug}`} class="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--primary))] hover:underline">
+                    {featured.category}
+                  </a>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-[hsl(var(--foreground))] leading-tight">
+                  <a href={`/blog/${featured.slug}`} class="hover:text-[hsl(var(--primary))] transition-colors">
+                    {featured.title}
+                  </a>
+                </h2>
+                <p class="text-base text-[hsl(var(--muted-foreground))]">{featured.description}</p>
+                <div class="text-sm text-[hsl(var(--muted-foreground))]">
+                  <time datetime={featured.publishedAt}>{formatDate(featured.publishedAt)}</time>
+                  <span aria-hidden> · </span>
+                  {featured.authorName}
+                </div>
+              </div>
+            </article>
+          </div>
+        )}
+
+        {rest.length > 0 && (
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {rest.map((p) => (
+              <article class="group flex flex-col rounded-2xl overflow-hidden border border-[hsl(var(--border))] bg-[hsl(var(--card))] hover:shadow-lg transition-shadow">
+                <a href={`/blog/${p.slug}`} class="block aspect-[16/9] overflow-hidden bg-[hsl(var(--secondary))]">
+                  <img
+                    src={p.heroImage}
+                    alt={p.heroImageAlt}
+                    loading="lazy"
+                    class={`w-full h-full ${p.heroFit === "contain" ? "object-contain" : "object-cover group-hover:scale-105 transition-transform duration-500"}`}
+                  />
+                </a>
+                <div class="p-6 flex flex-col gap-3 flex-1">
+                  <a href={`/blog/category/${p.categorySlug}`} class="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--primary))] hover:underline w-fit">
+                    {p.category}
+                  </a>
+                  <h3 class="text-xl font-bold text-[hsl(var(--foreground))] leading-snug">
+                    <a href={`/blog/${p.slug}`} class="hover:text-[hsl(var(--primary))] transition-colors">{p.title}</a>
+                  </h3>
+                  <p class="text-sm text-[hsl(var(--muted-foreground))] line-clamp-3 flex-1">{p.description}</p>
+                  <div class="text-xs text-[hsl(var(--muted-foreground))] pt-2">
+                    <time datetime={p.publishedAt}>{formatDate(p.publishedAt, { year: "numeric", month: "short", day: "numeric" })}</time>
+                    <span aria-hidden> · </span>
+                    {p.authorName}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </>
+    )}
   </main>
 
   <Footer />
