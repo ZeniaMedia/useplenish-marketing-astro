@@ -73,14 +73,55 @@ const formatDate = (iso: string) => fmt(iso);
 
 const heroBase = post.heroImage.replace(/\.(png|jpe?g|webp)$/i, "");
 const heroSrcSet = [768, 1200, 1600].map(w => `${heroBase}-${w}.webp ${w}w`).join(", ");
+
+const postUrl = "https://useplenish.com/blog/glp1-daily-nutrition-tracking-doesnt-work/";
+
+const blogPostingJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.title,
+  description: post.description,
+  url: postUrl,
+  datePublished: post.publishedAt,
+  dateModified: post.publishedAt,
+  image: {
+    "@type": "ImageObject",
+    url: `https://useplenish.com${post.heroImage}`,
+    width: 1600,
+    height: 900,
+  },
+  author: {
+    "@type": "Person",
+    name: post.authorName,
+    url: "https://useplenish.com/about",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Plenish",
+    url: "https://useplenish.com",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://useplenish.com/plenish-logo.png",
+    },
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": postUrl,
+  },
+  keywords: post.tags.join(", "),
+  articleSection: post.category,
+  timeRequired: `PT${post.readingTime}M`,
+};
 ---
 
 <BaseLayout
   title={`${post.title} | Plenish Blog`}
   description={post.description}
-  canonical="https://useplenish.com/blog/glp1-daily-nutrition-tracking-doesnt-work"
+  canonical={postUrl}
   ogImage={post.ogImage}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(blogPostingJsonLd)} slot="head" />
+
   <Header />
 
   <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-3xl">

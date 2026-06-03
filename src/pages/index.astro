@@ -8,6 +8,26 @@ import Footer from '../components/Footer.astro';
 // BuiltFor section: Activity, Dumbbell, Sprout
 // HowItWorks section: ClipboardList, Target, Sparkles
 // Planning section: CalendarRange, ChefHat, LineChart (chart-line)
+
+const softwareAppJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Plenish",
+  "url": "https://useplenish.com/",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "iOS, Android, Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Plenish tracks your meal prep, calories, protein & fiber — daily and weekly — and builds your meal plan around what's fresh. Designed for GLP-1 journeys, fitness goals, and anyone who hates wasting food.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Zenia Media",
+    "url": "https://useplenish.com/"
+  }
+};
 ---
 
 <BaseLayout
@@ -15,6 +35,7 @@ import Footer from '../components/Footer.astro';
   description="Plenish tracks your meal prep, calories, protein & fiber — daily and weekly — and builds your meal plan around what's fresh. Designed for GLP-1 journeys, fitness goals, and anyone who hates wasting food."
   canonical="https://useplenish.com/"
 >
+  <script type="application/ld+json" set:html={JSON.stringify(softwareAppJsonLd)} slot="head" />
   <Header />
 
   <main>

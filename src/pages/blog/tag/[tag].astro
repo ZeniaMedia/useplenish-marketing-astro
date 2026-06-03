@@ -15,15 +15,15 @@ export function getStaticPaths() {
 const { tag } = Astro.props as { tag: string };
 const matchedPosts = getPostsByTag(tag);
 
-const title = `Posts tagged "${tag}" — Plenish Blog`;
-const description = `All Plenish blog posts tagged with "${tag}".`;
+const title = `Posts tagged ${tag} — Plenish Blog`;
+const description = `All Plenish blog posts tagged with ${tag}.`;
 const tagSlug = tag.replace(/\s+/g, "-");
 ---
 
 <BaseLayout
   title={title}
   description={description}
-  canonical={`https://useplenish.com/blog/tag/${tagSlug}`}
+  canonical={`https://useplenish.com/blog/tag/${tagSlug}/`}
 >
   <Header />
 
