@@ -11,7 +11,9 @@
       "Bash(Get-ChildItem C:\\\\Projects\\\\reference-design -Recurse -File)",
       "Bash(Select-Object FullName)",
       "Bash(Format-Table -HideTableHeaders)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "WebFetch(domain:lucide.dev)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }
