@@ -82,8 +82,8 @@ const blogPostingJsonLd = {
   headline: post.title,
   description: post.description,
   url: postUrl,
-  datePublished: post.publishedAt,
-  dateModified: post.publishedAt,
+  datePublished: `${post.publishedAt}T00:00:00+00:00`,
+  dateModified: `${post.publishedAt}T00:00:00+00:00`,
   image: {
     "@type": "ImageObject",
     url: `https://useplenish.com${post.heroImage}`,
