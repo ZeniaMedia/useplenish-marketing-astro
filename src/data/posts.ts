@@ -13,6 +13,8 @@ export interface Post {
   ogImage: string;
   tags: string[];
   featured?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 export const posts: Post[] = [
@@ -31,6 +33,8 @@ export const posts: Post[] = [
     ogImage: "https://useplenish.com/blog/glp1-weekly-tracking/og.png",
     tags: ["glp1", "nutrition tracking", "weekly goals", "semaglutide", "protein", "fiber"],
     featured: true,
+    metaTitle: "Why Daily Tracking Fails GLP-1 Users (And What Works) | Plenish Blog",
+    metaDescription: "GLP-1 medications cause unpredictable appetite. Here's why daily calorie tracking fails GLP-1 users — and what to track instead.",
   },
 ];
 
@@ -44,6 +48,12 @@ export const getPostsByTag = (tag: string): Post[] =>
 
 export const getAllTags = (): string[] =>
   [...new Set(posts.flatMap((p) => p.tags))];
+
+export const getPostsByCategory = (categorySlug: string): Post[] =>
+  posts.filter((p) => p.categorySlug === categorySlug);
+
+export const getAllCategories = (): { slug: string; name: string }[] =>
+  [...new Map(posts.map((p) => [p.categorySlug, { slug: p.categorySlug, name: p.category }])).values()];
 
 export const formatDate = (iso: string, opts?: Intl.DateTimeFormatOptions) =>
   new Date(iso).toLocaleDateString("en-US", opts ?? {

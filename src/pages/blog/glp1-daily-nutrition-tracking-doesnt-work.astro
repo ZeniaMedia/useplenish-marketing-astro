@@ -1,8 +1,6 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { posts, formatDate as fmt } from '../../data/posts';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import { posts } from '../../data/posts';
 
 const post = posts.find(p => p.slug === "glp1-daily-nutrition-tracking-doesnt-work")!;
 
@@ -68,226 +66,112 @@ const sources = [
 ];
 
 const disclaimer = "This post is for informational purposes only and is not a substitute for advice from your healthcare provider.";
-
-const formatDate = (iso: string) => fmt(iso);
-
-const heroBase = post.heroImage.replace(/\.(png|jpe?g|webp)$/i, "");
-const heroSrcSet = [768, 1200, 1600].map(w => `${heroBase}-${w}.webp ${w}w`).join(", ");
-
-const postUrl = "https://useplenish.com/blog/glp1-daily-nutrition-tracking-doesnt-work/";
-
-const blogPostingJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: post.title,
-  description: post.description,
-  url: postUrl,
-  datePublished: `${post.publishedAt}T00:00:00+00:00`,
-  dateModified: `${post.publishedAt}T00:00:00+00:00`,
-  image: {
-    "@type": "ImageObject",
-    url: `https://useplenish.com${post.heroImage}`,
-    width: 1600,
-    height: 900,
-  },
-  author: {
-    "@type": "Person",
-    name: post.authorName,
-    url: "https://useplenish.com/about",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "Plenish",
-    url: "https://useplenish.com",
-    logo: {
-      "@type": "ImageObject",
-      url: "https://useplenish.com/plenish-logo.png",
-    },
-  },
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": postUrl,
-  },
-  keywords: post.tags.join(", "),
-  articleSection: post.category,
-  timeRequired: `PT${post.readingTime}M`,
-};
 ---
 
-<BaseLayout
-  title={`${post.title} | Plenish Blog`}
-  description={post.description}
-  canonical={postUrl}
-  ogImage={post.ogImage}
->
-  <script type="application/ld+json" set:html={JSON.stringify(blogPostingJsonLd)} slot="head" />
+<BlogPostLayout {post}>
 
-  <Header />
+  <!-- Pre-hero: AEO summary + Key Takeaways -->
+  <Fragment slot="pre-hero">
+    <p class="text-[hsl(var(--foreground)/0.9)] leading-relaxed mb-10">Daily calorie tracking fails GLP-1 users because appetite varies unpredictably day to day due to slowed gastric emptying. Tracking protein and fiber weekly — not daily — matches how the medication actually works and avoids the &ldquo;failure&rdquo; cycle of missed daily targets.</p>
 
-  <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-3xl">
+    <aside aria-labelledby="key-takeaways" class="mb-10 rounded-2xl border border-green-200 bg-green-50 p-6 sm:p-8">
+      <h2 id="key-takeaways" class="text-sm font-semibold uppercase tracking-wide text-[hsl(var(--primary))] mb-3">
+        Key takeaways
+      </h2>
+      <ul class="space-y-2 text-[hsl(var(--foreground)/0.9)] leading-relaxed list-disc pl-5">
+        {keyTakeaways.map(t => <li>{t}</li>)}
+      </ul>
+    </aside>
+  </Fragment>
 
-    <!-- Breadcrumb -->
-    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-[hsl(var(--muted-foreground))]">
-      <a href="/" class="hover:text-[hsl(var(--primary))]">Home</a>
-      <span aria-hidden> / </span>
-      <a href="/blog" class="hover:text-[hsl(var(--primary))]">Blog</a>
-      <span aria-hidden> / </span>
-      <a href="/blog/category/glp-1-journey" class="hover:text-[hsl(var(--primary))]">{post.category}</a>
-    </nav>
+  <!-- Prose body -->
+  <div class="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-foreground/90 prose-a:text-primary hover:prose-a:text-primary/80 prose-strong:text-foreground prose-code:text-foreground prose-blockquote:border-primary prose-img:rounded-xl prose-li:text-foreground/90">
+    <p>GLP-1 medications like Ozempic, Wegovy, and Zepbound don't suppress appetite on a predictable schedule. Some days you can barely eat. Others feel almost normal. Standard daily calorie tracking wasn't designed for this reality — and it quietly sets most GLP-1 users up to feel like they're failing when they're actually doing fine.</p>
+    <p>The fix isn't tracking more carefully. It's tracking differently.</p>
 
-    <article>
-      <!-- Header -->
-      <header class="mb-8">
-        <h1 class="text-4xl md:text-5xl font-bold text-[hsl(var(--foreground))] mb-4 leading-tight">
-          {post.title}
-        </h1>
-        <p class="text-xl text-[hsl(var(--muted-foreground))] mb-6">{post.description}</p>
-        <!-- PostMeta -->
-        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[hsl(var(--muted-foreground))]">
-          <span>{post.authorName}</span>
-          <span aria-hidden="true" class="select-none">·</span>
-          <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
-          <span aria-hidden="true" class="select-none">·</span>
-          <span>{post.readingTime} min read</span>
-        </div>
-      </header>
+    <h2>Why GLP-1 Appetite Doesn't Follow a Daily Schedule</h2>
+    <p>GLP-1 medications work by slowing gastric emptying — the rate at which food moves from your stomach into your small intestine. This is exactly what makes them effective for appetite suppression and blood sugar management. It's also why appetite on these medications is so unpredictable.</p>
+    <p>On some days, particularly early in a new dose or after escalation, the medication effect is strong. You might eat half of what you normally would and feel completely satisfied. On other days — often later in the dosing week — the effect lightens and hunger feels closer to normal.</p>
+    <p>This isn't a flaw in how you're responding to the medication. It's how the medication works. The variable appetite is the mechanism.</p>
+    <p>Daily calorie tracking assumes that your hunger and intake will be roughly consistent from day to day. For most people not on GLP-1 medications, that's a reasonable assumption. For GLP-1 users, it isn't.</p>
 
-      <!-- Key Takeaways -->
-      <aside aria-labelledby="key-takeaways" class="mb-10 rounded-2xl border border-green-200 bg-green-50 p-6 sm:p-8">
-        <h2 id="key-takeaways" class="text-sm font-semibold uppercase tracking-wide text-[hsl(var(--primary))] mb-3">
-          Key takeaways
-        </h2>
-        <ul class="space-y-2 text-[hsl(var(--foreground)/0.9)] leading-relaxed list-disc pl-5">
-          {keyTakeaways.map(t => <li>{t}</li>)}
-        </ul>
-      </aside>
+    <h2>Why Daily Targets Create a "Failure" Cycle</h2>
+    <p>When you set a daily calorie or protein target and then have a very low-appetite day, you face a choice: force yourself to eat more than feels comfortable, or close the app and feel like you fell short.</p>
+    <p>Most people choose the latter — and research suggests that's when the real problem starts.</p>
+    <p>Psychologists Polivy and Herman documented what they called the "what the hell effect" as far back as 1985: when people perceive they've broken a dietary rule, they tend to abandon the effort entirely rather than simply continue. One missed daily target becomes justification for stopping tracking altogether. The rigid all-or-nothing framing is the problem, not the person.</p>
+    <p>Research on flexible versus rigid dietary restraint consistently shows that flexible approaches — ones that allow for day-to-day variation within a broader framework — produce better long-term outcomes. Longitudinal calorie tracking, where individuals monitor intake weekly rather than daily, can promote more consistent self-regulation by allowing for natural variation. Flexible control positively impacts weight loss, partly from the absence of overeating typically characterized by rigid control, and allows the dieter to adjust their daily food consumption without compensatory behaviors that negatively affect long-term weight maintenance.</p>
+    <p>For GLP-1 users specifically, this isn't just behavioral theory — it's practical necessity. Your medication is going to cause low-appetite days. Planning for them, rather than treating them as failures, is the more rational approach.</p>
 
-      <!-- Hero image -->
-      <picture>
-        <source type="image/webp" srcset={heroSrcSet} sizes="(min-width: 768px) 768px, 100vw" />
-        <img
-          src={post.heroImage}
-          alt={post.heroImageAlt}
-          width="1600"
-          height="900"
-          loading="eager"
-          class={`w-full aspect-[16/9] rounded-2xl mb-10 bg-[hsl(var(--secondary))] ${post.heroFit === "contain" ? "object-contain" : "object-cover"}`}
-        />
-      </picture>
+    <h2>Why Weekly Goals Match How GLP-1 Actually Works</h2>
+    <p>Your body doesn't reset its energy accounting at midnight. Caloric balance accumulates over time — a point that's foundational to how weight loss works regardless of method. What you eat across the week matters more than what you eat on any given Tuesday.</p>
+    <p>Weekly nutrition goals directly reflect this reality. Instead of "I need to hit 1,600 calories today," the frame becomes "I need to hit my target across the week." A lighter day — when appetite is low and 1,200 calories feels like plenty — is naturally offset by a more normal day later in the week. The weekly total lands where it needs to without any single low-appetite day feeling like a failure. This is how your body actually accounts for energy anyway.</p>
+    <p>This framing is especially well-suited to GLP-1 users because:</p>
+    <ul>
+      <li>The medication's appetite effect varies by where you are in your dosing cycle. Weekly tracking smooths out that variation automatically.</li>
+      <li>Low-appetite days are expected, not exceptional. A weekly framework treats them as data, not defeat.</li>
+      <li>Progress on GLP-1 medications is measured in weeks and months, not days. Your tracking approach should match your measurement horizon.</li>
+    </ul>
 
-      <!-- Prose body -->
-      <div class="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-foreground/90 prose-a:text-primary hover:prose-a:text-primary/80 prose-strong:text-foreground prose-code:text-foreground prose-blockquote:border-primary prose-img:rounded-xl prose-li:text-foreground/90">
-        <p>GLP-1 medications like Ozempic, Wegovy, and Zepbound don't suppress appetite on a predictable schedule. Some days you can barely eat. Others feel almost normal. Standard daily calorie tracking wasn't designed for this reality — and it quietly sets most GLP-1 users up to feel like they're failing when they're actually doing fine.</p>
-        <p>The fix isn't tracking more carefully. It's tracking differently.</p>
+    <h2>The Three Numbers That Actually Matter</h2>
+    <p>Most nutrition tracking apps push users to monitor everything: calories, protein, carbohydrates, fat, sugar, sodium, micronutrients. For GLP-1 users eating significantly less food than before, that level of complexity adds friction without proportional benefit.</p>
+    <p>The research points to three numbers that matter most:</p>
+    <p><strong>Protein.</strong> This is the most important. Women and older adults taking semaglutide may be at higher risk for muscle loss, but higher protein intake may help prevent muscle loss in these patients, according to research presented at the Endocrine Society's annual meeting in 2025. Recommended protein intake during hypocaloric diets is 1.2–2.0 grams per kilogram of adjusted body weight per day to help preserve muscle mass. On low-appetite days, if you can only eat a small amount, prioritize protein above everything else.</p>
+    <p><strong>Fiber.</strong> GLP-1 medications slow gastric emptying, which frequently causes constipation — one of the most commonly reported side effects. In a sample of individuals using GLP-1 medications for weight reduction, daily fiber intake averaged only 14.5 grams — well below the recommended 25–38 grams for adults. Consistent fiber intake across the week, rather than sporadic high-fiber days, helps manage this most effectively.</p>
+    <p><strong>Calories (as a floor, not just a ceiling).</strong> Most nutrition tracking treats calories as something to stay under. For GLP-1 users, the opposite risk is equally real: eating too little on a consistent basis can accelerate muscle loss and micronutrient deficiency. The significant weight loss under GLP-1 medications and reduced food intake makes it crucial to consume nutrient-dense foods in order to achieve adequate nutrient intake, particularly with regard to micronutrients, especially when energy intake falls below 1,200 kcal per day for women and 1,800 kcal per day for men. Weekly calorie tracking helps you spot patterns where you're consistently under-eating before they become a problem.</p>
 
-        <h2>Why GLP-1 Appetite Doesn't Follow a Daily Schedule</h2>
-        <p>GLP-1 medications work by slowing gastric emptying — the rate at which food moves from your stomach into your small intestine. This is exactly what makes them effective for appetite suppression and blood sugar management. It's also why appetite on these medications is so unpredictable.</p>
-        <p>On some days, particularly early in a new dose or after escalation, the medication effect is strong. You might eat half of what you normally would and feel completely satisfied. On other days — often later in the dosing week — the effect lightens and hunger feels closer to normal.</p>
-        <p>This isn't a flaw in how you're responding to the medication. It's how the medication works. The variable appetite is the mechanism.</p>
-        <p>Daily calorie tracking assumes that your hunger and intake will be roughly consistent from day to day. For most people not on GLP-1 medications, that's a reasonable assumption. For GLP-1 users, it isn't.</p>
+    <h2>What This Looks Like in Practice</h2>
+    <p>The shift from daily to weekly tracking doesn't require a different mindset so much as a different dashboard.</p>
+    <p>Instead of checking "did I hit my protein goal today," the question becomes "am I on track for the week?" A low-appetite Monday shows up as a light day in a weekly view — not a failure, just a data point that gives you a little more flexibility later in the week.</p>
+    <p>On very low-appetite days, the practical priority order is:</p>
+    <ol>
+      <li>Get your protein in first — even a small high-protein meal or snack.</li>
+      <li>Add fiber where you can — a handful of berries, some leafy greens.</li>
+      <li>Don't force calories beyond what's comfortable.</li>
+      <li>Let the week's average do the work.</li>
+    </ol>
+    <p>On higher-appetite days, the opposite: you have room to be more intentional about hitting your weekly targets without any sense of urgency.</p>
 
-        <h2>Why Daily Targets Create a "Failure" Cycle</h2>
-        <p>When you set a daily calorie or protein target and then have a very low-appetite day, you face a choice: force yourself to eat more than feels comfortable, or close the app and feel like you fell short.</p>
-        <p>Most people choose the latter — and research suggests that's when the real problem starts.</p>
-        <p>Psychologists Polivy and Herman documented what they called the "what the hell effect" as far back as 1985: when people perceive they've broken a dietary rule, they tend to abandon the effort entirely rather than simply continue. One missed daily target becomes justification for stopping tracking altogether. The rigid all-or-nothing framing is the problem, not the person.</p>
-        <p>Research on flexible versus rigid dietary restraint consistently shows that flexible approaches — ones that allow for day-to-day variation within a broader framework — produce better long-term outcomes. Longitudinal calorie tracking, where individuals monitor intake weekly rather than daily, can promote more consistent self-regulation by allowing for natural variation. Flexible control positively impacts weight loss, partly from the absence of overeating typically characterized by rigid control, and allows the dieter to adjust their daily food consumption without compensatory behaviors that negatively affect long-term weight maintenance.</p>
-        <p>For GLP-1 users specifically, this isn't just behavioral theory — it's practical necessity. Your medication is going to cause low-appetite days. Planning for them, rather than treating them as failures, is the more rational approach.</p>
+    <h2>The Bottom Line</h2>
+    <p>Daily nutrition tracking was designed for people with consistent daily appetite. GLP-1 medications specifically alter appetite in ways that make day-to-day consistency unrealistic. The solution isn't to track more rigorously — it's to track over a timeframe that actually matches how your medication works.</p>
+    <p>Weekly protein, fiber, and calorie goals give you the flexibility to have low-appetite days without feeling like you've failed, while still keeping your nutrition on track over time. That consistency — not daily perfection — is what drives results.</p>
+    <p>For more on how Plenish supports GLP-1 journeys, see our <a href="/">features overview</a> or browse <a href="/faq">frequently asked questions</a> about nutrition tracking and meal planning.</p>
+    <p>Track your weekly nutrition goals alongside your meal prep inventory in <strong><a href="https://app.useplenish.com">Plenish</a></strong>. Always know what to eat next — get started free during beta.</p>
+  </div>
 
-        <h2>Why Weekly Goals Match How GLP-1 Actually Works</h2>
-        <p>Your body doesn't reset its energy accounting at midnight. Caloric balance accumulates over time — a point that's foundational to how weight loss works regardless of method. What you eat across the week matters more than what you eat on any given Tuesday.</p>
-        <p>Weekly nutrition goals directly reflect this reality. Instead of "I need to hit 1,600 calories today," the frame becomes "I need to hit my target across the week." A lighter day — when appetite is low and 1,200 calories feels like plenty — is naturally offset by a more normal day later in the week. The weekly total lands where it needs to without any single low-appetite day feeling like a failure. This is how your body actually accounts for energy anyway.</p>
-        <p>This framing is especially well-suited to GLP-1 users because:</p>
-        <ul>
-          <li>The medication's appetite effect varies by where you are in your dosing cycle. Weekly tracking smooths out that variation automatically.</li>
-          <li>Low-appetite days are expected, not exceptional. A weekly framework treats them as data, not defeat.</li>
-          <li>Progress on GLP-1 medications is measured in weeks and months, not days. Your tracking approach should match your measurement horizon.</li>
-        </ul>
-
-        <h2>The Three Numbers That Actually Matter</h2>
-        <p>Most nutrition tracking apps push users to monitor everything: calories, protein, carbohydrates, fat, sugar, sodium, micronutrients. For GLP-1 users eating significantly less food than before, that level of complexity adds friction without proportional benefit.</p>
-        <p>The research points to three numbers that matter most:</p>
-        <p><strong>Protein.</strong> This is the most important. Women and older adults taking semaglutide may be at higher risk for muscle loss, but higher protein intake may help prevent muscle loss in these patients, according to research presented at the Endocrine Society's annual meeting in 2025. Recommended protein intake during hypocaloric diets is 1.2–2.0 grams per kilogram of adjusted body weight per day to help preserve muscle mass. On low-appetite days, if you can only eat a small amount, prioritize protein above everything else.</p>
-        <p><strong>Fiber.</strong> GLP-1 medications slow gastric emptying, which frequently causes constipation — one of the most commonly reported side effects. In a sample of individuals using GLP-1 medications for weight reduction, daily fiber intake averaged only 14.5 grams — well below the recommended 25–38 grams for adults. Consistent fiber intake across the week, rather than sporadic high-fiber days, helps manage this most effectively.</p>
-        <p><strong>Calories (as a floor, not just a ceiling).</strong> Most nutrition tracking treats calories as something to stay under. For GLP-1 users, the opposite risk is equally real: eating too little on a consistent basis can accelerate muscle loss and micronutrient deficiency. The significant weight loss under GLP-1 medications and reduced food intake makes it crucial to consume nutrient-dense foods in order to achieve adequate nutrient intake, particularly with regard to micronutrients, especially when energy intake falls below 1,200 kcal per day for women and 1,800 kcal per day for men. Weekly calorie tracking helps you spot patterns where you're consistently under-eating before they become a problem.</p>
-
-        <h2>What This Looks Like in Practice</h2>
-        <p>The shift from daily to weekly tracking doesn't require a different mindset so much as a different dashboard.</p>
-        <p>Instead of checking "did I hit my protein goal today," the question becomes "am I on track for the week?" A low-appetite Monday shows up as a light day in a weekly view — not a failure, just a data point that gives you a little more flexibility later in the week.</p>
-        <p>On very low-appetite days, the practical priority order is:</p>
-        <ol>
-          <li>Get your protein in first — even a small high-protein meal or snack.</li>
-          <li>Add fiber where you can — a handful of berries, some leafy greens.</li>
-          <li>Don't force calories beyond what's comfortable.</li>
-          <li>Let the week's average do the work.</li>
-        </ol>
-        <p>On higher-appetite days, the opposite: you have room to be more intentional about hitting your weekly targets without any sense of urgency.</p>
-
-        <h2>The Bottom Line</h2>
-        <p>Daily nutrition tracking was designed for people with consistent daily appetite. GLP-1 medications specifically alter appetite in ways that make day-to-day consistency unrealistic. The solution isn't to track more rigorously — it's to track over a timeframe that actually matches how your medication works.</p>
-        <p>Weekly protein, fiber, and calorie goals give you the flexibility to have low-appetite days without feeling like you've failed, while still keeping your nutrition on track over time. That consistency — not daily perfection — is what drives results.</p>
-        <p>For more on how Plenish supports GLP-1 journeys, see our <a href="/">features overview</a> or browse <a href="/faq">frequently asked questions</a> about nutrition tracking and meal planning.</p>
-        <p>Track your weekly nutrition goals alongside your meal prep inventory in <strong><a href="https://app.useplenish.com">Plenish</a></strong>. Always know what to eat next — get started free during beta.</p>
-      </div>
-
-      <!-- FAQ Section -->
-      <section class="mt-16 pt-12 border-t border-[hsl(var(--border))]" aria-labelledby="post-faq">
-        <h2 id="post-faq" class="text-3xl font-bold text-[hsl(var(--foreground))] mb-8">
-          Frequently asked questions
-        </h2>
-        <div class="space-y-8">
-          {faq.map(item => (
-            <div>
-              <h3 class="text-xl font-semibold text-[hsl(var(--foreground))] mb-2">{item.question}</h3>
-              <p class="text-[hsl(var(--foreground)/0.85)] leading-relaxed">{item.answer}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <!-- PostFooter: disclaimer + sources -->
-      <section class="mt-16 pt-12 border-t border-[hsl(var(--border))] space-y-10">
-        <p class="text-sm italic text-[hsl(var(--muted-foreground))] leading-relaxed">{disclaimer}</p>
+  <!-- FAQ -->
+  <section class="mt-16 pt-12 border-t border-[hsl(var(--border))]" aria-labelledby="post-faq">
+    <h2 id="post-faq" class="text-3xl font-bold text-[hsl(var(--foreground))] mb-8">
+      Frequently asked questions
+    </h2>
+    <div class="space-y-8">
+      {faq.map(item => (
         <div>
-          <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">Sources</h2>
-          <ol class="space-y-3 list-none pl-0">
-            {sources.map((s, idx) => (
-              <li class="text-sm text-[hsl(var(--foreground)/0.85)] leading-relaxed">
-                <span class="font-semibold">{idx + 1}. </span>
-                {s.authors} ({s.year}).{" "}
-                {s.url
-                  ? <a href={s.url} target="_blank" rel="noopener noreferrer" class="italic text-[hsl(var(--primary))] hover:underline">{s.title}</a>
-                  : <span class="italic">{s.title}</span>
-                }
-                {s.journal && <>. <span class="italic">{s.journal}</span></>}.
-              </li>
-            ))}
-          </ol>
+          <h3 class="text-xl font-semibold text-[hsl(var(--foreground))] mb-2">{item.question}</h3>
+          <p class="text-[hsl(var(--foreground)/0.85)] leading-relaxed">{item.answer}</p>
         </div>
-      </section>
-
-      <!-- Tags -->
-      <div class="mt-12 pt-8 border-t border-[hsl(var(--border))]">
-        <div class="flex flex-wrap gap-2">
-          {post.tags.map(tag => (
-            <a
-              href={`/blog/tag/${encodeURIComponent(tag.replace(/\s+/g, "-"))}`}
-              class="text-xs font-medium px-3 py-1 rounded-full bg-[hsl(var(--secondary))] text-[hsl(var(--secondary-foreground))] hover:bg-[hsl(var(--primary)/0.1)] hover:text-[hsl(var(--primary))] transition-colors"
-            >
-              #{tag}
-            </a>
-          ))}
-        </div>
-      </div>
-    </article>
-
-    <!-- Back link -->
-    <div class="mt-12 text-center">
-      <a href="/blog" class="inline-block text-sm font-semibold text-[hsl(var(--primary))] hover:underline">
-        ← Back to all posts
-      </a>
+      ))}
     </div>
+  </section>
 
-  </main>
+  <!-- Disclaimer + Sources -->
+  <section class="mt-16 pt-12 border-t border-[hsl(var(--border))] space-y-10">
+    <p class="text-sm italic text-[hsl(var(--muted-foreground))] leading-relaxed">{disclaimer}</p>
+    <div>
+      <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">Sources</h2>
+      <ol class="space-y-3 list-none pl-0">
+        {sources.map((s, idx) => (
+          <li class="text-sm text-[hsl(var(--foreground)/0.85)] leading-relaxed">
+            <span class="font-semibold">{idx + 1}. </span>
+            {s.authors} ({s.year}).{" "}
+            {s.url
+              ? <a href={s.url} target="_blank" rel="noopener noreferrer" class="italic text-[hsl(var(--primary))] hover:underline">{s.title}</a>
+              : <span class="italic">{s.title}</span>
+            }
+            {s.journal && <>. <span class="italic">{s.journal}</span></>}.
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
 
-  <Footer />
-</BaseLayout>
+</BlogPostLayout>

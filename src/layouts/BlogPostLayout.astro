@@ -1,0 +1,137 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { formatDate, type Post } from '../data/posts';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+
+const postUrl = `https://useplenish.com/blog/${post.slug}/`;
+
+const heroBase = post.heroImage.replace(/\.(png|jpe?g|webp)$/i, "");
+const heroSrcSet = [768, 1200, 1600].map(w => `${heroBase}-${w}.webp ${w}w`).join(", ");
+
+const blogPostingJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.title,
+  description: post.description,
+  url: postUrl,
+  datePublished: `${post.publishedAt}T00:00:00+00:00`,
+  dateModified: `${post.publishedAt}T00:00:00+00:00`,
+  image: {
+    "@type": "ImageObject",
+    url: `https://useplenish.com${post.heroImage}`,
+    width: 1600,
+    height: 900,
+  },
+  author: {
+    "@type": "Person",
+    name: post.authorName,
+    url: "https://useplenish.com/about",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Plenish",
+    url: "https://useplenish.com",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://useplenish.com/plenish-logo.png",
+    },
+  },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": postUrl,
+  },
+  keywords: post.tags.join(", "),
+  articleSection: post.category,
+  timeRequired: `PT${post.readingTime}M`,
+};
+---
+
+<BaseLayout
+  title={post.metaTitle ?? `${post.title} | Plenish Blog`}
+  description={post.metaDescription ?? post.description}
+  canonical={postUrl}
+  ogImage={post.ogImage}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(blogPostingJsonLd)} slot="head" />
+
+  <Header />
+
+  <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-3xl">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-[hsl(var(--muted-foreground))]">
+      <a href="/" class="hover:text-[hsl(var(--primary))]">Home</a>
+      <span aria-hidden> / </span>
+      <a href="/blog" class="hover:text-[hsl(var(--primary))]">Blog</a>
+      <span aria-hidden> / </span>
+      <a href={`/blog/category/${post.categorySlug}`} class="hover:text-[hsl(var(--primary))]">{post.category}</a>
+    </nav>
+
+    <article>
+      <!-- Header -->
+      <header class="mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold text-[hsl(var(--foreground))] mb-4 leading-tight">
+          {post.title}
+        </h1>
+        <p class="text-xl text-[hsl(var(--muted-foreground))] mb-6">{post.description}</p>
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[hsl(var(--muted-foreground))]">
+          <span>{post.authorName}</span>
+          <span aria-hidden="true" class="select-none">·</span>
+          <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+          <span aria-hidden="true" class="select-none">·</span>
+          <span>{post.readingTime} min read</span>
+        </div>
+      </header>
+
+      <!-- Pre-hero slot: AEO summary, key takeaways, etc. -->
+      <slot name="pre-hero" />
+
+      <!-- Hero image -->
+      <picture>
+        <source type="image/webp" srcset={heroSrcSet} sizes="(min-width: 768px) 768px, 100vw" />
+        <img
+          src={post.heroImage}
+          alt={post.heroImageAlt}
+          width="1600"
+          height="900"
+          loading="eager"
+          class={`w-full aspect-[16/9] rounded-2xl mb-10 bg-[hsl(var(--secondary))] ${post.heroFit === "contain" ? "object-contain" : "object-cover"}`}
+        />
+      </picture>
+
+      <!-- Body slot: prose, FAQ, sources, etc. -->
+      <slot />
+
+      <!-- Tags -->
+      <div class="mt-12 pt-8 border-t border-[hsl(var(--border))]">
+        <div class="flex flex-wrap gap-2">
+          {post.tags.map(tag => (
+            <a
+              href={`/blog/tag/${encodeURIComponent(tag.replace(/\s+/g, "-"))}`}
+              class="text-xs font-medium px-3 py-1 rounded-full bg-[hsl(var(--secondary))] text-[hsl(var(--secondary-foreground))] hover:bg-[hsl(var(--primary)/0.1)] hover:text-[hsl(var(--primary))] transition-colors"
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
+      </div>
+    </article>
+
+    <!-- Back link -->
+    <div class="mt-12 text-center">
+      <a href="/blog" class="inline-block text-sm font-semibold text-[hsl(var(--primary))] hover:underline">
+        ← Back to all posts
+      </a>
+    </div>
+
+  </main>
+
+  <Footer />
+</BaseLayout>
