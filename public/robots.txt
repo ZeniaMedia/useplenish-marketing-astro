@@ -1,13 +1,4 @@
 User-agent: *
-Allow: /$
-Allow: /faq
-Allow: /faq/
-Allow: /blog
-Allow: /blog/
-Allow: /privacy
-Allow: /privacy/
-Allow: /terms
-Allow: /terms/
-Disallow: /
+Allow: /
 
 Sitemap: https://useplenish.com/sitemap.xml
