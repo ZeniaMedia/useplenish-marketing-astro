@@ -16,6 +16,16 @@ const matchedPosts = getPostsByCategory(slug);
 
 const title = `${name} — Plenish Blog`;
 const description = `All Plenish blog posts in the ${name} category.`;
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://useplenish.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://useplenish.com/blog/" },
+    { "@type": "ListItem", "position": 3, "name": name, "item": `https://useplenish.com/blog/category/${slug}/` },
+  ],
+};
 ---
 
 <BaseLayout
@@ -23,9 +33,20 @@ const description = `All Plenish blog posts in the ${name} category.`;
   description={description}
   canonical={`https://useplenish.com/blog/category/${slug}/`}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} slot="head" />
   <Header />
 
   <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-6xl">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-[hsl(var(--muted-foreground))]">
+      <a href="/" class="hover:text-[hsl(var(--primary))]">Home</a>
+      <span aria-hidden> / </span>
+      <a href="/blog" class="hover:text-[hsl(var(--primary))]">Blog</a>
+      <span aria-hidden> / </span>
+      <span>{name}</span>
+    </nav>
+
     <div class="max-w-3xl mb-10">
       <p class="text-sm font-semibold uppercase tracking-wide text-[hsl(var(--primary))] mb-2">Category</p>
       <h1 class="text-4xl md:text-5xl font-bold text-[hsl(var(--foreground))] mb-4">{name}</h1>

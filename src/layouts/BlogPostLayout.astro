@@ -51,6 +51,16 @@ const blogPostingJsonLd = {
   articleSection: post.category,
   timeRequired: `PT${post.readingTime}M`,
 };
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://useplenish.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://useplenish.com/blog/" },
+    { "@type": "ListItem", "position": 3, "name": post.category, "item": `https://useplenish.com/blog/category/${post.categorySlug}/` },
+  ],
+};
 ---
 
 <BaseLayout
@@ -60,6 +70,7 @@ const blogPostingJsonLd = {
   ogImage={post.ogImage}
 >
   <script type="application/ld+json" set:html={JSON.stringify(blogPostingJsonLd)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} slot="head" />
 
   <Header />
 
