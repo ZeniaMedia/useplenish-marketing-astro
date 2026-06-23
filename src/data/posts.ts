@@ -13,6 +13,7 @@ export interface Post {
   ogImage: string;
   tags: string[];
   featured?: boolean;
+  updatedAt?: string;
   metaTitle?: string;
   metaDescription?: string;
 }

@@ -4,6 +4,7 @@ interface Props {
   description: string;
   canonical: string;
   ogImage?: string;
+  pageType?: string;
 }
 
 const {
@@ -11,6 +12,7 @@ const {
   description,
   canonical,
   ogImage = 'https://useplenish.com/og-image.png',
+  pageType = 'website',
 } = Astro.props;
 ---
 
@@ -29,7 +31,7 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={pageType} />
     <meta property="og:site_name" content="Plenish" />
 
     <!-- Twitter Card -->

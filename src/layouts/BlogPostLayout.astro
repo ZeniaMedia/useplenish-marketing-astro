@@ -19,10 +19,10 @@ const blogPostingJsonLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   headline: post.title,
-  description: post.description,
+  description: post.metaDescription ?? post.description,
   url: postUrl,
   datePublished: `${post.publishedAt}T00:00:00+00:00`,
-  dateModified: `${post.publishedAt}T00:00:00+00:00`,
+  dateModified: `${post.updatedAt ?? post.publishedAt}T00:00:00+00:00`,
   image: {
     "@type": "ImageObject",
     url: `https://useplenish.com${post.heroImage}`,
@@ -68,9 +68,16 @@ const breadcrumbJsonLd = {
   description={post.metaDescription ?? post.description}
   canonical={postUrl}
   ogImage={post.ogImage}
+  pageType="article"
 >
   <script type="application/ld+json" set:html={JSON.stringify(blogPostingJsonLd)} slot="head" />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} slot="head" />
+  <meta property="article:published_time" content={`${post.publishedAt}T00:00:00+00:00`} slot="head" />
+  <meta property="article:author" content={post.authorName} slot="head" />
+  <meta property="article:section" content={post.category} slot="head" />
+  {post.tags.map(tag => (
+    <meta property="article:tag" content={tag} slot="head" />
+  ))}
 
   <Header />
 
