@@ -1,0 +1,160 @@
+---
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import { posts } from '../../data/posts';
+
+const post = posts.find(p => p.slug === "adhd-food-tracking-noise-different-approach")!;
+
+const keyTakeaways = [
+  "Traditional food tracking apps require re-engaging with food at every meal. For ADHD brains, that repeated engagement can amplify food noise rather than contain it.",
+  "Reduced interoception in ADHD makes it harder to reliably sense hunger and fullness, making real-time logging even more disorienting.",
+  "Food hyperfixation, eating the same meal daily for weeks, can create nutritional blind spots without awareness of what's actually in those meals.",
+  "Batch-entry tracking (logging at grocery or prep time, not at each meal) keeps nutrition goals visible without keeping food front of mind all day.",
+  "Weekly nutrition goals accommodate the day-to-day variability in executive function that ADHD creates. An off day is data, not failure.",
+];
+
+const faq = [
+  {
+    question: "Why does food tracking feel harder with ADHD?",
+    answer: "ADHD brains process dopamine differently, which makes food-related thoughts more persistent and intrusive. Actively logging food keeps it in working memory far longer than it does for neurotypical brains, a phenomenon called food noise. The act of tracking can amplify preoccupation with food rather than reducing it.",
+  },
+  {
+    question: "What is food hyperfixation in ADHD?",
+    answer: "Food hyperfixation is an intense, repetitive preoccupation with a specific food or meal, eating it daily for weeks until the interest suddenly disappears. It's driven by dopamine dysregulation in the ADHD brain, which seeks reward from familiar stimuli. The problem isn't the food itself but that nutritional blind spots can develop when the same meals repeat without awareness of what's actually in them.",
+  },
+  {
+    question: "Can people with ADHD track nutrition without triggering food noise?",
+    answer: "For some people with ADHD, the key is shifting from real-time daily logging to a plan-ahead approach, entering food in batches when prepping or shopping, then doing a quick check-in rather than detailed manual entry at every meal. This keeps nutrition goals visible without keeping food constantly front of mind.",
+  },
+  {
+    question: "How does meal planning help ADHD eating habits?",
+    answer: "Pre-decided meals reduce the executive function demand of eating. Instead of deciding what to eat multiple times a day, the decision is made once in advance. On low-executive-function days, the plan is already there.",
+  },
+  {
+    question: "Is Plenish designed for people with ADHD?",
+    answer: "Plenish wasn't built exclusively for people with ADHD, but many of its core features, including batch inventory entry, pre-set meal plans, quick meal check-off, and weekly nutrition goals, emerged directly from conversations with users who found traditional tracking apps made their relationship with food harder, not easier.",
+  },
+];
+
+const sources = [
+  {
+    authors: "Silverstein, M.J. et al.",
+    year: "2023",
+    title: "Interoceptive accuracy mediates the longitudinal relationship between ADHD inattentive symptoms and disordered eating.",
+    journal: "Appetite, 187",
+    url: "https://pubmed.ncbi.nlm.nih.gov/37142150/",
+  },
+  {
+    authors: "Afzal, K.",
+    year: "2024",
+    title: "Food hyperfixation and dopamine dysregulation in ADHD. University of Chicago Medicine. Cited in: Today.com — \"ADHD Hyperfixation Meals: What Experts Want You To Know.\"",
+    journal: undefined,
+    url: "https://www.today.com/health/mind-body/hyperfixation-meals-adhd-rcna151658",
+  },
+  {
+    authors: "Williams, J., & OHSU Center for Mental Health Innovation.",
+    year: "2026",
+    title: "5 Ways ADHD Disrupts Eating and Body Image.",
+    journal: "Psychology Today",
+    url: "https://www.psychologytoday.com/za/blog/words-hold-weight/202603/5-ways-adhd-disrupts-eating-and-body-image",
+  },
+];
+
+const disclaimer = "This post is for informational purposes only and is not a substitute for advice from your healthcare provider.";
+---
+
+<BlogPostLayout {post}>
+
+  <!-- Pre-hero: AEO summary + Key Takeaways -->
+  <Fragment slot="pre-hero">
+    <p class="text-[hsl(var(--foreground)/0.9)] leading-relaxed mb-10">For some people with ADHD, traditional food tracking amplifies food noise rather than reducing it, keeping food in working memory long after meals end. Logging food in batches at prep or grocery time, rather than in real time at each meal, can support nutrition awareness without triggering food noise.</p>
+
+    <aside aria-labelledby="key-takeaways" class="mb-10 rounded-2xl border border-green-200 bg-green-50 p-6 sm:p-8">
+      <h2 id="key-takeaways" class="text-sm font-semibold uppercase tracking-wide text-[hsl(var(--primary))] mb-3">
+        Key takeaways
+      </h2>
+      <ul class="space-y-2 text-[hsl(var(--foreground)/0.9)] leading-relaxed list-disc pl-5">
+        {keyTakeaways.map(t => <li>{t}</li>)}
+      </ul>
+    </aside>
+  </Fragment>
+
+  <!-- Prose body -->
+  <div class="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-foreground/90 prose-a:text-primary hover:prose-a:text-primary/80 prose-strong:text-foreground prose-code:text-foreground prose-blockquote:border-primary prose-img:rounded-xl prose-li:text-foreground/90">
+    <p>When we were building Plenish, one pattern kept showing up in conversations with users: the people who struggled most with food tracking weren't the ones who weren't trying. They were trying hard. They just kept hitting the same wall. The more diligently they logged, the more they thought about food. Not in a productive way. In a way that made hitting goals harder.</p>
+    <p>A lot of those users had ADHD.</p>
+    <p>This post is about what we learned from those conversations and why it changed how we think about nutrition tracking.</p>
+
+    <h2>The Paradox: Trying Harder Can Make Things Worse</h2>
+    <p>Every piece of conventional nutrition advice points to food tracking as the path forward. The logic is sound. Awareness of what you're eating matters for hitting nutrition goals. But for people with ADHD, the standard tracking experience can work against that goal rather than toward it.</p>
+    <p>The pattern we heard repeatedly: when someone with ADHD is logging every meal in real time, they struggle more with food, thinking about it more, fixating on numbers, planning around the next entry. The tool designed to help ends up creating the very preoccupation it was meant to solve.</p>
+    <p>The reason comes down to how ADHD brains handle attention and dopamine differently.</p>
+
+    <h2>Why Traditional Tracking Apps Are Particularly Challenging for ADHD</h2>
+    <p>Most food tracking apps require re-engagement with food at every meal, every day. Opening the app, logging an entry, thinking about what to log next: each moment is a new activation of food-related thoughts. For a neurotypical brain, that engagement stays contained to the logging moment. For an ADHD brain, it tends to linger.</p>
+    <p>This persistent mental preoccupation with food is often called food noise, a term that's gained traction among people managing weight, appetite, and eating behavior. Research confirms that ADHD brains process dopamine differently, making food-related thoughts more difficult to set aside once activated. Traditional tracking apps, by design, reactivate those thoughts repeatedly throughout the day.</p>
+    <p>There's another layer. Research shows that people with ADHD often have reduced interoceptive accuracy, a diminished ability to sense internal cues like hunger and fullness reliably. When tracking asks for real-time logging at every meal, it shifts focus from internal body signals to external data entry. For someone who already finds it harder to trust internal cues, that shift can make eating feel more complicated, not less.</p>
+
+    <h2>The Hyperfixation Problem Nobody Talks About</h2>
+    <p>ADHD also affects eating habits in a way most nutrition advice overlooks entirely: food hyperfixation.</p>
+    <p>People with ADHD often find a food they enjoy and eat it daily, sometimes for weeks, until the interest suddenly disappears and they move on to something else. Breakfast is a common pattern. It's early in the day when executive function isn't fully online yet, and choosing what to eat requires decision-making energy that isn't available. The result is defaulting to whatever feels familiar and rewarding.</p>
+    <p>Common hyperfixation meals like avocado toast, breakfast burritos, and protein bowls with calorie-dense toppings aren't inherently problematic. But the ratio of ingredients can mean a meal that feels nutritionally solid doesn't always match your nutritional goals. Repeated daily without awareness, that gap quietly adds up.</p>
+    <p>The fix isn't to stop eating familiar foods. It's to understand what's actually in them, understand how that hyperfixation meal fits into your nutritional goals, and make small adjustments accordingly. That's exactly where nutrition tracking helps. But only if the tracking process itself doesn't create a bigger problem.</p>
+
+    <h2>What a Different Approach to Tracking Looks Like</h2>
+    <p>What we heard from users, and what the research supports, is that the key isn't to stop tracking. It's to change when tracking happens.</p>
+    <p>Instead of logging food in real time throughout the day, batch-entry tracking moves the work to moments that don't amplify food noise. At grocery time, adding snacks to the app while putting things away takes a few minutes and happens while the food is already in hand. At meal prep time, logging what's been made happens in the same session. The food is present; tracking it doesn't conjure new thoughts about it.</p>
+    <p>Because meal preps and recurring foods are logged at inventory time, Plenish auto-schedules meals for the week. Users can review and adjust the plan whenever it's convenient, then check off what they ate with a single tap, either throughout the day or all at once at the end. There's no real-time logging loop pulling food back into attention throughout the day.</p>
+    <p>Nutrition goals stay on track. Food doesn't have to dominate your attention all day to make that happen.</p>
+
+    <h2>Why the Weekly View Matters for ADHD</h2>
+    <p>One more thing that changes the experience: tracking weekly nutrition goals instead of treating each day as pass or fail.</p>
+    <p>ADHD doesn't run on a consistent daily schedule. Executive function varies significantly day to day. Some days planning ahead is easy; others it isn't. A weekly view of nutrition goals reflects that reality. A lighter eating day doesn't trigger a failure signal that derails the rest of the week. It's one data point in a seven-day picture.</p>
+    <p>This isn't about lowering standards. It's about matching the tracking approach to how ADHD brains actually experience time and consistency, which is rarely in tidy 24-hour increments.</p>
+
+    <h2>Building for How ADHD Brains Actually Work</h2>
+    <p>When we designed Plenish, we didn't start with "what does a great nutrition tracker look like." We started with "why do people keep abandoning nutrition trackers" and a lot of the answers pointed back to the same friction: daily logging demands that assume consistent appetite, consistent executive function, and consistent engagement with food-related thoughts.</p>
+    <p>For people with ADHD, none of those assumptions hold.</p>
+    <p>Batch entry, pre-set meal plans, weekly nutrition goals, quick one-tap check-offs. These aren't just convenience features. They're a different philosophy about when and how tracking should happen, built around the reality of how ADHD brains experience food, attention, and consistency.</p>
+    <p>The goal is awareness without food noise. A plan that's there on the days when making one isn't possible. Progress that accounts for how you actually function, not how a neurotypical system assumes you do.</p>
+
+    <p>To learn more about how Plenish approaches meal planning and nutrition tracking, visit our <a href="/">features overview</a> or read through <a href="/faq">frequently asked questions</a> about how the app works.</p>
+    <p><em>Plenish is a meal prep and nutrition tracking app built around meal planning, weekly nutrition goals, and quick check-in, not real-time daily logging. Try it for free: <a href="https://app.useplenish.com/">app.useplenish.com</a></em></p>
+  </div>
+
+  <!-- FAQ -->
+  <section class="mt-16 pt-12 border-t border-[hsl(var(--border))]" aria-labelledby="post-faq">
+    <h2 id="post-faq" class="text-3xl font-bold text-[hsl(var(--foreground))] mb-8">
+      Frequently asked questions
+    </h2>
+    <div class="space-y-8">
+      {faq.map(item => (
+        <div>
+          <h3 class="text-xl font-semibold text-[hsl(var(--foreground))] mb-2">{item.question}</h3>
+          <p class="text-[hsl(var(--foreground)/0.85)] leading-relaxed">{item.answer}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Disclaimer + Sources -->
+  <section class="mt-16 pt-12 border-t border-[hsl(var(--border))] space-y-10">
+    <p class="text-sm italic text-[hsl(var(--muted-foreground))] leading-relaxed">{disclaimer}</p>
+    <div>
+      <h2 class="text-2xl font-bold text-[hsl(var(--foreground))] mb-4">Sources</h2>
+      <ol class="space-y-3 list-none pl-0">
+        {sources.map((s, idx) => (
+          <li class="text-sm text-[hsl(var(--foreground)/0.85)] leading-relaxed">
+            <span class="font-semibold">{idx + 1}. </span>
+            {s.authors} ({s.year}).{" "}
+            {s.url
+              ? <a href={s.url} target="_blank" rel="noopener noreferrer" class="italic text-[hsl(var(--primary))] hover:underline">{s.title}</a>
+              : <span class="italic">{s.title}</span>
+            }
+            {s.journal && <>. <span class="italic">{s.journal}</span></>}.
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+</BlogPostLayout>

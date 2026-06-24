@@ -14,7 +14,9 @@
       "mcp__Claude_Preview__preview_start",
       "WebFetch(domain:lucide.dev)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(xargs grep -l \"Heather\")"
+      "Bash(xargs grep -l \"Heather\")",
+      "Bash(python -c ' *)",
+      "Bash(powershell -command 'Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile\\('\\\\''C:\\\\Projects\\\\plenish-marketing\\\\public\\\\blog\\\\glp1-weekly-tracking\\\\og.png'\\\\''\\); Write-Output \"$\\($img.Width\\)x$\\($img.Height\\)\"; $img.Dispose\\(\\)')"
     ]
   }
 }

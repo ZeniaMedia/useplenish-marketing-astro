@@ -37,6 +37,24 @@ export const posts: Post[] = [
     metaTitle: "Why Daily Tracking Fails GLP-1 Users (And What Works) | Plenish Blog",
     metaDescription: "GLP-1 medications cause unpredictable appetite. Here's why daily calorie tracking fails GLP-1 users — and what to track instead.",
   },
+  {
+    slug: "adhd-food-tracking-noise-different-approach",
+    title: "Food Tracking Makes ADHD Food Noise Worse. Here's a Better Approach.",
+    description: "Traditional food tracking apps can worsen food noise and hyperfixation for those with ADHD, making nutrition harder, not easier. Here's what works instead.",
+    publishedAt: "2026-06-24",
+    category: "ADHD & Nutrition",
+    categorySlug: "adhd-nutrition",
+    authorName: "Heather P.",
+    readingTime: 6,
+    heroImage: "/blog/adhd-food-tracking/hero.jpg",
+    heroImageAlt: "Abstract illustration showing scattered numbers and food icons on the left transitioning through an orange dot to calm open space on the right, representing mental clarity around food tracking",
+    heroFit: "cover",
+    ogImage: "https://useplenish.com/blog/adhd-food-tracking/og.jpg",
+    tags: ["adhd", "food-tracking", "food-noise", "hyperfixation", "meal-planning", "nutrition", "executive-function"],
+    featured: false,
+    metaTitle: "Why Food Tracking Worsens Food Noise in ADHD | Plenish Blog",
+    metaDescription: "Traditional food tracking apps can worsen food noise and hyperfixation for those with ADHD, making nutrition harder, not easier. Here's what works instead.",
+  },
 ];
 
 export const publishedPosts = posts;
