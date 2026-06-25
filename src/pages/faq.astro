@@ -34,6 +34,17 @@ const categories = [
     items: [
       { id: 'good-for-glp1', q: 'Is Plenish good for people on GLP-1 medications like Ozempic or Wegovy?', a: "Yes. Plenish was designed with GLP-1 users in mind. Appetite on GLP-1 medications varies significantly day to day, which makes rigid daily tracking frustrating. Plenish's weekly goal view accounts for that variation — a low-appetite day doesn't look like a failure. The focus on protein and fiber tracking also aligns with the nutritional guidance most GLP-1 users receive, and the meal planning ensures you're eating what's fresh even when appetite is low." },
       { id: 'fitness-protein-goals', q: 'Can Plenish help me hit my fitness and protein goals?', a: 'Yes. Set a daily or weekly protein target and Plenish tracks your intake against it across every meal and snack. The meal planning prioritizes foods that fit your preferred meal types, so your plan works around your training schedule rather than against it.' },
+      { id: 'glp1-daily-tracking', q: "Why doesn't daily calorie tracking work well for GLP-1 medications?", a: 'GLP-1 medications slow gastric emptying, which makes appetite unpredictable from day to day. A day with very little appetite isn\'t a failure — it\'s how the medication works. Plenish tracks your nutrition weekly rather than daily, so low-appetite days are absorbed into your weekly picture rather than showing up as missed targets. For more on how this works, see our post on <a href="https://useplenish.com/blog/glp1-daily-nutrition-tracking-doesnt-work/">why daily nutrition tracking doesn\'t work for GLP-1 users</a>.' },
+      { id: 'glp1-low-appetite', q: 'How does Plenish handle low-appetite days on GLP-1?', a: 'Because Plenish tracks protein and fiber goals across the full week, a low-intake day adjusts your remaining weekly targets rather than resetting to zero the next morning. You stay on track for the week without the pressure of hitting the same numbers every single day.' },
+    ],
+  },
+  {
+    id: 'adhd',
+    title: 'ADHD & Nutrition',
+    items: [
+      { id: 'adhd-food-noise', q: 'Does food tracking make food noise worse for people with ADHD?', a: 'For some people with ADHD, real-time logging keeps food in working memory long after meals end — amplifying food noise rather than reducing it. Plenish is designed around batch-entry tracking: you log food at grocery or prep time, not at every meal. During the day, meals are checked off with a single tap. There\'s no logging loop pulling food back into your attention throughout the day. For more on this, see our post on <a href="https://useplenish.com/blog/adhd-food-tracking-noise-different-approach/">food tracking and ADHD food noise</a>.' },
+      { id: 'adhd-hyperfixation', q: 'How does Plenish help with food hyperfixation?', a: 'Food hyperfixation — eating the same meal daily for weeks — can create nutritional blind spots without awareness of what\'s actually in those meals. Because Plenish tracks your meal prep inventory and auto-schedules meals from it, your recurring hyperfixation meals are already in your nutrition picture. You get awareness of what you\'re actually eating without having to actively log it every time.' },
+      { id: 'adhd-plenish', q: 'Does Plenish work for people with ADHD?', a: 'Many of Plenish\'s core features align directly with how ADHD affects eating and planning: batch inventory entry reduces daily logging demands, auto-scheduled meal plans handle decision-making in advance, weekly nutrition goals accommodate day-to-day variability in executive function, and quick one-tap check-offs minimize re-engagement with food throughout the day. Plenish wasn\'t built exclusively for people with ADHD, but the approach emerged from conversations with users who found traditional tracking apps made their relationship with food harder, not easier.' },
     ],
   },
   {
@@ -72,7 +83,7 @@ const faqJsonLd = {
     cat.items.map(i => ({
       "@type": "Question",
       name: i.q,
-      acceptedAnswer: { "@type": "Answer", text: i.a },
+      acceptedAnswer: { "@type": "Answer", text: i.a.replace(/<[^>]*>/g, '') },
     }))
   ),
 };
@@ -156,7 +167,7 @@ const faqJsonLd = {
                     </h3>
                   </button>
                   <div class="faq-answer hidden pb-5 text-[hsl(var(--muted-foreground))] leading-relaxed">
-                    {item.a}
+                    <span set:html={item.a} />
                   </div>
                 </div>
               ))}
