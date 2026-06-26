@@ -1,0 +1,35 @@
+# Plenish
+
+> Plenish is a meal prep inventory and nutrition tracking app that auto-generates weekly meal plans based on the perishability of prepped food. Built for people on GLP-1 medications, people with ADHD managing food decisions, and dedicated meal preppers.
+
+## Marketing Site (useplenish.com)
+
+- [Home](/): Features overview and sign-up
+
+- [FAQ](/faq): Common questions about meal planning, nutrition tracking, and using Plenish
+
+- [Blog](/blog): Nutrition, meal prep, and wellness articles
+
+- [Blog: GLP-1 daily nutrition tracking](/blog/glp1-daily-nutrition-tracking-doesnt-work): Article covering nutrition tracking strategies for people on GLP-1 medications
+
+- [Blog: ADHD and food noise](/blog/adhd-food-tracking-noise-different-approach): Article on managing food decisions and reducing food noise for people with ADHD
+
+## App Features (app.useplenish.com — requires account)
+
+The app is a web and mobile application with the following core areas:
+
+- **Inventory**: Track prepped food by item, quantity, desired meal time, and perishability
+
+- **Meal Planning**: Auto-generated weekly meal plans prioritizing items closest to expiring
+
+- **Nutrition Tracking**: Log calories, protein, fiber, carbohydrates, and fat; set weekly goals
+
+- **Meal Log**: Record meals eaten against inventory
+
+- **AI Nutritional Estimator**: Estimates nutritional values for any meal using USDA and brand data; returns a confidence value
+
+- **Account/Settings**: Profile, notification preferences, subscription tier, nutrition goals, and visible planning weeks
+
+## Company
+
+- Support: support@useplenish.com
