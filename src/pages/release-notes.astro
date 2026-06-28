@@ -1,0 +1,187 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { releaseNotes, formatReleaseDate } from '../data/releaseNotes';
+
+const title = "Release Notes | Plenish";
+const description = "See every Plenish update in one place. New features, improvements, and fixes — shipped regularly.";
+const canonical = "https://useplenish.com/release-notes";
+const ogImage = "https://useplenish.com/release-notes/release-og-default.png";
+
+const softwareAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Plenish",
+  "operatingSystem": "Android, Web",
+  "applicationCategory": "HealthApplication",
+  "url": "https://useplenish.com",
+  "releaseNotes": "https://useplenish.com/release-notes",
+};
+---
+
+<BaseLayout {title} {description} {canonical} {ogImage}>
+  <script type="application/ld+json" set:html={JSON.stringify(softwareAppSchema)} slot="head" />
+
+  <Header />
+
+  <!-- Page hero -->
+  <div class="pt-24 pb-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p class="text-sm font-semibold text-[hsl(var(--primary))] mb-2 uppercase tracking-wide">Release Notes</p>
+    <h1 class="text-4xl sm:text-5xl font-bold text-[hsl(var(--foreground))] mb-4">What's New</h1>
+    <p class="text-lg text-[hsl(var(--muted-foreground))]">Every update, in one place.</p>
+  </div>
+
+  <!-- Timeline -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+    <div class="relative">
+      <!-- Desktop vertical line -->
+      <div class="hidden lg:block absolute top-2 bottom-0 w-0.5 bg-[hsl(var(--primary)/0.25)] left-[152px]"></div>
+
+      {releaseNotes.map((entry) => {
+        const hasImprovements = (entry.improvements?.length ?? 0) > 0;
+        const hasFixes = (entry.fixes?.length ?? 0) > 0;
+        const allItems = [
+          ...(entry.improvements ?? []).map(i => ({ ...i, isFix: false })),
+          ...(entry.fixes ?? []).map(i => ({ ...i, isFix: true })),
+        ];
+        const useSubHeaders = hasImprovements && hasFixes &&
+          ((entry.improvements!.length >= 3) || (entry.fixes!.length >= 3));
+        const sectionLabel = hasImprovements && hasFixes ? "Improvements & Fixes"
+          : hasImprovements ? "Improvements"
+          : "Fixes";
+
+        return (
+          <article id={entry.id} class="scroll-mt-20 mb-20 lg:mb-24">
+            <div class="lg:grid lg:grid-cols-[152px_1fr] lg:gap-x-10">
+
+              <!-- Left: date + timeline dot (desktop only) -->
+              <div class="hidden lg:flex flex-col items-end pr-5 pt-1 relative flex-shrink-0">
+                <time datetime={entry.date} class="text-base text-[hsl(var(--muted-foreground))] text-right leading-snug">
+                  {formatReleaseDate(entry.date)}
+                </time>
+                <!-- Circle on the timeline line -->
+                <div class="absolute right-0 top-1 w-3 h-3 rounded-full bg-[hsl(var(--primary))] border-2 border-[hsl(var(--background))] z-10 translate-x-[7px] mt-1"></div>
+              </div>
+
+              <!-- Right: content -->
+              <div>
+                <!-- Mobile: date label -->
+                <time datetime={entry.date} class="lg:hidden block text-base text-[hsl(var(--muted-foreground))] mb-2">
+                  {formatReleaseDate(entry.date)}
+                </time>
+
+                <!-- Title + New badge -->
+                <div class="flex flex-wrap items-center gap-3 mb-3">
+                  <h2 class="text-2xl font-bold text-[hsl(var(--foreground))]">{entry.title}</h2>
+                  {entry.showNewBadge && (
+                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))]">
+                      New
+                    </span>
+                  )}
+                </div>
+
+                <!-- Short description -->
+                <p class="text-[hsl(var(--muted-foreground))] leading-relaxed mb-6">
+                  {entry.shortDescription}
+                </p>
+
+                <!-- Hero image -->
+                {entry.heroImage && (
+                  <figure class="mb-8 rounded-2xl overflow-hidden border border-[hsl(var(--border))]">
+                    <img
+                      src={entry.heroImage.src}
+                      alt={entry.heroImage.alt}
+                      class="w-full object-cover"
+                      loading="lazy"
+                    />
+                    {entry.heroImage.caption && (
+                      <figcaption class="px-4 py-2.5 text-sm text-center text-[hsl(var(--muted-foreground))] bg-[hsl(var(--muted)/0.4)]">
+                        {entry.heroImage.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                )}
+
+                <!-- Long description sections -->
+                {entry.longDescription && entry.longDescription.length > 0 && (
+                  <div class="space-y-5 mb-8">
+                    {entry.longDescription.map((section) => (
+                      <div>
+                        <h3 class="text-base font-semibold text-[hsl(var(--foreground))] mb-1.5">
+                          {section.heading}
+                        </h3>
+                        <p class="text-[hsl(var(--muted-foreground))] leading-relaxed">
+                          {section.body}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <!-- Improvements & Fixes -->
+                {allItems.length > 0 && (
+                  <div class="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--muted)/0.3)] px-5 py-5">
+                    {useSubHeaders ? (
+                      <>
+                        {hasImprovements && (
+                          <div class="mb-5">
+                            <h3 class="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))] mb-3">Improvements</h3>
+                            <ul class="space-y-3">
+                              {entry.improvements!.map((item) => (
+                                <li class="flex gap-2.5">
+                                  <span class="mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-primary translate-y-0.5"></span>
+                                  <span>
+                                    <span class="font-medium text-[hsl(var(--foreground))]">{item.label}.</span>{" "}
+                                    <span class="text-[hsl(var(--muted-foreground))]">{item.description}</span>
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        {hasFixes && (
+                          <div>
+                            <h3 class="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))] mb-3">Fixes</h3>
+                            <ul class="space-y-3">
+                              {entry.fixes!.map((item) => (
+                                <li class="flex gap-2.5">
+                                  <span class="mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-accent translate-y-0.5"></span>
+                                  <span>
+                                    <span class="font-medium text-[hsl(var(--foreground))]">{item.label}.</span>{" "}
+                                    <span class="text-[hsl(var(--muted-foreground))]">{item.description}</span>
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        <h3 class="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))] mb-3">{sectionLabel}</h3>
+                        <ul class="space-y-3">
+                          {allItems.map((item) => (
+                            <li class="flex gap-2.5">
+                              <span class={`mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full translate-y-0.5 ${item.isFix ? 'bg-accent' : 'bg-primary'}`}></span>
+                              <span>
+                                <span class="font-medium text-[hsl(var(--foreground))]">{item.label}.</span>{" "}
+                                <span class="text-[hsl(var(--muted-foreground))]">{item.description}</span>
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

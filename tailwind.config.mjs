@@ -8,6 +8,8 @@ export default {
     'prose-lg',
     'max-w-none',
     { pattern: /^prose-/ },
+    'bg-primary',
+    'bg-accent',
   ],
   theme: {
     container: {

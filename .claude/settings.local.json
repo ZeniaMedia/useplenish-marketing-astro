@@ -16,7 +16,10 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(xargs grep -l \"Heather\")",
       "Bash(python -c ' *)",
-      "Bash(powershell -command 'Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile\\('\\\\''C:\\\\Projects\\\\plenish-marketing\\\\public\\\\blog\\\\glp1-weekly-tracking\\\\og.png'\\\\''\\); Write-Output \"$\\($img.Width\\)x$\\($img.Height\\)\"; $img.Dispose\\(\\)')"
+      "Bash(powershell -command 'Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile\\('\\\\''C:\\\\Projects\\\\plenish-marketing\\\\public\\\\blog\\\\glp1-weekly-tracking\\\\og.png'\\\\''\\); Write-Output \"$\\($img.Width\\)x$\\($img.Height\\)\"; $img.Dispose\\(\\)')",
+      "mcp__3ab84dfe-2294-46ee-8019-a117e62fa751__notion-fetch",
+      "mcp__3ab84dfe-2294-46ee-8019-a117e62fa751__notion-query-database-view",
+      "mcp__3ab84dfe-2294-46ee-8019-a117e62fa751__notion-search"
     ]
   }
 }
