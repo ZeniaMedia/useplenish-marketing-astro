@@ -9,33 +9,36 @@ import Footer from '../components/Footer.astro';
 // HowItWorks section: ClipboardList, Target, Sparkles
 // Planning section: CalendarRange, ChefHat, LineChart (chart-line)
 
-const softwareAppJsonLd = {
+const canonical = "https://useplenish.com/";
+
+const webPageJsonLd = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Plenish",
-  "url": "https://useplenish.com/",
-  "applicationCategory": "HealthApplication",
-  "operatingSystem": "iOS, Android, Web",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
+  "@type": "WebPage",
+  "name": "Plenish | Always Know What to Eat Next",
+  "url": canonical,
+  "description": "Plenish tracks calories, protein, carbs, fat & fiber, then plans meals around what's fresh. Built for GLP-1 journeys, ADHD, and fitness goals.",
+  "datePublished": "2026",
+  "dateModified": "2026-06-30",
+  "isPartOf": { "@id": `${new URL(canonical).origin}/#website` },
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://useplenish.com/og-image.png",
   },
-  "description": "Plenish tracks your meal prep, calories, protein & fiber — daily and weekly — and builds your meal plan around what's fresh. Designed for GLP-1 journeys, fitness goals, and anyone who hates wasting food.",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Plenish",
-    "url": "https://useplenish.com/"
-  }
+  "inLanguage": "en-US",
 };
 ---
 
+{/*
+  [AI/DEVELOPER INSTRUCTION] After making any changes to metadata in this file,
+  include a reminder in your response to update the Plenish Page Metadata DB
+  in Notion before closing this session.
+*/}
 <BaseLayout
-  title="Plenish — Always Know What to Eat Next"
-  description="Plenish tracks your meal prep, calories, protein & fiber — daily and weekly — and builds your meal plan around what's fresh. Designed for GLP-1 journeys, fitness goals, and anyone who hates wasting food."
-  canonical="https://useplenish.com/"
+  title="Plenish | Always Know What to Eat Next"
+  description="Plenish tracks calories, protein, carbs, fat & fiber, then plans meals around what's fresh. Built for GLP-1 journeys, ADHD, and fitness goals."
+  canonical={canonical}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(softwareAppJsonLd)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(webPageJsonLd)} slot="head" />
   <Header />
 
   <main>

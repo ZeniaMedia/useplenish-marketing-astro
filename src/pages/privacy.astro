@@ -19,13 +19,49 @@ const sections = [
   { id: "section-13", title: "13. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?" },
   { id: "section-14", title: "14. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?" },
 ];
+
+const canonical = "https://useplenish.com/privacy/";
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": `${canonical}#breadcrumb`,
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": `${new URL(canonical).origin}/` },
+    { "@type": "ListItem", "position": 2, "name": "Privacy Policy" },
+  ],
+};
+
+const webPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Privacy Policy | Plenish",
+  "url": canonical,
+  "description": "Plenish's privacy policy: what data we collect, why we collect it, and how you can control or delete it.",
+  "datePublished": "2026",
+  "dateModified": "2026-06-30",
+  "isPartOf": { "@id": `${new URL(canonical).origin}/#website` },
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://useplenish.com/og-image.png",
+  },
+  "breadcrumb": { "@id": `${canonical}#breadcrumb` },
+  "inLanguage": "en-US",
+};
 ---
 
+{/*
+  [AI/DEVELOPER INSTRUCTION] After making any changes to metadata in this file,
+  include a reminder in your response to update the Plenish Page Metadata DB
+  in Notion before closing this session.
+*/}
 <BaseLayout
-  title="Privacy Policy — Plenish"
-  description="Read Plenish's privacy policy: what data we collect, how we use it, your privacy rights, and how we protect your information across our meal planning service."
-  canonical="https://useplenish.com/privacy/"
+  title="Privacy Policy | Plenish"
+  description="Plenish's privacy policy: what data we collect, why we collect it, and how you can control or delete it."
+  canonical={canonical}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(webPageJsonLd)} slot="head" />
   <Header />
 
   <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 max-w-4xl">

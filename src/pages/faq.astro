@@ -76,9 +76,35 @@ const categories = [
   },
 ];
 
+const canonical = "https://useplenish.com/faq/";
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": `${canonical}#breadcrumb`,
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": `${new URL(canonical).origin}/` },
+    { "@type": "ListItem", "position": 2, "name": "FAQ" },
+  ],
+};
+
+// FAQPage is a subtype of WebPage — page-level properties and the Q&A mainEntity
+// live in a single JSON-LD object rather than two separate FAQPage blocks.
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  "name": "Frequently Asked Questions | Plenish",
+  "url": canonical,
+  "description": "Answers to common questions about Plenish: meal planning, GLP-1 and ADHD nutrition tracking, AI nutrition estimates, account, and privacy.",
+  "datePublished": "2026",
+  "dateModified": "2026-06-30",
+  "isPartOf": { "@id": `${new URL(canonical).origin}/#website` },
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://useplenish.com/og-image.png",
+  },
+  "breadcrumb": { "@id": `${canonical}#breadcrumb` },
+  "inLanguage": "en-US",
   mainEntity: categories.flatMap(cat =>
     cat.items.map(i => ({
       "@type": "Question",
@@ -89,12 +115,19 @@ const faqJsonLd = {
 };
 ---
 
+{/*
+  [AI/DEVELOPER INSTRUCTION] After making any changes to metadata in this file,
+  include a reminder in your response to update the Plenish Page Metadata DB
+  in Notion before closing this session.
+*/}
 <BaseLayout
-  title="Frequently Asked Questions — Plenish"
-  description="Answers to common questions about Plenish: how meal planning works, what nutrients we track, AI nutrition estimates, account, and privacy."
-  canonical="https://useplenish.com/faq/"
+  title="Frequently Asked Questions | Plenish"
+  description="Answers to common questions about Plenish: meal planning, GLP-1 and ADHD nutrition tracking, AI nutrition estimates, account, and privacy."
+  canonical={canonical}
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} slot="head" />
+  <!-- breadcrumb @id above is referenced by faqJsonLd.breadcrumb; not duplicated -->
 
   <Header />
 

@@ -2,19 +2,73 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { getFeaturedPost, publishedPosts, formatDate } from '../../data/posts';
+import { getFeaturedPost, publishedPosts, formatDate, getPostUrl } from '../../data/posts';
 
-const DESCRIPTION = "Tips, guides, and updates on meal prep, nutrition tracking, GLP-1 journeys, and reducing food waste — from the team building Plenish.";
+const DESCRIPTION = "Nutrition tracking and meal prep guides for GLP-1 journeys, ADHD nutrition, and anyone who hates wasting food — from the team building Plenish.";
 
 const featured = getFeaturedPost();
 const rest = publishedPosts.filter((p) => p.slug !== featured?.slug);
+
+const canonical = "https://useplenish.com/blog/";
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": `${canonical}#breadcrumb`,
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": `${new URL(canonical).origin}/` },
+    { "@type": "ListItem", "position": 2, "name": "Blog" },
+  ],
+};
+
+const itemListJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Plenish Blog",
+  "url": canonical,
+  "description": DESCRIPTION,
+  "numberOfItems": publishedPosts.length,
+  "itemListElement": [...publishedPosts]
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .map((post, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": post.title,
+      "url": getPostUrl(post),
+    })),
+};
+
+const webPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Plenish Blog",
+  "url": canonical,
+  "description": DESCRIPTION,
+  "datePublished": "2026",
+  "dateModified": new Date().toISOString().slice(0, 10),
+  "isPartOf": { "@id": `${new URL(canonical).origin}/#website` },
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://useplenish.com/og-image.png",
+  },
+  "breadcrumb": { "@id": `${canonical}#breadcrumb` },
+  "inLanguage": "en-US",
+};
 ---
 
+{/*
+  [AI/DEVELOPER INSTRUCTION] After making any changes to metadata in this file,
+  include a reminder in your response to update the Plenish Page Metadata DB
+  in Notion before closing this session.
+*/}
 <BaseLayout
-  title="The Plenish Blog — Plenish"
+  title="Plenish Blog"
   description={DESCRIPTION}
-  canonical="https://useplenish.com/blog/"
+  canonical={canonical}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(webPageJsonLd)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(itemListJsonLd)} slot="head" />
   <Header />
 
   <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-6xl">

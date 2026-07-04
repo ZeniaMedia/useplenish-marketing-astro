@@ -2,7 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { formatDate, type Post } from '../data/posts';
+import { formatDate, getPostUrl, type Post } from '../data/posts';
 
 interface Props {
   post: Post;
@@ -10,10 +10,25 @@ interface Props {
 
 const { post } = Astro.props;
 
-const postUrl = `https://useplenish.com/blog/${post.slug}/`;
+const postUrl = getPostUrl(post);
+const homeUrl = `${new URL(postUrl).origin}/`;
 
 const heroBase = post.heroImage.replace(/\.(png|jpe?g|webp)$/i, "");
 const heroSrcSet = [768, 1200, 1600].map(w => `${heroBase}-${w}.webp ${w}w`).join(", ");
+
+// Shared Person object for the post author. Defined once here so every blog
+// post (current and future) references it via the BlogPosting Article schema
+// below, instead of repeating it in each post file.
+const heatherPersonJsonLd = {
+  "@type": "Person",
+  "name": "Heather P.",
+  "url": "https://www.linkedin.com/in/heatherpurdy/",
+  "sameAs": ["https://www.linkedin.com/in/heatherpurdy/"],
+  "jobTitle": "Founder",
+  "worksFor": { "@id": `${homeUrl}#organization` },
+  "knowsAbout": ["meal prep", "product development", "user research", "nutrition tracking apps", "food waste reduction"],
+  "description": "Heather started Plenish after one too many weeks of wasted groceries and untracked macros. She's spent her career building products. Plenish is designed to work alongside the plan you've built with your doctor or dietitian.",
+};
 
 const blogPostingJsonLd = {
   "@context": "https://schema.org",
@@ -29,11 +44,7 @@ const blogPostingJsonLd = {
     width: 1600,
     height: 900,
   },
-  author: {
-    "@type": "Person",
-    name: post.authorName,
-    url: "https://useplenish.com/about",
-  },
+  author: heatherPersonJsonLd,
   publisher: {
     "@type": "Organization",
     name: "Plenish",

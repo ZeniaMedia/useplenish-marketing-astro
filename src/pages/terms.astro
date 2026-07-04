@@ -30,13 +30,49 @@ const sections = [
   { id: "section-24", title: "24. MISCELLANEOUS" },
   { id: "section-25", title: "25. CONTACT US" },
 ];
+
+const canonical = "https://useplenish.com/terms/";
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": `${canonical}#breadcrumb`,
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": `${new URL(canonical).origin}/` },
+    { "@type": "ListItem", "position": 2, "name": "Terms & Conditions" },
+  ],
+};
+
+const webPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Terms & Conditions | Plenish",
+  "url": canonical,
+  "description": "Plenish terms and conditions: user rights, intellectual property, prohibited activities, and rules for our meal planning service.",
+  "datePublished": "2026",
+  "dateModified": "2026-06-30",
+  "isPartOf": { "@id": `${new URL(canonical).origin}/#website` },
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://useplenish.com/og-image.png",
+  },
+  "breadcrumb": { "@id": `${canonical}#breadcrumb` },
+  "inLanguage": "en-US",
+};
 ---
 
+{/*
+  [AI/DEVELOPER INSTRUCTION] After making any changes to metadata in this file,
+  include a reminder in your response to update the Plenish Page Metadata DB
+  in Notion before closing this session.
+*/}
 <BaseLayout
-  title="Terms &amp; Conditions — Plenish"
+  title="Terms &amp; Conditions | Plenish"
   description="Plenish terms and conditions: user rights, intellectual property, prohibited activities, and rules for our meal planning service."
-  canonical="https://useplenish.com/terms/"
+  canonical={canonical}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(webPageJsonLd)} slot="head" />
   <Header />
 
   <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 max-w-4xl">

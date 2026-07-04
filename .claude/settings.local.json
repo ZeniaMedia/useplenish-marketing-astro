@@ -19,7 +19,20 @@
       "Bash(powershell -command 'Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile\\('\\\\''C:\\\\Projects\\\\plenish-marketing\\\\public\\\\blog\\\\glp1-weekly-tracking\\\\og.png'\\\\''\\); Write-Output \"$\\($img.Width\\)x$\\($img.Height\\)\"; $img.Dispose\\(\\)')",
       "mcp__3ab84dfe-2294-46ee-8019-a117e62fa751__notion-fetch",
       "mcp__3ab84dfe-2294-46ee-8019-a117e62fa751__notion-query-database-view",
-      "mcp__3ab84dfe-2294-46ee-8019-a117e62fa751__notion-search"
+      "mcp__3ab84dfe-2294-46ee-8019-a117e62fa751__notion-search",
+      "mcp__3ab84dfe-2294-46ee-8019-a117e62fa751__notion-update-page",
+      "mcp__3ab84dfe-2294-46ee-8019-a117e62fa751__notion-create-pages",
+      "mcp__3ab84dfe-2294-46ee-8019-a117e62fa751__notion-query-data-sources",
+      "mcp__3ab84dfe-2294-46ee-8019-a117e62fa751__notion-create-database",
+      "Bash(grep -o \"Canonical URL of the list page.\\\\{0,400\\\\}\" \"C:/Users/h34th/.claude/projects/C--Projects-plenish-marketing/6e3b648c-8740-47a4-bee3-b334d9c6eff5/tool-results/toolu_01ChM9JNdm9Zz6t6g7JpcfvZ.json\")",
+      "Bash(grep -oE \"## ItemList.{0,3500}\" \"C:/Users/h34th/.claude/projects/C--Projects-plenish-marketing/6e3b648c-8740-47a4-bee3-b334d9c6eff5/tool-results/toolu_01F2siRoNWgpZT2NQoBKibtP.json\")",
+      "Bash(curl -s \"http://localhost:4321/blog/category/glp-1-journey/\")",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s \"http://localhost:4321/blog/tag/glp1/\")",
+      "Bash(curl -s \"http://localhost:4321/sitemap-index.xml\")",
+      "Bash(curl -s \"http://localhost:4321/sitemap-0.xml\")",
+      "Bash(curl -s \"http://localhost:4321/llms.txt\")",
+      "PowerShell(Move-Item \"C:\\\\Projects\\\\plenish-marketing\\\\public\\\\release-og-default.png\" \"C:\\\\Projects\\\\plenish-marketing\\\\public\\\\release-notes\\\\release-og-default.png\")"
     ]
   }
 }

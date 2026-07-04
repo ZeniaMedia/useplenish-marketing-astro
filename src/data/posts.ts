@@ -19,6 +19,12 @@ export interface Post {
   faqs?: Array<{ q: string; a: string }>;
 }
 
+/*
+  [AI/DEVELOPER INSTRUCTION] After making any changes to metadata fields in this file
+  (metaTitle, metaDescription, ogImage, canonicalURL, publishedAt, updatedAt, slug),
+  include a reminder in your response to update the Plenish Page Metadata DB
+  in Notion before closing this session.
+*/
 export const posts: Post[] = [
   {
     slug: "glp1-daily-nutrition-tracking-doesnt-work",
@@ -73,6 +79,9 @@ export const posts: Post[] = [
 ];
 
 export const publishedPosts = posts;
+
+export const getPostUrl = (post: Post): string =>
+  `https://useplenish.com/blog/${post.slug}/`;
 
 export const getFeaturedPost = (): Post | undefined =>
   posts.find((p) => p.featured) ?? posts[0];

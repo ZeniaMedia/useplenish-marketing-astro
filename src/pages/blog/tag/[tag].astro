@@ -18,24 +18,41 @@ const matchedPosts = getPostsByTag(tag);
 const title = `Posts tagged ${tag} — Plenish Blog`;
 const description = `All Plenish blog posts tagged with ${tag}.`;
 const tagSlug = tag.replace(/\s+/g, "-");
+const canonical = `https://useplenish.com/blog/tag/${tagSlug}/`;
 
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": `${canonical}#breadcrumb`,
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://useplenish.com/" },
-    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://useplenish.com/blog/" },
-    { "@type": "ListItem", "position": 3, "name": tag, "item": `https://useplenish.com/blog/tag/${tagSlug}/` },
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": `${new URL(canonical).origin}/` },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${new URL(canonical).origin}/blog/` },
+    { "@type": "ListItem", "position": 3, "name": `#${tag}` },
   ],
+};
+
+const webPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": `#${tag} | Plenish Blog`,
+  "url": canonical,
+  "description": `Plenish blog posts tagged #${tag}.`,
+  "datePublished": "2026",
+  "dateModified": new Date().toISOString().slice(0, 10),
+  "isPartOf": { "@id": `${new URL(canonical).origin}/#website` },
+  "primaryImageOfPage": { "@type": "ImageObject", "url": "https://useplenish.com/og-image.png" },
+  "breadcrumb": { "@id": `${canonical}#breadcrumb` },
+  "inLanguage": "en-US",
 };
 ---
 
 <BaseLayout
   title={title}
   description={description}
-  canonical={`https://useplenish.com/blog/tag/${tagSlug}/`}
+  canonical={canonical}
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(webPageJsonLd)} slot="head" />
   <Header />
 
   <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-6xl">
