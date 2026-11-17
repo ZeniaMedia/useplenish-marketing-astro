@@ -7,11 +7,14 @@
     "build": "astro build",
     "preview": "astro preview"
   },
+  "overrides": {
+    "postcss-selector-parser": "^7.2.1"
+  },
   "dependencies": {
-    "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^5.1.0",
-    "@tailwindcss/typography": "^0.5.19",
-    "astro": "^4.16.0",
-    "tailwindcss": "^3.4.0"
+    "@astrojs/sitemap": "^3.7.5",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.5",
+    "astro": "^7.4.12",
+    "tailwindcss": "^4.3.5"
   }
 }

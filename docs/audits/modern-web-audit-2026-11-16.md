@@ -50,7 +50,7 @@
   - **File:** [`src/layouts/BlogPostLayout.astro:141-148`](../src/layouts/BlogPostLayout.astro)
   - **Fix:** Confirm actual pixel dimensions of each hero image and update the data or layout accordingly.
 
-- [ ] **[8] Narrow the Tailwind `safelist` prose pattern** — `{ pattern: /^prose-/ }` safelists every `prose-*` variant and bloats generated CSS with unused modifier classes.
+- [x] **[8] Narrow the Tailwind `safelist` prose pattern** — `{ pattern: /^prose-/ }` safelists every `prose-*` variant and bloats generated CSS with unused modifier classes.
   - **File:** [`tailwind.config.mjs:9`](../tailwind.config.mjs)
   - **Fix:** Replace pattern with the specific classes actually used (e.g., `'prose-lg'`, `'prose-green'`).
 
@@ -106,10 +106,11 @@ These change the build config and integration surface; complete before any other
 
 | # | Item |
 |---|------|
-| — | **Astro 4 → 5**: Drop `@astrojs/tailwind`, adopt native Vite CSS + Content Layer API. Run `npx @astrojs/upgrade`. |
-| — | **Tailwind 3 → 4**: Replace `tailwind.config.mjs` with CSS `@theme` block. Run `npx @tailwindcss/upgrade`. Confirm `@tailwindcss/typography` v0.6+. |
+| ✅ | **Astro 4 → 7**: Dropped `@astrojs/tailwind`, adopted `@tailwindcss/vite` plugin via `astro.config.mjs`. Astro upgraded to v7.4.12, `@astrojs/sitemap` to v3.7.5. |
+| ✅ | **Tailwind 3 → 4**: Removed `tailwind.config.mjs`; created `src/styles/global.css` with `@import "tailwindcss"`, `@plugin "@tailwindcss/typography"`, and `@theme inline` block carrying all custom colors, radii, font family, animations, and container utility. |
 
-> ⚠️ Items [8] (safelist) and [13] (redundant font-family) may resolve automatically as a side-effect of the Tailwind 4 upgrade. Re-check before fixing them separately.
+> ✅ Item [8] resolved: `tailwind.config.mjs` removed; safelist no longer exists; Tailwind 4 auto-detects `prose-*` modifiers from templates.  
+> ⚠️ Item [13] not auto-resolved: inline `font-family` on `body` in BaseLayout.astro still present — address in Session C.
 
 ---
 
