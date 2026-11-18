@@ -61,11 +61,11 @@
     - [`src/pages/release-notes.astro:45`](../src/pages/release-notes.astro)
   - **Fix:** Replace bare year strings with full dates, e.g. `"2026-01-01"`.
 
-- [ ] **[10] Add `aria-label="Main"` to header `<nav>`** — pages with both the site nav and a breadcrumb nav have two unlabelled `<nav>` landmarks. Screen readers announce both as "navigation" with no distinction.
+- [x] **[10] Add `aria-label="Main"` to header `<nav>`** — pages with both the site nav and a breadcrumb nav have two unlabelled `<nav>` landmarks. Screen readers announce both as "navigation" with no distinction.
   - **File:** [`src/components/Header.astro:5`](../src/components/Header.astro)
   - **Fix:** Add `aria-label="Main"` to the `<nav>` element. (Breadcrumb nav in BlogPostLayout already has `aria-label="Breadcrumb"`.)
 
-- [ ] **[11] Add `width` attribute to footer logo `<img>`** — has `height="32"` but no `width`, preventing the browser from reserving aspect-ratio space and risking minor CLS.
+- [x] **[11] Add `width` attribute to footer logo `<img>`** — has `height="32"` but no `width`, preventing the browser from reserving aspect-ratio space and risking minor CLS.
   - **File:** [`src/components/Footer.astro:14`](../src/components/Footer.astro)
   - **Fix:** Add `width="auto"` or the actual pixel width of `plenish-full-logo.png`.
 
@@ -152,8 +152,8 @@ Small, isolated, component-level.
 
 | # | Item |
 |---|------|
-| [10] | Add `aria-label="Main"` to `<nav>` in `Header.astro`. |
-| [11] | Add `width` to footer logo `<img>` in `Footer.astro`. |
+| ✅ | **[10]** `aria-label="Main"` added to `<nav>` in `Header.astro`. |
+| ✅ | **[11]** `width="48"` added to footer logo `<img>` in `Footer.astro` (image is 1536×1024; at `height="32"` the paired intrinsic width is `48`). |
 
 ---
 
