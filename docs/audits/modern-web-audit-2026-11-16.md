@@ -10,7 +10,7 @@
 
 ### 🔴 High
 
-- [ ] **[1] Add security headers** — no `Content-Security-Policy`, `X-Frame-Options`, `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, or `Permissions-Policy` anywhere in the repo. Minimum viable set to add to hosting config (`vercel.json` / `netlify.toml` / CDN headers):
+- [x] **[1] Add security headers** — no `Content-Security-Policy`, `X-Frame-Options`, `Strict-Transport-Security`, `X-Content-Type-Options`, `Referrer-Policy`, or `Permissions-Policy` anywhere in the repo. Minimum viable set to add to hosting config (`vercel.json` / `netlify.toml` / CDN headers):
   ```
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
@@ -119,8 +119,8 @@ Requires knowing your hosting provider. No source file edits needed.
 
 | # | Item |
 |---|------|
-| [1] | Add `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `HSTS` to hosting config. |
-| [1] | Deploy `Content-Security-Policy-Report-Only` and collect violations before enforcing. |
+| ✅ | **X-Frame-Options**, **X-Content-Type-Options**, **Referrer-Policy**, **HSTS** (`max-age=31536000`, no `includeSubDomains`) added to `vercel.json` and mirrored in `vite.server.headers` in `astro.config.mjs`. |
+| ✅ | **`Content-Security-Policy-Report-Only`** deployed (report-only; allows PostHog inline + `us-assets.i.posthog.com` / `us.i.posthog.com`). No `report-uri` yet — violations appear in browser console. Add a reporting endpoint (e.g. Report URI, Sentry) before Phase 2 enforcement. |
 
 ---
 
