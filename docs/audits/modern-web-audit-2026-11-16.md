@@ -24,7 +24,7 @@
   - **File:** [`src/pages/index.astro:95-101`](../src/pages/index.astro)
   - **Fix:** Add `fetchpriority="high" height="512"` (verify actual pixel height) to the `<img>`.
 
-- [ ] **[3] Move PostHog analytics script out of `<head>`** — `is:inline` PostHog snippet sits in `<head>` with no `defer`, blocking DOM construction and hurting LCP. The inner dynamically-created `<script>` sets `p.async = true`, but the outer wrapper tag itself still blocks.
+- [x] **[3] Move PostHog analytics script out of `<head>`** — `is:inline` PostHog snippet sits in `<head>` with no `defer`, blocking DOM construction and hurting LCP. The inner dynamically-created `<script>` sets `p.async = true`, but the outer wrapper tag itself still blocks.
   - **File:** [`src/layouts/BaseLayout.astro:127-133`](../src/layouts/BaseLayout.astro)
   - **Fix:** Move snippet to end of `<body>` (add a `<slot name="body-end">` to BaseLayout) or restructure so the outer `<script>` tag carries `defer`.
 
@@ -73,7 +73,7 @@
 
 ### 🟢 Low
 
-- [ ] **[12] Add `preconnect` hints for PostHog origins** — no early connection warmup for PostHog's two domains, adding a TLS round-trip to analytics load time.
+- [x] **[12] Add `preconnect` hints for PostHog origins** — no early connection warmup for PostHog's two domains, adding a TLS round-trip to analytics load time.
   - **File:** [`src/layouts/BaseLayout.astro`](../src/layouts/BaseLayout.astro)
   - **Fix:** Add to `<head>`:
     ```html
@@ -81,11 +81,11 @@
     <link rel="preconnect" href="https://us.i.posthog.com" />
     ```
 
-- [ ] **[13] Remove redundant `font-family` declaration on `body`** — the system font stack is defined in both `tailwind.config.mjs` and as an inline style on `body` in BaseLayout. `body` already applies `font-sans` via Tailwind, making the inline declaration redundant.
+- [x] **[13] Remove redundant `font-family` declaration on `body`** — the system font stack is defined in both `tailwind.config.mjs` and as an inline style on `body` in BaseLayout. `body` already applies `font-sans` via Tailwind, making the inline declaration redundant.
   - **Files:** [`src/layouts/BaseLayout.astro:160`](../src/layouts/BaseLayout.astro), [`tailwind.config.mjs:54`](../tailwind.config.mjs)
   - **Fix:** Remove the `font-family` line from the `body` rule in BaseLayout's `<style>` block.
 
-- [ ] **[14] Derive `softwareVersion` in schema from release data** — `"softwareVersion": "2026.06.28"` is hardcoded in the site-wide `SoftwareApplication` schema and will silently diverge from the actual latest release.
+- [x] **[14] Derive `softwareVersion` in schema from release data** — `"softwareVersion": "2026.06.28"` is hardcoded in the site-wide `SoftwareApplication` schema and will silently diverge from the actual latest release.
   - **File:** [`src/layouts/BaseLayout.astro:102`](../src/layouts/BaseLayout.astro)
   - **Fix:** Import `releaseNotes` and use `releaseNotes[0].id` or `.date` to derive the version at build time.
 
@@ -129,10 +129,10 @@ All changes touch `src/layouts/BaseLayout.astro`.
 
 | # | Item |
 |---|------|
-| [3] | Move PostHog script to end of `<body>` via new `body-end` slot. |
-| [12] | Add `preconnect` hints for PostHog origins. |
-| [13] | Remove redundant `font-family` on `body`. |
-| [14] | Derive `softwareVersion` from `releaseNotes[0]`. |
+| ✅ | **[3]** Move PostHog script to end of `<body>` (removed from `<head>`, placed before `</body>`). |
+| ✅ | **[12]** Added `preconnect` hints for `us-assets.i.posthog.com` and `us.i.posthog.com`. |
+| ✅ | **[13]** Removed redundant `font-family` from `body` rule; `font-sans` class already applies it. |
+| ✅ | **[14]** `softwareVersion` now derived from `releaseNotes[0].version` at build time. |
 
 ---
 
