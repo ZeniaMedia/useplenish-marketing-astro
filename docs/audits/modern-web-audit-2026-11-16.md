@@ -20,7 +20,7 @@
   Add CSP as report-only first (Phase 2 discovery) before enforcing — the site has `is:inline` scripts and PostHog loading from an external origin that must be inventoried before enforcement.
   - **Files:** hosting headers config (new); `astro.config.mjs` (Astro dev server headers as fallback)
 
-- [ ] **[2] Add `fetchpriority="high"` and `height` to hero (LCP) image** — homepage phone mockup has `loading="eager"` but is missing `fetchpriority="high"` and the `height` attribute. Both are required: `fetchpriority` to signal LCP priority to the browser, `height` to prevent CLS.
+- [x] **[2] Add `fetchpriority="high"` and `height` to hero (LCP) image** — homepage phone mockup has `loading="eager"` but is missing `fetchpriority="high"` and the `height` attribute. Both are required: `fetchpriority` to signal LCP priority to the browser, `height` to prevent CLS.
   - **File:** [`src/pages/index.astro:95-101`](../src/pages/index.astro)
   - **Fix:** Add `fetchpriority="high" height="512"` (verify actual pixel height) to the `<img>`.
 
@@ -28,7 +28,7 @@
   - **File:** [`src/layouts/BaseLayout.astro:127-133`](../src/layouts/BaseLayout.astro)
   - **Fix:** Move snippet to end of `<body>` (add a `<slot name="body-end">` to BaseLayout) or restructure so the outer `<script>` tag carries `defer`.
 
-- [ ] **[4] Replace `onmouseover`/`onmouseout` inline event handlers** — CTA buttons on the homepage use inline `onmouseover`/`onmouseout` to toggle `style.background`. Inline handlers are an HTML anti-pattern and will break under any future CSP `script-src` policy.
+- [x] **[4] Replace `onmouseover`/`onmouseout` inline event handlers** — CTA buttons on the homepage use inline `onmouseover`/`onmouseout` to toggle `style.background`. Inline handlers are an HTML anti-pattern and will break under any future CSP `script-src` policy.
   - **File:** [`src/pages/index.astro:72-73`](../src/pages/index.astro), [`:441-442`](../src/pages/index.astro)
   - **Fix:** Replace with Tailwind hover utilities (e.g., `hover:bg-white/90`) — consistent with how hover states are handled everywhere else on the site.
 
@@ -42,7 +42,7 @@
     - [`src/pages/release-notes.astro:29`](../src/pages/release-notes.astro) — `[...releaseNotes].sort(...)`
   - **Fix:** `publishedPosts.toSorted(...)` / `releaseNotes.toSorted(...)`
 
-- [ ] **[6] Add WebP/AVIF variants and `<picture>` for homepage hero image** — `dashboard-screenshot.png` is a plain `<img>` with no WebP or AVIF variant and no responsive `srcset`/`sizes`. Blog post heroes already use `<picture>` with WebP srcset correctly.
+- [x] **[6] Add WebP/AVIF variants and `<picture>` for homepage hero image** — `dashboard-screenshot.png` is a plain `<img>` with no WebP or AVIF variant and no responsive `srcset`/`sizes`. Blog post heroes already use `<picture>` with WebP srcset correctly.
   - **File:** [`src/pages/index.astro:95-101`](../src/pages/index.astro)
   - **Fix:** Generate `dashboard-screenshot-768.webp`, `-1200.webp`, `-1600.webp`; wrap in `<picture>` with `<source type="image/webp" srcset="..." sizes="...">`.
 
@@ -141,9 +141,9 @@ All changes touch `src/pages/index.astro`.
 
 | # | Item |
 |---|------|
-| [2] | Add `fetchpriority="high"` and `height` to hero `<img>`. |
-| [4] | Replace `onmouseover`/`onmouseout` inline handlers with Tailwind hover utilities. |
-| [6] | Generate WebP/AVIF variants of `dashboard-screenshot.png` and wrap in `<picture>`. |
+| ✅ | **[2]** `fetchpriority="high"` and `height="570"` added to hero `<img>` (image is 862×1920; proportional height at display width 256px). |
+| ✅ | **[4]** Replaced `onmouseover`/`onmouseout` on all three CTA buttons with Tailwind `hover:bg-white/90` / `hover:bg-white/10`; inline `style` backgrounds moved to Tailwind classes. |
+| ✅ | **[6]** Generated `dashboard-screenshot-256.webp` (16 KB) and `dashboard-screenshot-512.webp` (41 KB) with `sharp`; hero `<img>` wrapped in `<picture>` with `<source type="image/webp">` and responsive `sizes`. |
 
 ---
 
