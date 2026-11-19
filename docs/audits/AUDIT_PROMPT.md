@@ -26,7 +26,10 @@ prompt says DATE.
 
 ## Phase 1: Coverage map
 
-5. For every guide in the catalog, decide Applies or Not applicable,
+5. Start from the previous audit's coverage map (Appendix A), if there
+   is one: re-check that each Not applicable reason still holds, and
+   fully evaluate any guide that's new or missing from it. For every
+   guide in the catalog, decide Applies or Not applicable,
    with a one-line reason. Judge by what this site does or reasonably
    should do, not just by what's in the code today.
 6. Retrieve and read every applicable guide in full. If output is saved
@@ -82,14 +85,32 @@ Save to docs/audits/modern-web-audit-DATE.md with:
   the whole file. For each item give: title, severity, status vs last
   audit (New / Returning / Fixed), Build Tool (Claude Code, Hosting /
   DNS, Google Search Console or No Code), file paths with line numbers,
-  the problem, and the fix.
+  the problem, the fix, and three more lines:
+  - Short title: 3 to 8 words, plain language, starts with a verb, no
+    em dashes (used as the Asana task name)
+  - Guides: the modern-web-guidance guide IDs this finding is based on
+    ("none" for findings from the extra angles)
+  - Verify by: how to confirm the fix worked (a command, a grep or a
+    browser check)
   Severity: High = hurts users, security or search now. Medium = real
   gap, should fix this quarter. Low = cleanup or nice to have.
 - Fixed since last audit: items from the previous audit that are now
   resolved
 - Verified clean: what was checked and found fine
-- Session plan: group items into fix sessions (Session A, B, C...) by
-  shared files and dependencies, with upgrades first and on their own
+- Session plan: group items into as few fix sessions as practical
+  (Session A, B, C...), with upgrades first.
+  Each fix session has a fixed cost (setup, reading guides, build,
+  verification, testing, commit), so combine by default. Only put items
+  in separate sessions when:
+  - the work is high risk and needs its own rollback point (framework or
+    major package upgrades, hosting or header changes)
+  - it depends on another session being done and tested first
+  - it needs a different tool (for example a Vercel dashboard step)
+  - one session would be too big to finish and verify well (roughly
+    10 to 15 items, or several large changes)
+  Put leftover Low items into one cleanup session. Aim for 3 to 5
+  sessions unless the audit is unusually large. For each session list
+  the items, why they're together, what it depends on and what to test.
 - Appendix A: the full coverage map (every guide, Applies or Not
   applicable, reason)
 - Appendix B: methodology (commands run, guides read, extra angles
