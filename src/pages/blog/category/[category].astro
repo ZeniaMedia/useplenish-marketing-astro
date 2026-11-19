@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
 import { getAllCategories, getPostsByCategory, formatDate } from '../../../data/posts';
+import { heroSrcSet } from '../../../utils/heroSrcSet';
 
 export function getStaticPaths() {
   return getAllCategories().map(({ slug, name }) => ({
@@ -36,7 +37,7 @@ const webPageJsonLd = {
   "url": canonical,
   "description": `Plenish blog posts about ${name}.`,
   "datePublished": "2026-01-01",
-  "dateModified": new Date().toISOString().slice(0, 10),
+  "dateModified": "2026-11-19",
   "isPartOf": { "@id": `${new URL(canonical).origin}/#website` },
   "primaryImageOfPage": { "@type": "ImageObject", "url": "https://useplenish.com/og-image.png" },
   "breadcrumb": { "@id": `${canonical}#breadcrumb` },
@@ -58,9 +59,9 @@ const webPageJsonLd = {
     <!-- Breadcrumb -->
     <nav aria-label="Breadcrumb" class="mb-6 text-sm text-[hsl(var(--muted-foreground))]">
       <a href="/" class="hover:text-[hsl(var(--primary))]">Home</a>
-      <span aria-hidden> / </span>
+      <span aria-hidden="true"> / </span>
       <a href="/blog" class="hover:text-[hsl(var(--primary))]">Blog</a>
-      <span aria-hidden> / </span>
+      <span aria-hidden="true"> / </span>
       <span>{name}</span>
     </nav>
 
@@ -79,12 +80,17 @@ const webPageJsonLd = {
         {matchedPosts.map((p) => (
           <article class="group flex flex-col rounded-2xl overflow-hidden border border-[hsl(var(--border))] bg-[hsl(var(--card))] hover:shadow-lg transition-shadow">
             <a href={`/blog/${p.slug}`} class="block aspect-[16/9] overflow-hidden bg-[hsl(var(--secondary))]">
-              <img
-                src={p.heroImage}
-                alt={p.heroImageAlt}
-                loading="lazy"
-                class={`w-full h-full ${p.heroFit === "contain" ? "object-contain" : "object-cover group-hover:scale-105 transition-transform duration-500"}`}
-              />
+              <picture>
+                <source type="image/webp" srcset={heroSrcSet(p.heroImage)} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
+                <img
+                  src={p.heroImage}
+                  alt={p.heroImageAlt}
+                  width={p.heroImageWidth}
+                  height={p.heroImageHeight}
+                  loading="lazy"
+                  class={`w-full h-full ${p.heroFit === "contain" ? "object-contain" : "object-cover motion-safe:group-hover:scale-105 motion-safe:transition-transform motion-safe:duration-500"}`}
+                />
+              </picture>
             </a>
             <div class="p-6 flex flex-col gap-3 flex-1">
               <span class="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--primary))] w-fit">
@@ -98,7 +104,7 @@ const webPageJsonLd = {
               <p class="text-sm text-[hsl(var(--muted-foreground))] line-clamp-3 flex-1">{p.description}</p>
               <div class="text-xs text-[hsl(var(--muted-foreground))] pt-2">
                 <time datetime={p.publishedAt}>{formatDate(p.publishedAt, { year: "numeric", month: "short", day: "numeric" })}</time>
-                <span aria-hidden> · </span>
+                <span aria-hidden="true"> · </span>
                 {p.authorName}
               </div>
             </div>

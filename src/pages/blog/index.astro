@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { getFeaturedPost, publishedPosts, formatDate, getPostUrl } from '../../data/posts';
+import { heroSrcSet } from '../../utils/heroSrcSet';
 
 const DESCRIPTION = "Nutrition tracking and meal prep guides for GLP-1 journeys, ADHD nutrition, and anyone who hates wasting food — from the team building Plenish.";
 
@@ -85,14 +86,18 @@ const webPageJsonLd = {
           <div class="mb-12">
             <article class="group grid md:grid-cols-2 gap-8 items-center rounded-3xl overflow-hidden border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 md:p-8">
               <a href={`/blog/${featured.slug}`} class="block aspect-[16/10] overflow-hidden rounded-2xl bg-[hsl(var(--secondary))]">
-                <img
-                  src={featured.heroImage}
-                  alt={featured.heroImageAlt}
-                  width={featured.heroImageWidth}
-                  height={featured.heroImageHeight}
-                  loading="eager"
-                  class={`w-full h-full ${featured.heroFit === "contain" ? "object-contain" : "object-cover group-hover:scale-105 transition-transform duration-500"}`}
-                />
+                <picture>
+                  <source type="image/webp" srcset={heroSrcSet(featured.heroImage)} sizes="(min-width: 768px) 50vw, 100vw" />
+                  <img
+                    src={featured.heroImage}
+                    alt={featured.heroImageAlt}
+                    width={featured.heroImageWidth}
+                    height={featured.heroImageHeight}
+                    loading="eager"
+                    fetchpriority="high"
+                    class={`w-full h-full ${featured.heroFit === "contain" ? "object-contain" : "object-cover motion-safe:group-hover:scale-105 motion-safe:transition-transform motion-safe:duration-500"}`}
+                  />
+                </picture>
               </a>
               <div class="flex flex-col gap-4">
                 <div class="flex items-center gap-3">
@@ -109,7 +114,7 @@ const webPageJsonLd = {
                 <p class="text-base text-[hsl(var(--muted-foreground))]">{featured.description}</p>
                 <div class="text-sm text-[hsl(var(--muted-foreground))]">
                   <time datetime={featured.publishedAt}>{formatDate(featured.publishedAt)}</time>
-                  <span aria-hidden> · </span>
+                  <span aria-hidden="true"> · </span>
                   {featured.authorName}
                 </div>
               </div>
@@ -122,14 +127,17 @@ const webPageJsonLd = {
             {rest.map((p) => (
               <article class="group flex flex-col rounded-2xl overflow-hidden border border-[hsl(var(--border))] bg-[hsl(var(--card))] hover:shadow-lg transition-shadow">
                 <a href={`/blog/${p.slug}`} class="block aspect-[16/9] overflow-hidden bg-[hsl(var(--secondary))]">
-                  <img
-                    src={p.heroImage}
-                    alt={p.heroImageAlt}
-                    width={p.heroImageWidth}
-                    height={p.heroImageHeight}
-                    loading="lazy"
-                    class={`w-full h-full ${p.heroFit === "contain" ? "object-contain" : "object-cover group-hover:scale-105 transition-transform duration-500"}`}
-                  />
+                  <picture>
+                    <source type="image/webp" srcset={heroSrcSet(p.heroImage)} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
+                    <img
+                      src={p.heroImage}
+                      alt={p.heroImageAlt}
+                      width={p.heroImageWidth}
+                      height={p.heroImageHeight}
+                      loading="lazy"
+                      class={`w-full h-full ${p.heroFit === "contain" ? "object-contain" : "object-cover motion-safe:group-hover:scale-105 motion-safe:transition-transform motion-safe:duration-500"}`}
+                    />
+                  </picture>
                 </a>
                 <div class="p-6 flex flex-col gap-3 flex-1">
                   <a href={`/blog/category/${p.categorySlug}`} class="text-xs font-semibold uppercase tracking-wide text-[hsl(var(--primary))] hover:underline w-fit">
@@ -141,7 +149,7 @@ const webPageJsonLd = {
                   <p class="text-sm text-[hsl(var(--muted-foreground))] line-clamp-3 flex-1">{p.description}</p>
                   <div class="text-xs text-[hsl(var(--muted-foreground))] pt-2">
                     <time datetime={p.publishedAt}>{formatDate(p.publishedAt, { year: "numeric", month: "short", day: "numeric" })}</time>
-                    <span aria-hidden> · </span>
+                    <span aria-hidden="true"> · </span>
                     {p.authorName}
                   </div>
                 </div>

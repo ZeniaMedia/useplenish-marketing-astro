@@ -11,7 +11,7 @@
 
 ### 🔴 High
 
-- [ ] **[1] NEW — Blog index featured image missing `fetchpriority="high"`**  
+- [x] **[1] NEW — Blog index featured image missing `fetchpriority="high"`** — Added `fetchpriority="high"` to featured `<img>` in `blog/index.astro`; also wrapped in `<picture>` with WebP source (Session M).  
   The featured post `<img>` in `blog/index.astro` (line 93) has `loading="eager"` but no `fetchpriority="high"`. This image spans roughly half the viewport above the fold and is the LCP element. Without the fetch-priority hint the browser requests it at normal network priority, delaying First Contentful Paint. The same pattern was fixed for `BlogPostLayout` in Session H — it was simply never applied to the index page. Confirmed in `dist/blog/index.html`.  
   - **File:** [`src/pages/blog/index.astro:93`](../src/pages/blog/index.astro)  
   - **Fix:** Add `fetchpriority="high"` to the featured post `<img>` tag.
@@ -20,7 +20,7 @@
 
 ### 🟡 Medium
 
-- [ ] **[2] NEW — Category and tag page `<img>` elements missing `width`/`height`**  
+- [x] **[2] NEW — Category and tag page `<img>` elements missing `width`/`height`** — Added `width={p.heroImageWidth}` and `height={p.heroImageHeight}` to card `<img>` in `[category].astro` and `[tag].astro`; also wrapped in `<picture>` (Session M).  
   The post-card `<img>` tags in `[category].astro` (lines 82–87) and `[tag].astro` (lines 84–89) have `src`, `alt`, and `loading="lazy"` but no `width` or `height`. The browser cannot reserve layout space → CLS (Core Web Vital). The `posts.ts` data type already carries `heroImageWidth` and `heroImageHeight` for every post; they're just not passed through on these two pages. The blog index grid uses them correctly as of Session I; category and tag were missed.  
   - **Files:** [`src/pages/blog/category/[category].astro:82`](../src/pages/blog/category/%5Bcategory%5D.astro), [`src/pages/blog/tag/[tag].astro:84`](../src/pages/blog/tag/%5Btag%5D.astro)  
   - **Fix:** Add `width={p.heroImageWidth}` and `height={p.heroImageHeight}` to the `<img>` tag in both files.
@@ -35,7 +35,7 @@
   - **Files:** [`vercel.json:28`](../../vercel.json), [`src/layouts/BaseLayout.astro:167`](../src/layouts/BaseLayout.astro), [`src/components/Header.astro:64`](../src/components/Header.astro), [`src/pages/faq.astro:237`](../src/pages/faq.astro)  
   - **Fix (Phase 2):** Rewrite three `is:inline` scripts as external `<script>` modules; load PostHog via `<script src="…" async>`; remove `'unsafe-inline'` from `script-src`. Keep `Content-Security-Policy-Report-Only` during migration.
 
-- [ ] **[5] NEW — Category and tag pages use `new Date()` for `dateModified`**  
+- [x] **[5] NEW — Category and tag pages use `new Date()` for `dateModified`** — Replaced with static `"2026-11-19"` in both `[category].astro` and `[tag].astro` (Session M).  
   `[category].astro` (line 39) and `[tag].astro` (line 41) set `"dateModified": new Date().toISOString().slice(0, 10)` in their `WebPage` JSON-LD. This emits whichever date the site was last built — Google treats a bouncing `dateModified` as a freshness signal, so a date that updates on every deploy misrepresents the page. The same bug was fixed in `blog/index.astro` and `release-notes.astro` in Session L; it was missed on these two pages.  
   - **Files:** [`src/pages/blog/category/[category].astro:39`](../src/pages/blog/category/%5Bcategory%5D.astro), [`src/pages/blog/tag/[tag].astro:41`](../src/pages/blog/tag/%5Btag%5D.astro)  
   - **Fix:** Replace `new Date().toISOString().slice(0, 10)` with a static date string (e.g. `"2026-11-18"`) in both files.
@@ -50,7 +50,7 @@
   - **File:** [`src/pages/faq.astro:191`](../src/pages/faq.astro)  
   - **Fix:** Replace `focus:outline-none` with `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 rounded-sm` on the `.faq-trigger` class string.
 
-- [ ] **[8] NEW — Blog listing pages serve PNG/JPG without `<picture>`/WebP srcset**  
+- [x] **[8] NEW — Blog listing pages serve PNG/JPG without `<picture>`/WebP srcset** — Created `src/utils/heroSrcSet.ts`; wrapped all card `<img>` elements in `<picture>` with WebP `<source>` in `blog/index.astro`, `[category].astro`, and `[tag].astro` (Session M).  
   `blog/index.astro`, `[category].astro`, and `[tag].astro` all render card images as plain `<img>` tags. The WebP variants (`hero-768.webp`, `hero-1200.webp`, `hero-1600.webp`) already exist in `/public/` and `BlogPostLayout.astro` already implements the full `<picture>` element with `heroBase` auto-computation (lines 16–17). Browsers always receive the heavier PNG/JPG on listing pages. Confirmed by reading `dist/blog/index.html` (featured image: 1424×752 PNG via `<img>`, no `<source>`). The `deliver-optimized-decorative-images` guide (and by extension the `performance` guide) endorses `<picture>` with `type="image/webp"` and `srcset`.  
   - **Files:** [`src/pages/blog/index.astro`](../src/pages/blog/index.astro), [`src/pages/blog/category/[category].astro`](../src/pages/blog/category/%5Bcategory%5D.astro), [`src/pages/blog/tag/[tag].astro`](../src/pages/blog/tag/%5Btag%5D.astro)  
   - **Fix:** Extract the `heroBase`/`srcSet` logic from `BlogPostLayout.astro` lines 16–17 into a shared utility (e.g., `src/utils/heroSrcSet.ts`); wrap each card `<img>` in a `<picture>` with `<source type="image/webp" srcset={heroSrcSet(p.heroImage)} sizes="(min-width: 768px) 768px, 100vw" />`. Featured image on blog/index benefits most (LCP element).
@@ -84,7 +84,7 @@
   - **File:** [`src/layouts/BaseLayout.astro`](../src/layouts/BaseLayout.astro)  
   - **Fix:** Add `<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />` inside `<head>`.
 
-- [ ] **[13] NEW — `aria-hidden` without `="true"` on separator spans (10 instances, 4 files)**  
+- [x] **[13] NEW — `aria-hidden` without `="true"` on separator spans (10 instances, 4 files)** — Changed all 10 bare `aria-hidden` to `aria-hidden="true"` across `BlogPostLayout.astro`, `blog/index.astro`, `[category].astro`, `[tag].astro` (Session M).  
   Bare `aria-hidden` (no value) is non-standard; the spec requires `aria-hidden="true"`. All 10 instances are purely decorative separators (` / ` in breadcrumbs, ` · ` in post meta). Previous audit item [7] from 2026-11-18 reported only 4 instances in `BlogPostLayout` and `blog/index`; the same pattern exists in `[category].astro` (3 instances) and `[tag].astro` (3 instances). Confirmed in built HTML.  
   - **Files:**  
     - [`src/layouts/BlogPostLayout.astro:114`](../src/layouts/BlogPostLayout.astro), [`:116`](../src/layouts/BlogPostLayout.astro) (2×)  
@@ -98,7 +98,7 @@
   - **File:** `src/pages/404.astro` (new file)  
   - **Fix:** Create `src/pages/404.astro` using `BaseLayout` with the site header/footer; include a friendly heading, a brief message, and links to Home, Blog, and FAQ.
 
-- [ ] **[15] NEW — Card hover `scale-105` transform lacks `motion-safe:` guard**  
+- [x] **[15] NEW — Card hover `scale-105` transform lacks `motion-safe:` guard** — Added `motion-safe:` prefix to `group-hover:scale-105 transition-transform duration-500` in `blog/index.astro`, `[category].astro`, and `[tag].astro` (Session M).  
   Blog post card images in `blog/index.astro` (and likely `[category].astro` / `[tag].astro`) use `group-hover:scale-105 transition-transform duration-500`. The `modern-web-guidance` motion guide states: "only dampen or disable spatial movement, scaling, rotation, or persistent animations" under reduced-motion preferences, and recommends defaulting to the static state and enabling spatial transforms only inside `@media (prefers-reduced-motion: no-preference)`. Tailwind's `motion-safe:` variant is the idiomatic way to do this.  
   - **Files:** [`src/pages/blog/index.astro`](../src/pages/blog/index.astro) (confirmed), `[category].astro` / `[tag].astro` (likely — same card pattern)  
   - **Fix:** Change `group-hover:scale-105 transition-transform duration-500` to `motion-safe:group-hover:scale-105 motion-safe:transition-transform motion-safe:duration-500`.
@@ -117,103 +117,69 @@
 
 ## Session plan
 
-> Sessions grouped by shared files and dependencies. No framework upgrades needed this cycle. Items within a session are safe to batch.
+> Sessions grouped by shared files and dependencies. No framework upgrades needed this cycle. Items within a session are safe to batch. Aim: 3–5 sessions; combine by default; only split for high-risk work, hard dependencies, or different tools.
 
 ---
 
-### Session M — Blog index (`blog/index.astro`)
-Three related fixes on the LCP/performance-critical page.
+### Session M — Blog listing pages + BlogPostLayout (6 items)
+All items touch `blog/index.astro`, `[category].astro`, `[tag].astro`, or `BlogPostLayout.astro`. Doing them together opens each file once and avoids a second pass.
 
 | Item | Change |
 |------|--------|
-| **[1]** | Add `fetchpriority="high"` to the featured post `<img>`. |
-| **[8a]** | Wrap the featured post `<img>` in `<picture>` with `<source type="image/webp" srcset="…">` using the same heroBase logic from `BlogPostLayout`. |
-| **[15a]** | Change `group-hover:scale-105 transition-transform duration-500` on card images to `motion-safe:group-hover:scale-105 motion-safe:transition-transform motion-safe:duration-500`. |
+| **[1]** | Add `fetchpriority="high"` to the featured post `<img>` in `blog/index.astro`. |
+| **[8]** | Extract `heroBase`/`srcSet` logic into `src/utils/heroSrcSet.ts`; wrap card `<img>` elements in `<picture>` with WebP `<source>` in all three listing pages. |
+| **[2]** | Add `width={p.heroImageWidth}` / `height={p.heroImageHeight}` to the card `<img>` in `[category].astro` and `[tag].astro`. |
+| **[5]** | Replace `new Date().toISOString().slice(0, 10)` with a static date string in the `dateModified` fields of both category/tag pages. |
+| **[13]** | Change all 10 bare `aria-hidden` instances to `aria-hidden="true"` across `BlogPostLayout.astro`, `blog/index.astro`, `[category].astro`, `[tag].astro`. |
+| **[15]** | Change `group-hover:scale-105 transition-transform duration-500` to `motion-safe:group-hover:scale-105 motion-safe:transition-transform motion-safe:duration-500` in all three listing pages. |
+
+**Depends on:** nothing  
+**Test:** `npm run build` passes; `dist/blog/index.html` has `fetchpriority="high"` and a `<picture>` with WebP `<source>`; category/tag card `<img>` elements have `width`/`height`; no bare `aria-hidden` in built HTML; hover scale classes include `motion-safe:`.
 
 ---
 
-### Session N — Release notes dimensions (`release-notes.astro` + `releaseNotes.ts`)
+### Session N — Sitewide layout, accessibility + dark mode (6 items)
+All items touch shared layout files (`BaseLayout.astro`, `Header.astro`) or cross-page concerns. `[6]`, `[12]`, and `[17]` all edit `BaseLayout.astro`; `[7]` and `[16]` both touch `faq.astro`; `[16]` and `[6]` both touch `Header.astro`. Doing them together avoids re-opening those files in a later session.
 
 | Item | Change |
 |------|--------|
-| **[3]** | Add optional `width`/`height` to `ReleaseEntry.heroImage` in `releaseNotes.ts`; populate the existing entry; pass them on the `<img>` in `release-notes.astro`. |
-
----
-
-### Session O — Category and tag pages (`[category].astro` + `[tag].astro`)
-Both files have the same set of issues and can be fixed together.
-
-| Item | Change |
-|------|--------|
-| **[2]** | Add `width={p.heroImageWidth}` / `height={p.heroImageHeight}` to the card `<img>` in both files. |
-| **[5]** | Replace `new Date().toISOString().slice(0, 10)` with a static date string in both `dateModified` fields. |
-| **[8b,c]** | Wrap card `<img>` elements in `<picture>` with WebP `<source>` using the same heroBase utility from Session M. |
-| **[13c,d]** | Change 6 bare `aria-hidden` instances to `aria-hidden="true"`. |
-| **[15b,c]** | Add `motion-safe:` to the card hover scale on both pages. |
-
----
-
-### Session P — FAQ accessibility (`faq.astro`)
-
-| Item | Change |
-|------|--------|
-| **[7]** | Replace `focus:outline-none` on `.faq-trigger` with `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 rounded-sm`. |
-
----
-
-### Session Q — Skip navigation + sitemap link (`Header.astro`, `BaseLayout.astro`, all page files)
-Larger change: adds `id="main-content" tabindex="-1"` to `<main>` across 9 files.
-
-| Item | Change |
-|------|--------|
-| **[6]** | Add skip link as first body element in `BaseLayout.astro` or `Header.astro`; add `id="main-content" tabindex="-1"` to `<main>` in `index.astro`, `faq.astro`, `privacy.astro`, `terms.astro`, `blog/index.astro`, `[category].astro`, `[tag].astro`, `release-notes.astro`, and `BlogPostLayout.astro`. |
+| **[6]** | Add `<a href="#main-content" class="sr-only focus:not-sr-only …">Skip to content</a>` as the first body element in `Header.astro` or `BaseLayout.astro`; add `id="main-content" tabindex="-1"` to `<main>` in all 9 page/layout files. |
 | **[12]** | Add `<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />` to `<head>` in `BaseLayout.astro`. |
+| **[17]** | Add `@media (prefers-color-scheme: dark) { :root { … } }` block to the inline `<style>` in `BaseLayout.astro`; add `color-scheme: light dark` to `:root`. |
+| **[7]** | Replace `focus:outline-none` on `.faq-trigger` in `faq.astro` with `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 rounded-sm`. |
+| **[16]** | Add `aria-hidden="true"` to all decorative `<svg>` elements in `Header.astro`, `faq.astro`, and `index.astro`. |
+| **[3]** | Add optional `width?: number` / `height?: number` to `ReleaseEntry.heroImage` in `releaseNotes.ts`; populate the existing entry; pass them on the `<img>` in `release-notes.astro`. |
+
+**Depends on:** nothing (can run before or after Session M)  
+**Test:** build passes; skip link appears on keyboard focus across pages; `dist/index.html` has `<link rel="sitemap">`; `BaseLayout.astro` inline style block has dark-mode `@media` and `color-scheme: light dark`; FAQ buttons show a visible ring on focus; decorative SVGs have `aria-hidden="true"`; release-notes hero `<img>` has `width`/`height`.
 
 ---
 
-### Session R — Small multi-file fixes (6 files)
+### Session O — Schema, metadata, cleanup + safe CSP append (5 items)
+Low-impact cleanup items plus one safe 1-line append to `vercel.json`. `[18]` is a simple CSP addition (no breaking change); it is grouped here rather than in its own session because the risk is minimal. Deploy and verify headers with `curl -I` after this session.
 
 | Item | Change |
 |------|--------|
 | **[9]** | Update `dateModified` to `"2026-11-18"` in `index.astro` and `faq.astro`. |
-| **[10]** | Update `dateModified` to `"2026-05-05"` in `privacy.astro` and `terms.astro`. |
-| **[11]** | Add `width: 1024, height: 1024` to `publisher.logo` in `blogPostingJsonLd` — `BlogPostLayout.astro`. |
-| **[13a,b]** | Change 4 bare `aria-hidden` → `aria-hidden="true"` in `BlogPostLayout.astro` and `blog/index.astro`. |
+| **[10]** | Change `dateModified` to `"2026-05-05"` in `privacy.astro` and `terms.astro`. |
+| **[11]** | Add `width: 1024, height: 1024` to the `publisher.logo` object inside `blogPostingJsonLd` in `BlogPostLayout.astro`. |
+| **[14]** | Create `src/pages/404.astro` using `BaseLayout` with header, footer, friendly heading, and links to Home, Blog, FAQ. |
+| **[18]** | Append `; object-src 'none'; base-uri 'none'` to the existing CSP value in `vercel.json`. |
+
+**Depends on:** nothing (do before Session P, which also edits `vercel.json`)  
+**Test:** build passes; `dateModified` values in built HTML match the static strings; Google Rich Results Test on a blog post shows logo dimensions; `/404` renders with site layout; `curl -I https://useplenish.com` shows `object-src 'none'` and `base-uri 'none'` in the CSP header.
 
 ---
 
-### Session S — Custom 404 page (new file)
+### Session P — CSP Phase 2: eliminate `unsafe-inline` (1 item)
+High-risk multi-file rewrite. Separated because it rewrites three `is:inline` scripts across files that Sessions M and N also touch, and it needs its own rollback point. Validate with `Content-Security-Policy-Report-Only` before switching to enforce.
 
 | Item | Change |
 |------|--------|
-| **[14]** | Create `src/pages/404.astro` using `BaseLayout` with header, footer, friendly message, and links to Home, Blog, FAQ. |
+| **[4]** | Rewrite the three `is:inline` scripts (`BaseLayout.astro`, `Header.astro`, `faq.astro`) as external `<script>` modules; load PostHog via `<script src="…" async>`; remove `'unsafe-inline'` from `script-src` in `vercel.json`. |
 
----
-
-### Session T — Dark mode support (`BaseLayout.astro`)
-
-| Item | Change |
-|------|--------|
-| **[17]** | Add `@media (prefers-color-scheme: dark) { :root { … } }` block to the inline `<style>` in `BaseLayout.astro` with dark-appropriate token values; add `color-scheme: light dark` to `:root`. |
-
----
-
-### Session U — SVG accessibility + CSP hardening (3 files + vercel.json)
-Small surgical additions; can be done as one pass.
-
-| Item | Change |
-|------|--------|
-| **[16]** | Add `aria-hidden="true"` to all decorative `<svg>` elements in `Header.astro`, `faq.astro`, and `index.astro`. |
-| **[18]** | Append `; object-src 'none'; base-uri 'none'` to the CSP value in `vercel.json`. |
-
----
-
-### Session K Phase 2 — CSP `'unsafe-inline'` elimination
-Multi-file, complex. Validate with report-only CSP before enforcing.
-
-| Item | Change |
-|------|--------|
-| **[4]** | Rewrite three `is:inline` scripts as external modules; load PostHog via `<script src async>`; remove `'unsafe-inline'` from `script-src` in `vercel.json`. Affects `BaseLayout.astro`, `Header.astro`, `faq.astro`, `vercel.json`. |
+**Depends on:** Sessions M, N, O complete (those files should be in their final state before this rewrite)  
+**Test:** deploy with `Content-Security-Policy-Report-Only` first; check PostHog console for CSP violations; once clean, switch to enforce and confirm no violations in browser console.
 
 ---
 
