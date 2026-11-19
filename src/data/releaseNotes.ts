@@ -6,7 +6,7 @@ export interface ReleaseEntry {
   showNewBadge: boolean;
   slug: string;
   shortDescription: string;
-  heroImage?: { src: string; alt: string; caption?: string };
+  heroImage?: { src: string; alt: string; caption?: string; srcSet?: string[] };
   ogImage: { src: string; alt: string };
   longDescription?: Array<{ heading: string; body: string }>;
   improvements?: Array<{ label: string; description: string }>;
@@ -26,6 +26,11 @@ export const releaseNotes: ReleaseEntry[] = [
       src: "/release-notes/release-2026-06-28-hero.png",
       alt: "Plenish mobile screens showing macro goal settings and daily nutrition summary",
       caption: "Set your targets. See your totals.",
+      srcSet: [
+        "/release-notes/release-2026-06-28-hero-768.webp 768w",
+        "/release-notes/release-2026-06-28-hero-1200.webp 1200w",
+        "/release-notes/release-2026-06-28-hero-1600.webp 1600w",
+      ],
     },
     ogImage: {
       src: "https://useplenish.com/release-notes/release-2026-06-28-hero.png",

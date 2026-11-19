@@ -26,8 +26,8 @@ const itemListJsonLd = {
   "url": canonical,
   "description": description,
   "numberOfItems": releaseNotes.length,
-  "itemListElement": [...releaseNotes]
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  "itemListElement": releaseNotes
+    .toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .map((entry, index) => ({
       "@type": "ListItem",
       "position": index + 1,
@@ -128,28 +128,26 @@ const webPageJsonLd = {
                 </p>
 
                 <!-- Hero image -->
-                {entry.heroImage && (() => {
-                  const heroBase = entry.heroImage.src.replace(/\.(png|jpe?g|webp)$/i, "");
-                  const heroSrcSet = [768, 1200, 1600].map(w => `${heroBase}-${w}.webp ${w}w`).join(", ");
-                  return (
-                    <figure class="mb-8 rounded-2xl overflow-hidden border border-[hsl(var(--border))]">
-                      <picture>
-                        <source type="image/webp" srcset={heroSrcSet} sizes="(min-width: 768px) 768px, 100vw" />
-                        <img
-                          src={entry.heroImage.src}
-                          alt={entry.heroImage.alt}
-                          class="w-full object-cover"
-                          loading="lazy"
-                        />
-                      </picture>
-                      {entry.heroImage.caption && (
-                        <figcaption class="px-4 py-2.5 text-sm text-center text-[hsl(var(--muted-foreground))] bg-[hsl(var(--muted)/0.4)]">
-                          {entry.heroImage.caption}
-                        </figcaption>
+                {entry.heroImage && (
+                  <figure class="mb-8 rounded-2xl overflow-hidden border border-[hsl(var(--border))]">
+                    <picture>
+                      {entry.heroImage.srcSet && (
+                        <source type="image/webp" srcset={entry.heroImage.srcSet.join(", ")} sizes="(min-width: 768px) 768px, 100vw" />
                       )}
-                    </figure>
-                  );
-                })()}
+                      <img
+                        src={entry.heroImage.src}
+                        alt={entry.heroImage.alt}
+                        class="w-full object-cover"
+                        loading="lazy"
+                      />
+                    </picture>
+                    {entry.heroImage.caption && (
+                      <figcaption class="px-4 py-2.5 text-sm text-center text-[hsl(var(--muted-foreground))] bg-[hsl(var(--muted)/0.4)]">
+                        {entry.heroImage.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                )}
 
                 <!-- Long description sections -->
                 {entry.longDescription && entry.longDescription.length > 0 && (

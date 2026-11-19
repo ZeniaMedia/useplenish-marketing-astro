@@ -36,7 +36,7 @@
 
 ### 🟡 Medium
 
-- [ ] **[5] Use `toSorted()` instead of `[...array].sort()`** — ES2023 `toSorted()` is Baseline Widely Available and replaces the copy-then-sort pattern.
+- [x] **[5] Use `toSorted()` instead of `[...array].sort()`** — ES2023 `toSorted()` is Baseline Widely Available and replaces the copy-then-sort pattern.
   - **Files:**
     - [`src/pages/blog/index.astro:31`](../src/pages/blog/index.astro) — `[...publishedPosts].sort(...)`
     - [`src/pages/release-notes.astro:29`](../src/pages/release-notes.astro) — `[...releaseNotes].sort(...)`
@@ -89,7 +89,7 @@
   - **File:** [`src/layouts/BaseLayout.astro:102`](../src/layouts/BaseLayout.astro)
   - **Fix:** Import `releaseNotes` and use `releaseNotes[0].id` or `.date` to derive the version at build time.
 
-- [ ] **[15] Type-safe image variant references in release notes** — the WebP srcset in the release notes page is assembled by runtime string manipulation (replacing file extensions). A missing WebP file silently returns a 404 with no build-time warning.
+- [x] **[15] Type-safe image variant references in release notes** — the WebP srcset in the release notes page is assembled by runtime string manipulation (replacing file extensions). A missing WebP file silently returns a 404 with no build-time warning.
   - **Files:** [`src/pages/release-notes.astro:132`](../src/pages/release-notes.astro), [`src/data/releaseNotes.ts`](../src/data/releaseNotes.ts)
   - **Fix:** Add typed `heroImageSrcSet` or `heroImageVariants` fields to the `releaseNotes.ts` data, so missing variants fail at the data layer rather than silently at runtime.
 
@@ -162,8 +162,8 @@ Touches data files and the release-notes page.
 
 | # | Item |
 |---|------|
-| [5] | `toSorted()` in `src/pages/release-notes.astro`. |
-| [15] | Add typed image variant fields to `src/data/releaseNotes.ts`; update `src/pages/release-notes.astro` to consume them. |
+| ✅ | **[5]** `releaseNotes.toSorted(...)` replaces `[...releaseNotes].sort(...)` in `itemListJsonLd`. |
+| ✅ | **[15]** Added optional `srcSet?: string[]` to `heroImage` in `ReleaseEntry`; populated for 2026-06-28 entry; page now reads `entry.heroImage.srcSet` directly instead of runtime string-replace. |
 
 ---
 
