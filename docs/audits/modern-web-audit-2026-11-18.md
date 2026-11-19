@@ -31,7 +31,7 @@
   - **File:** [`src/layouts/BlogPostLayout.astro:43-46`](../src/layouts/BlogPostLayout.astro)
   - **Fix:** Replace `width: 1600, height: 900` with `width: post.heroImageWidth, height: post.heroImageHeight`.
 
-- [ ] **[5] NEW — `Permissions-Policy` header not set** — The minimum recommended security header set in audit item [1] included `Permissions-Policy` to restrict access to browser APIs (camera, microphone, geolocation, payment). The Session B fix added the other five headers but left `Permissions-Policy` out of `vercel.json`. Without it, the browser applies permissive defaults.
+- [x] **[5] NEW — `Permissions-Policy` header not set** — The minimum recommended security header set in audit item [1] included `Permissions-Policy` to restrict access to browser APIs (camera, microphone, geolocation, payment). The Session B fix added the other five headers but left `Permissions-Policy` out of `vercel.json`. Without it, the browser applies permissive defaults.
   - **File:** [`vercel.json`](../../vercel.json)
   - **Fix:** Add a `Permissions-Policy` header to the global headers block:
     ```
@@ -46,7 +46,7 @@
 
 ### 🟢 Low
 
-- [ ] **[7] NEW — HSTS header missing `includeSubDomains`** — `vercel.json` sets `Strict-Transport-Security: max-age=31536000` without `includeSubDomains`. The Session B fix description referenced `max-age=31536000; includeSubDomains` but the directive was written without it. Without `includeSubDomains`, any subdomains (e.g. `app.useplenish.com`) are not forced onto HTTPS by the main site's HSTS policy.
+- [x] **[7] NEW — HSTS header missing `includeSubDomains`** — `vercel.json` sets `Strict-Transport-Security: max-age=31536000` without `includeSubDomains`. The Session B fix description referenced `max-age=31536000; includeSubDomains` but the directive was written without it. Without `includeSubDomains`, any subdomains (e.g. `app.useplenish.com`) are not forced onto HTTPS by the main site's HSTS policy.
   - **File:** [`vercel.json:19`](../../vercel.json)
   - **Fix:** Update the value to `max-age=31536000; includeSubDomains`. (Add `; preload` only after submitting the domain to the HSTS preload list.)
 
@@ -103,8 +103,8 @@ Hosting config changes; no Astro component edits for items [5] and [7].
 
 | # | Item |
 |---|------|
-| [ ] | **[5]** Add `Permissions-Policy` header to `vercel.json`. |
-| [ ] | **[7]** Add `includeSubDomains` to HSTS value in `vercel.json`. |
+| [x] | **[5]** Add `Permissions-Policy` header to `vercel.json`. |
+| [x] | **[7]** Add `includeSubDomains` to HSTS value in `vercel.json`. |
 | [ ] | **[6]** (Phase 2) Eliminate `'unsafe-inline'` from `script-src` — requires rewriting `is:inline` scripts as external modules. Do last; validate with report-only CSP before enforcing. |
 
 ---
