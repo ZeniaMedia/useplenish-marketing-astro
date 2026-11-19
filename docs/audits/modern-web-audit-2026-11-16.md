@@ -46,7 +46,7 @@
   - **File:** [`src/pages/index.astro:95-101`](../src/pages/index.astro)
   - **Fix:** Generate `dashboard-screenshot-768.webp`, `-1200.webp`, `-1600.webp`; wrap in `<picture>` with `<source type="image/webp" srcset="..." sizes="...">`.
 
-- [ ] **[7] Verify blog hero `width`/`height` match actual image proportions** — the layout declares `width="1600" height="900"` on all blog hero fallback `<img>` tags. The GLP-1 chart hero uses `heroFit: "contain"` with a 16/9 wrapper; if the actual image isn't 16:9, the declared dimensions cause minor CLS.
+- [x] **[7] Verify blog hero `width`/`height` match actual image proportions** — the layout declares `width="1600" height="900"` on all blog hero fallback `<img>` tags. The GLP-1 chart hero uses `heroFit: "contain"` with a 16/9 wrapper; if the actual image isn't 16:9, the declared dimensions cause minor CLS.
   - **File:** [`src/layouts/BlogPostLayout.astro:141-148`](../src/layouts/BlogPostLayout.astro)
   - **Fix:** Confirm actual pixel dimensions of each hero image and update the data or layout accordingly.
 
@@ -54,7 +54,7 @@
   - **File:** [`tailwind.config.mjs:9`](../tailwind.config.mjs)
   - **Fix:** Replace pattern with the specific classes actually used (e.g., `'prose-lg'`, `'prose-green'`).
 
-- [ ] **[9] Fix `datePublished` to full ISO 8601 dates** — `"datePublished": "2026"` is not valid ISO 8601; Schema.org / Google's rich result parser expects `YYYY-MM-DD`.
+- [x] **[9] Fix `datePublished` to full ISO 8601 dates** — `"datePublished": "2026"` is not valid ISO 8601; Schema.org / Google's rich result parser expects `YYYY-MM-DD`.
   - **Files:**
     - [`src/pages/index.astro:21`](../src/pages/index.astro)
     - [`src/pages/blog/index.astro:47`](../src/pages/blog/index.astro)
@@ -172,7 +172,9 @@ Touches blog pages and schema metadata.
 
 | # | Item |
 |---|------|
-| [5] | `toSorted()` in `src/pages/blog/index.astro`. |
-| [7] | Verify hero image dimensions in `BlogPostLayout.astro`. |
-| [8] | Narrow Tailwind `safelist` in `tailwind.config.mjs` (skip if Tailwind 4 upgrade already resolved). |
-| [9] | Fix `datePublished` bare-year strings in `index.astro`, `blog/index.astro`, `release-notes.astro`. |
+| ✅ | **[5]** `publishedPosts.toSorted(...)` replaces `[...publishedPosts].sort(...)` in `blog/index.astro`. |
+| ✅ | **[7]** Both blog hero images are ~1.89:1 (not exact 16:9): `adhd-food-tracking/hero.jpg` 1600×845, `glp1-weekly-tracking/hero.png` 1424×752. The CSS `aspect-[16/9]` class controls the displayed container, so CLS is minimal. The GLP-1 chart (`heroFit: "contain"`) shows letterboxing but no layout shift. Declared `width="1600" height="900"` left unchanged — a per-post intrinsic-size override is a low-priority follow-up (see note below). |
+| ✅ | **[8]** Resolved by Session A (Tailwind 4 upgrade removed `tailwind.config.mjs`). |
+| ✅ | **[9]** `datePublished` updated to full ISO 8601 dates: `index.astro` → `"2026-01-01"`, `blog/index.astro` → `"2026-05-14"` (earliest post), `release-notes.astro` → `"2026-04-08"` (earliest release). |
+
+> ⚠️ [7] follow-up: for exact CLS elimination on the GLP-1 `heroFit: "contain"` post, add per-post `heroImageWidth`/`heroImageHeight` fields to `posts.ts` and pass them through `BlogPostLayout.astro`. Low priority while `aspect-[16/9]` CSS is in place.
