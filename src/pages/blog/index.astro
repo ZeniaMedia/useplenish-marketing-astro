@@ -88,6 +88,8 @@ const webPageJsonLd = {
                 <img
                   src={featured.heroImage}
                   alt={featured.heroImageAlt}
+                  width={featured.heroImageWidth}
+                  height={featured.heroImageHeight}
                   loading="eager"
                   class={`w-full h-full ${featured.heroFit === "contain" ? "object-contain" : "object-cover group-hover:scale-105 transition-transform duration-500"}`}
                 />
@@ -123,6 +125,8 @@ const webPageJsonLd = {
                   <img
                     src={p.heroImage}
                     alt={p.heroImageAlt}
+                    width={p.heroImageWidth}
+                    height={p.heroImageHeight}
                     loading="lazy"
                     class={`w-full h-full ${p.heroFit === "contain" ? "object-contain" : "object-cover group-hover:scale-105 transition-transform duration-500"}`}
                   />

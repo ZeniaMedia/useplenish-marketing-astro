@@ -23,7 +23,7 @@
   - **File:** [`src/pages/faq.astro:224`](../src/pages/faq.astro)
   - **Fix:** Remove the inline handlers; replace the `style` background with a Tailwind class and add `hover:bg-[hsl(142_76%_30%)]`.
 
-- [ ] **[3] NEW — Blog index hero images missing `width`/`height` attributes** — Both the featured post `<img>` (line 91) and the grid post `<img>` (line 124) in `blog/index.astro` have no `width` or `height` attributes. The `Post` type gained `heroImageWidth`/`heroImageHeight` in Session G but `blog/index.astro` never started using them. The browser cannot reserve aspect-ratio space and will shift layout as images load (CLS).
+- [x] **[3] NEW — Blog index hero images missing `width`/`height` attributes** — Both the featured post `<img>` (line 91) and the grid post `<img>` (line 124) in `blog/index.astro` have no `width` or `height` attributes. The `Post` type gained `heroImageWidth`/`heroImageHeight` in Session G but `blog/index.astro` never started using them. The browser cannot reserve aspect-ratio space and will shift layout as images load (CLS).
   - **File:** [`src/pages/blog/index.astro:91`](../src/pages/blog/index.astro), [`:124`](../src/pages/blog/index.astro)
   - **Fix:** Add `width={featured.heroImageWidth} height={featured.heroImageHeight}` to the featured post `<img>` and `width={p.heroImageWidth} height={p.heroImageHeight}` to the grid post `<img>`.
 
@@ -85,7 +85,7 @@ All changes touch `src/pages/blog/index.astro`.
 
 | # | Item |
 |---|------|
-| [ ] | **[3]** Add `width`/`height` from post data to both the featured post `<img>` and grid post `<img>`. |
+| [x] | **[3]** Add `width`/`height` from post data to both the featured post `<img>` and grid post `<img>`. |
 
 ---
 
