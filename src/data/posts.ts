@@ -9,6 +9,8 @@ export interface Post {
   readingTime: number;
   heroImage: string;
   heroImageAlt: string;
+  heroImageWidth: number;
+  heroImageHeight: number;
   heroFit: "contain" | "cover";
   ogImage: string;
   tags: string[];
@@ -37,6 +39,8 @@ export const posts: Post[] = [
     readingTime: 6,
     heroImage: "/blog/glp1-weekly-tracking/hero.png",
     heroImageAlt: "Bar chart titled 'Consistency beats perfection' showing daily nutrition varying across Mon through Sun with a dashed weekly goal line marked On Track",
+    heroImageWidth: 1424,
+    heroImageHeight: 752,
     heroFit: "contain",
     ogImage: "https://useplenish.com/blog/glp1-weekly-tracking/og.png",
     tags: ["glp1", "nutrition tracking", "weekly goals", "semaglutide", "protein", "fiber"],
@@ -62,6 +66,8 @@ export const posts: Post[] = [
     readingTime: 6,
     heroImage: "/blog/adhd-food-tracking/hero.jpg",
     heroImageAlt: "Abstract illustration showing scattered numbers and food icons on the left transitioning through an orange dot to calm open space on the right, representing mental clarity around food tracking",
+    heroImageWidth: 1600,
+    heroImageHeight: 845,
     heroFit: "cover",
     ogImage: "https://useplenish.com/blog/adhd-food-tracking/og.jpg",
     tags: ["adhd", "food-tracking", "food-noise", "hyperfixation", "meal-planning", "nutrition", "executive-function"],

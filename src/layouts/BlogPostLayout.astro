@@ -142,8 +142,8 @@ const breadcrumbJsonLd = {
         <img
           src={post.heroImage}
           alt={post.heroImageAlt}
-          width="1600"
-          height="900"
+          width={post.heroImageWidth}
+          height={post.heroImageHeight}
           loading="eager"
           class={`w-full aspect-[16/9] rounded-2xl mb-10 bg-[hsl(var(--secondary))] ${post.heroFit === "contain" ? "object-contain" : "object-cover"}`}
         />

@@ -173,8 +173,7 @@ Touches blog pages and schema metadata.
 | # | Item |
 |---|------|
 | ✅ | **[5]** `publishedPosts.toSorted(...)` replaces `[...publishedPosts].sort(...)` in `blog/index.astro`. |
-| ✅ | **[7]** Both blog hero images are ~1.89:1 (not exact 16:9): `adhd-food-tracking/hero.jpg` 1600×845, `glp1-weekly-tracking/hero.png` 1424×752. The CSS `aspect-[16/9]` class controls the displayed container, so CLS is minimal. The GLP-1 chart (`heroFit: "contain"`) shows letterboxing but no layout shift. Declared `width="1600" height="900"` left unchanged — a per-post intrinsic-size override is a low-priority follow-up (see note below). |
+| ✅ | **[7]** Both blog hero images are ~1.89:1 (not exact 16:9): `adhd-food-tracking/hero.jpg` 1600×845, `glp1-weekly-tracking/hero.png` 1424×752. Added `heroImageWidth`/`heroImageHeight` fields to `Post` interface and both post entries in `posts.ts`; `BlogPostLayout.astro` now uses `post.heroImageWidth`/`post.heroImageHeight` instead of the hardcoded `1600`/`900`. |
 | ✅ | **[8]** Resolved by Session A (Tailwind 4 upgrade removed `tailwind.config.mjs`). |
 | ✅ | **[9]** `datePublished` updated to full ISO 8601 dates: `index.astro` → `"2026-01-01"`, `blog/index.astro` → `"2026-05-14"` (earliest post), `release-notes.astro` → `"2026-04-08"` (earliest release). |
 
-> ⚠️ [7] follow-up: for exact CLS elimination on the GLP-1 `heroFit: "contain"` post, add per-post `heroImageWidth`/`heroImageHeight` fields to `posts.ts` and pass them through `BlogPostLayout.astro`. Low priority while `aspect-[16/9]` CSS is in place.
