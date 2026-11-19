@@ -11,7 +11,7 @@
 
 ### 🔴 High
 
-- [ ] **[1] NEW — Blog post hero `<img>` missing `fetchpriority="high"`** — `BlogPostLayout.astro` applies `loading="eager"` to the hero image (the page's LCP element) but omits `fetchpriority="high"`. Session D fixed the homepage phone mockup but left blog post heroes unfixed. Without the hint, the browser fetches the LCP image at normal network priority, delaying First Contentful Paint on every blog post.
+- [x] **[1] NEW — Blog post hero `<img>` missing `fetchpriority="high"`** — `BlogPostLayout.astro` applies `loading="eager"` to the hero image (the page's LCP element) but omits `fetchpriority="high"`. Session D fixed the homepage phone mockup but left blog post heroes unfixed. Without the hint, the browser fetches the LCP image at normal network priority, delaying First Contentful Paint on every blog post.
   - **File:** [`src/layouts/BlogPostLayout.astro:147`](../src/layouts/BlogPostLayout.astro)
   - **Fix:** Add `fetchpriority="high"` to the `<img>` tag inside the `<picture>` block.
 
@@ -27,7 +27,7 @@
   - **File:** [`src/pages/blog/index.astro:91`](../src/pages/blog/index.astro), [`:124`](../src/pages/blog/index.astro)
   - **Fix:** Add `width={featured.heroImageWidth} height={featured.heroImageHeight}` to the featured post `<img>` and `width={p.heroImageWidth} height={p.heroImageHeight}` to the grid post `<img>`.
 
-- [ ] **[4] NEW — `BlogPostLayout` `ImageObject` schema uses hardcoded `1600 × 900`** — The `BlogPosting` JSON-LD in `BlogPostLayout.astro` declares `"width": 1600, "height": 900` on the `ImageObject` for every post. Session G added actual pixel dimensions to `posts.ts` (`heroImageWidth`/`heroImageHeight`), but the schema was never updated to use them. The GLP-1 post hero is 1424 × 752 and the ADHD post is 1600 × 845 — neither is 1600 × 900. Incorrect dimensions in the schema can affect Google's rich result scoring.
+- [x] **[4] NEW — `BlogPostLayout` `ImageObject` schema uses hardcoded `1600 × 900`** — The `BlogPosting` JSON-LD in `BlogPostLayout.astro` declares `"width": 1600, "height": 900` on the `ImageObject` for every post. Session G added actual pixel dimensions to `posts.ts` (`heroImageWidth`/`heroImageHeight`), but the schema was never updated to use them. The GLP-1 post hero is 1424 × 752 and the ADHD post is 1600 × 845 — neither is 1600 × 900. Incorrect dimensions in the schema can affect Google's rich result scoring.
   - **File:** [`src/layouts/BlogPostLayout.astro:43-46`](../src/layouts/BlogPostLayout.astro)
   - **Fix:** Replace `width: 1600, height: 900` with `width: post.heroImageWidth, height: post.heroImageHeight`.
 
@@ -75,8 +75,8 @@ All changes touch `src/layouts/BlogPostLayout.astro`.
 
 | # | Item |
 |---|------|
-| [ ] | **[1]** Add `fetchpriority="high"` to the hero `<img>` tag. |
-| [ ] | **[4]** Replace hardcoded `width: 1600, height: 900` in `ImageObject` with `post.heroImageWidth` / `post.heroImageHeight`. |
+| [x] | **[1]** Add `fetchpriority="high"` to the hero `<img>` tag. |
+| [x] | **[4]** Replace hardcoded `width: 1600, height: 900` in `ImageObject` with `post.heroImageWidth` / `post.heroImageHeight`. |
 
 ---
 
