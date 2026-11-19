@@ -19,7 +19,7 @@
 
 ### 🟡 Medium
 
-- [ ] **[2] RETURNING — FAQ page `onmouseover`/`onmouseout` inline event handlers** — The email CTA at the bottom of the FAQ page uses `onmouseover`/`onmouseout` to toggle `style.background`. This is the same pattern fixed on the homepage in Session D (old item [4]), but it survived on the FAQ page. Because the enforced CSP now has `'unsafe-inline'` in `script-src` these handlers still execute today, but they are semantic dead-weight under any future hash/nonce-based CSP tightening and are inconsistent with how every other interactive element on the site handles hover.
+- [x] **[2] RETURNING — FAQ page `onmouseover`/`onmouseout` inline event handlers** — The email CTA at the bottom of the FAQ page uses `onmouseover`/`onmouseout` to toggle `style.background`. This is the same pattern fixed on the homepage in Session D (old item [4]), but it survived on the FAQ page. Because the enforced CSP now has `'unsafe-inline'` in `script-src` these handlers still execute today, but they are semantic dead-weight under any future hash/nonce-based CSP tightening and are inconsistent with how every other interactive element on the site handles hover.
   - **File:** [`src/pages/faq.astro:224`](../src/pages/faq.astro)
   - **Fix:** Remove the inline handlers; replace the `style` background with a Tailwind class and add `hover:bg-[hsl(142_76%_30%)]`.
 
@@ -94,7 +94,7 @@ All changes touch `src/pages/faq.astro`.
 
 | # | Item |
 |---|------|
-| [ ] | **[2]** Replace `onmouseover`/`onmouseout` on the email CTA with Tailwind `hover:bg-[hsl(142_76%_30%)]`. |
+| [x] | **[2]** Replace `onmouseover`/`onmouseout` on the email CTA with Tailwind `hover:bg-[hsl(142_76%_30%)]`. |
 
 ---
 
