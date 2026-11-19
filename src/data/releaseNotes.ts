@@ -6,7 +6,7 @@ export interface ReleaseEntry {
   showNewBadge: boolean;
   slug: string;
   shortDescription: string;
-  heroImage?: { src: string; alt: string; caption?: string; srcSet?: string[] };
+  heroImage?: { src: string; alt: string; caption?: string; srcSet?: string[]; width?: number; height?: number };
   ogImage: { src: string; alt: string };
   longDescription?: Array<{ heading: string; body: string }>;
   improvements?: Array<{ label: string; description: string }>;
@@ -31,6 +31,8 @@ export const releaseNotes: ReleaseEntry[] = [
         "/release-notes/release-2026-06-28-hero-1200.webp 1200w",
         "/release-notes/release-2026-06-28-hero-1600.webp 1600w",
       ],
+      width: 1424,
+      height: 752,
     },
     ogImage: {
       src: "https://useplenish.com/release-notes/release-2026-06-28-hero.png",

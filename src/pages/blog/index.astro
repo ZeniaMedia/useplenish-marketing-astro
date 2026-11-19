@@ -72,7 +72,7 @@ const webPageJsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(itemListJsonLd)} slot="head" />
   <Header />
 
-  <main class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-6xl">
+  <main id="main-content" tabindex="-1" class="container mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 max-w-6xl">
     <div class="max-w-3xl mb-10">
       <h1 class="text-4xl md:text-5xl font-bold text-[hsl(var(--foreground))] mb-4">The Plenish Blog</h1>
       <p class="text-lg text-[hsl(var(--muted-foreground))]">{DESCRIPTION}</p>

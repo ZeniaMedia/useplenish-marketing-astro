@@ -25,7 +25,7 @@
   - **Files:** [`src/pages/blog/category/[category].astro:82`](../src/pages/blog/category/%5Bcategory%5D.astro), [`src/pages/blog/tag/[tag].astro:84`](../src/pages/blog/tag/%5Btag%5D.astro)  
   - **Fix:** Add `width={p.heroImageWidth}` and `height={p.heroImageHeight}` to the `<img>` tag in both files.
 
-- [ ] **[3] NEW — Release notes hero `<img>` missing `width`/`height`**  
+- [x] **[3] NEW — Release notes hero `<img>` missing `width`/`height`** — Added `width?: number; height?: number` to `ReleaseEntry.heroImage` in `releaseNotes.ts`; set `width: 1424, height: 752` on the entry; added attrs to `<img>` in `release-notes.astro` (Session N).  
   `release-notes.astro` renders a hero `<img>` for each release entry (lines 138–141) with no `width` or `height`. The `ReleaseEntry.heroImage` type in `releaseNotes.ts` only has `src`, `alt`, `caption`, and `srcSet`; dimension fields do not exist. Currently one entry has a hero image.  
   - **Files:** [`src/pages/release-notes.astro:138`](../src/pages/release-notes.astro), [`src/data/releaseNotes.ts`](../src/data/releaseNotes.ts)  
   - **Fix:** Add optional `width?: number` and `height?: number` to `ReleaseEntry.heroImage` in `releaseNotes.ts`; populate the existing entry; add `width={entry.heroImage.width}` / `height={entry.heroImage.height}` on the `<img>`.
@@ -40,12 +40,12 @@
   - **Files:** [`src/pages/blog/category/[category].astro:39`](../src/pages/blog/category/%5Bcategory%5D.astro), [`src/pages/blog/tag/[tag].astro:41`](../src/pages/blog/tag/%5Btag%5D.astro)  
   - **Fix:** Replace `new Date().toISOString().slice(0, 10)` with a static date string (e.g. `"2026-11-18"`) in both files.
 
-- [ ] **[6] NEW — No skip-navigation link (WCAG 2.4.1 Level A)**  
+- [x] **[6] NEW — No skip-navigation link (WCAG 2.4.1 Level A)** — Added skip link as first element of `<header>` in `Header.astro`; added `id="main-content" tabindex="-1"` to `<main>` in all 9 page/layout files (Session N).  
   Neither `Header.astro` nor `BaseLayout.astro` includes a skip-to-main-content link. Users navigating by keyboard must tab through the entire fixed navigation bar on every page. No `<main>` element in any page has an `id` to target such a link. Confirmed by `modern-web-guidance` accessibility guide (§1 Skip links: "Provide skip links prior to repeated content like site headers … WCAG 2.4.1 Bypass Blocks Level A") and by reading all 23 built HTML files.  
   - **Files:** [`src/components/Header.astro`](../src/components/Header.astro) (add link), all 9 page/layout files with `<main>` (add `id="main-content"` and `tabindex="-1"`)  
   - **Fix:** Add `<a href="#main-content" class="sr-only focus:not-sr-only ...">Skip to content</a>` as the first element in `<body>` (or first element of `Header.astro`); add `id="main-content" tabindex="-1"` to the `<main>` in every page file. The `tabindex="-1"` fixes screen-magnifier focus per the guide.
 
-- [ ] **[7] NEW — FAQ accordion buttons have `focus:outline-none` with no ring replacement**  
+- [x] **[7] NEW — FAQ accordion buttons have `focus:outline-none` with no ring replacement** — Replaced `focus:outline-none` with `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 rounded-sm` on `.faq-trigger` in `faq.astro` (Session N).  
   Every FAQ trigger button in `faq.astro` (line 191) carries `focus:outline-none` with no `focus-visible:ring-*` alternative. This removes the browser's default focus indicator for keyboard users without substituting another. The `modern-web-guidance` accessibility guide states: "Never set `outline: none` or `outline: 0` on a focusable element without replacing it with a visible custom focus indicator."  
   - **File:** [`src/pages/faq.astro:191`](../src/pages/faq.astro)  
   - **Fix:** Replace `focus:outline-none` with `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 rounded-sm` on the `.faq-trigger` class string.
@@ -55,7 +55,7 @@
   - **Files:** [`src/pages/blog/index.astro`](../src/pages/blog/index.astro), [`src/pages/blog/category/[category].astro`](../src/pages/blog/category/%5Bcategory%5D.astro), [`src/pages/blog/tag/[tag].astro`](../src/pages/blog/tag/%5Btag%5D.astro)  
   - **Fix:** Extract the `heroBase`/`srcSet` logic from `BlogPostLayout.astro` lines 16–17 into a shared utility (e.g., `src/utils/heroSrcSet.ts`); wrap each card `<img>` in a `<picture>` with `<source type="image/webp" srcset={heroSrcSet(p.heroImage)} sizes="(min-width: 768px) 768px, 100vw" />`. Featured image on blog/index benefits most (LCP element).
 
-- [ ] **[17] NEW — No dark mode support (`prefers-color-scheme: dark`)**  
+- [x] **[17] NEW — No dark mode support (`prefers-color-scheme: dark`)** — Added `<meta name="color-scheme" content="light dark">` to `<head>`; added `color-scheme: light dark` to `:root`; added `@media (prefers-color-scheme: dark)` block with dark token overrides in `BaseLayout.astro` (Session N).  
   `BaseLayout.astro` defines all CSS custom properties in a single `:root` block with no `@media (prefers-color-scheme: dark)` variant. There is no `color-scheme` CSS property set on `body` or `:root`. Users who have enabled dark mode at the OS level see a bright white background and deep green text (#1a3d1a equivalent) regardless. The `color` guide states: "Support light and dark color schemes: Honor `@media (prefers-color-scheme: dark)` and pair it with the `color-scheme` CSS property so form controls, scrollbars, and other UA-rendered surfaces match." Confirmed: no instance of `prefers-color-scheme` or `color-scheme` exists anywhere in the codebase.  
   - **File:** [`src/layouts/BaseLayout.astro:133`](../src/layouts/BaseLayout.astro) (inline `<style>` block)  
   - **Fix:** Add a `@media (prefers-color-scheme: dark)` block to the inline `<style>` in `BaseLayout.astro` redefining the custom properties with dark-appropriate values; add `color-scheme: light dark` to `:root`.
@@ -79,7 +79,7 @@
   - **File:** [`src/layouts/BlogPostLayout.astro:50`](../src/layouts/BlogPostLayout.astro)  
   - **Fix:** Add `width: 1024, height: 1024` to the `publisher.logo` object inside `blogPostingJsonLd`.
 
-- [ ] **[12] NEW — No `<link rel="sitemap">` in `<head>`**  
+- [x] **[12] NEW — No `<link rel="sitemap">` in `<head>`** — Added `<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />` to `<head>` in `BaseLayout.astro` (Session N).  
   `BaseLayout.astro` does not include a `<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />` tag. The sitemap is generated correctly by `@astrojs/sitemap` and `robots.txt` already references it at `https://useplenish.com/sitemap-index.xml`. Adding the in-`<head>` hint improves crawler discoverability across all search engines without waiting for a manual Search Console submission. Confirmed absent in all 23 built HTML files.  
   - **File:** [`src/layouts/BaseLayout.astro`](../src/layouts/BaseLayout.astro)  
   - **Fix:** Add `<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />` inside `<head>`.
@@ -103,7 +103,7 @@
   - **Files:** [`src/pages/blog/index.astro`](../src/pages/blog/index.astro) (confirmed), `[category].astro` / `[tag].astro` (likely — same card pattern)  
   - **Fix:** Change `group-hover:scale-105 transition-transform duration-500` to `motion-safe:group-hover:scale-105 motion-safe:transition-transform motion-safe:duration-500`.
 
-- [ ] **[16] NEW — Decorative inline SVGs missing `aria-hidden="true"`**  
+- [x] **[16] NEW — Decorative inline SVGs missing `aria-hidden="true"`** — Added `aria-hidden="true"` to 2 SVGs in `Header.astro`, 3 in `faq.astro`, and 17 in `index.astro` (ArrowRight ×2, feature/built-for ×9, how-it-works ×3, planning ×3) (Session N).  
   Multiple decorative `<svg>` elements are used as pure visual icons inside already-labelled interactive elements or as content decoration, but none carry `aria-hidden="true"`. The `accessibility` guide states: "Do hide decorative SVGs from assistive technologies: Apply `aria-hidden="true"` to decorative `<svg>` elements." Key instances: (a) `Header.astro` lines 39, 42 — hamburger/close icons inside `<button aria-label="Toggle menu">`, the button already has an accessible name so the SVGs are purely visual; (b) `faq.astro` line 146 (search magnifier inside search `<div>`), line 194 (chevron inside accordion button with text), line 223 (envelope inside `<a>` with text); (c) `index.astro` line 73 and 446 (ArrowRight icons inside `<a>Get Started</a>` links), and all feature/step/benefit icon SVGs (lines 135, 150, 165, 179, 198, 215, 243, 255, 271, 302, 322, 338, 373, 394, 409) which are decorative illustrations for nearby heading+body text.  
   - **Files:** [`src/components/Header.astro:39`](../src/components/Header.astro), [`src/pages/faq.astro:146`](../src/pages/faq.astro), [`src/pages/index.astro:73`](../src/pages/index.astro) (and several more lines in each file — see description above)  
   - **Fix:** Add `aria-hidden="true"` to each decorative `<svg>` element listed above.

@@ -31,6 +31,7 @@ const siteUrl = Astro.site?.href ?? 'https://useplenish.com/';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -122,6 +123,7 @@ const siteUrl = Astro.site?.href ?? 'https://useplenish.com/';
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/favicon-192.png" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
     <!-- PostHog preconnect hints -->
     <link rel="preconnect" href="https://us-assets.i.posthog.com" />
@@ -148,6 +150,27 @@ const siteUrl = Astro.site?.href ?? 'https://useplenish.com/';
         --input: 142 20% 90%;
         --ring: 142 76% 36%;
         --radius: 0.75rem;
+        color-scheme: light dark;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --background: 142 20% 7%;
+          --foreground: 142 15% 90%;
+          --card: 142 20% 11%;
+          --card-foreground: 142 15% 90%;
+          --primary: 142 71% 45%;
+          --primary-foreground: 0 0% 100%;
+          --secondary: 142 25% 14%;
+          --secondary-foreground: 142 15% 90%;
+          --muted: 142 15% 12%;
+          --muted-foreground: 142 15% 55%;
+          --accent: 32 95% 50%;
+          --accent-foreground: 0 0% 100%;
+          --border: 142 15% 20%;
+          --input: 142 15% 20%;
+          --ring: 142 71% 45%;
+        }
       }
 
       *, *::before, *::after { box-sizing: border-box; }
