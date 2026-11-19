@@ -43,7 +43,7 @@ const webPageJsonLd = {
   "url": canonical,
   "description": description,
   "datePublished": "2026-04-08",
-  "dateModified": new Date().toISOString().slice(0, 10),
+  "dateModified": releaseNotes.toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0].date,
   "isPartOf": { "@id": `${new URL(canonical).origin}/#website` },
   "primaryImageOfPage": {
     "@type": "ImageObject",
@@ -66,15 +66,15 @@ const webPageJsonLd = {
 
   <Header />
 
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
   <!-- Page hero -->
-  <div class="pt-24 pb-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="pt-24 pb-10">
     <p class="text-sm font-semibold text-[hsl(var(--primary))] mb-2 uppercase tracking-wide">Release Notes</p>
     <h1 class="text-4xl sm:text-5xl font-bold text-[hsl(var(--foreground))] mb-4">What's New</h1>
     <p class="text-lg text-[hsl(var(--muted-foreground))]">Every update, in one place.</p>
   </div>
 
   <!-- Timeline -->
-  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
     <div class="relative">
       <!-- Desktop vertical line -->
       <div class="hidden lg:block absolute top-2 bottom-0 w-0.5 bg-[hsl(var(--primary)/0.25)] left-[152px]"></div>

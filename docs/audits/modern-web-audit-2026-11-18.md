@@ -50,15 +50,15 @@
   - **File:** [`vercel.json:19`](../../vercel.json)
   - **Fix:** Update the value to `max-age=31536000; includeSubDomains`. (Add `; preload` only after submitting the domain to the HSTS preload list.)
 
-- [ ] **[8] NEW — `Organization` schema `logo` is a plain URL string** — `BaseLayout.astro:63` sets `"logo": "https://useplenish.com/plenish-logo.png"` as a bare string. Google's structured data guidelines and Schema.org spec expect `logo` to be an `ImageObject` with `url`, `width`, and `height` for rich result eligibility. The site already uses `ImageObject` correctly for publisher logos in `BlogPostLayout`.
+- [x] **[8] NEW — `Organization` schema `logo` is a plain URL string** — `BaseLayout.astro:63` sets `"logo": "https://useplenish.com/plenish-logo.png"` as a bare string. Google's structured data guidelines and Schema.org spec expect `logo` to be an `ImageObject` with `url`, `width`, and `height` for rich result eligibility. The site already uses `ImageObject` correctly for publisher logos in `BlogPostLayout`.
   - **File:** [`src/layouts/BaseLayout.astro:63`](../src/layouts/BaseLayout.astro)
   - **Fix:** Replace the string with `{ "@type": "ImageObject", "url": "https://useplenish.com/plenish-logo.png", "width": 40, "height": 40 }` (verify actual pixel dimensions of `plenish-logo.png`).
 
-- [ ] **[9] NEW — Release-notes page `<h1>` is outside the `<main>` landmark** — `release-notes.astro` renders the page title section (including the `<h1>`) in a `<div>` at the top level of `<body>` (line 70–74), *above* the `<main>` element that starts at line 77. Screen readers navigating by landmark will skip the heading when jumping to `main`. All other pages (`index.astro`, `blog/index.astro`, `faq.astro`, `BlogPostLayout.astro`) correctly include their `<h1>` inside `<main>`.
+- [x] **[9] NEW — Release-notes page `<h1>` is outside the `<main>` landmark** — `release-notes.astro` renders the page title section (including the `<h1>`) in a `<div>` at the top level of `<body>` (line 70–74), *above* the `<main>` element that starts at line 77. Screen readers navigating by landmark will skip the heading when jumping to `main`. All other pages (`index.astro`, `blog/index.astro`, `faq.astro`, `BlogPostLayout.astro`) correctly include their `<h1>` inside `<main>`.
   - **File:** [`src/pages/release-notes.astro:70-77`](../src/pages/release-notes.astro)
   - **Fix:** Wrap the hero `<div>` and `<main>` together in a single `<main>`, or move the hero `<div>` inside `<main>` as its first child and remove the outer `<div>`.
 
-- [ ] **[10] NEW — `dateModified` set to `new Date()` at build time on blog index and release-notes** — Both `blog/index.astro:48` and `release-notes.astro:46` use `new Date().toISOString().slice(0, 10)` for `dateModified` in their `WebPage` JSON-LD. This sets the date to whenever a Vercel build runs — including deployments that don't touch those pages — and signals to Google that the pages change more frequently than they do. The same pages could use a static date updated when content actually changes (like the other schema `dateModified` fields in the codebase).
+- [x] **[10] NEW — `dateModified` set to `new Date()` at build time on blog index and release-notes** — Both `blog/index.astro:48` and `release-notes.astro:46` use `new Date().toISOString().slice(0, 10)` for `dateModified` in their `WebPage` JSON-LD. This sets the date to whenever a Vercel build runs — including deployments that don't touch those pages — and signals to Google that the pages change more frequently than they do. The same pages could use a static date updated when content actually changes (like the other schema `dateModified` fields in the codebase).
   - **Files:** [`src/pages/blog/index.astro:48`](../src/pages/blog/index.astro), [`src/pages/release-notes.astro:46`](../src/pages/release-notes.astro)
   - **Fix:** Replace `new Date().toISOString().slice(0, 10)` with an explicit date string updated manually whenever the page content meaningfully changes. For `release-notes.astro`, derive from `releaseNotes[0].date` (the most recent release) since the page content changes when a release is added.
 
@@ -114,6 +114,6 @@ Small, isolated changes across different files; can be batched in one session.
 
 | # | Item |
 |---|------|
-| [ ] | **[8]** Upgrade `logo` to `ImageObject` in Organization schema — `BaseLayout.astro`. |
-| [ ] | **[9]** Move release-notes hero section inside `<main>` — `release-notes.astro`. |
-| [ ] | **[10]** Replace `new Date()` `dateModified` with explicit/derived dates — `blog/index.astro`, `release-notes.astro`. |
+| [x] | **[8]** Upgrade `logo` to `ImageObject` in Organization schema — `BaseLayout.astro`. |
+| [x] | **[9]** Move release-notes hero section inside `<main>` — `release-notes.astro`. |
+| [x] | **[10]** Replace `new Date()` `dateModified` with explicit/derived dates — `blog/index.astro`, `release-notes.astro`. |

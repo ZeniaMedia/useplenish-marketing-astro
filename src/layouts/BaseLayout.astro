@@ -60,7 +60,7 @@ const siteUrl = Astro.site?.href ?? 'https://useplenish.com/';
   "@id": "${siteUrl}#organization",
   "name": "Plenish",
   "url": "${siteUrl}",
-  "logo": "https://useplenish.com/plenish-logo.png",
+  "logo": { "@type": "ImageObject", "url": "https://useplenish.com/plenish-logo.png", "width": 1024, "height": 1024 },
   "description": "Plenish tracks your meal prep, calories, protein and fiber — daily and weekly — and builds your meal plan around what's fresh. Designed for GLP-1 journeys, fitness goals, and anyone who hates wasting food.",
   "foundingDate": "2026",
   "sameAs": [
