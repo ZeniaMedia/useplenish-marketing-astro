@@ -64,17 +64,17 @@
 
 ### 🟢 Low
 
-- [ ] **[9] NEW — `index.astro` and `faq.astro` have stale `dateModified`**  
+- [x] **[9] NEW — `index.astro` and `faq.astro` have stale `dateModified`** — Updated `dateModified` to `"2026-11-18"` in both `index.astro` and `faq.astro` (Session O).  
   Both pages hardcode `"dateModified": "2026-06-30"`. The homepage was updated in Session D (fetchpriority on the phone mockup) and the FAQ in Session J (hover handler replacement). `blog/index.astro` and `release-notes.astro` were corrected in Session L; these two were missed. Confirmed in `dist/index.html`.  
   - **Files:** [`src/pages/index.astro:21`](../src/pages/index.astro), [`src/pages/faq.astro:100`](../src/pages/faq.astro)  
   - **Fix:** Update `dateModified` to `"2026-11-18"` in both files.
 
-- [ ] **[10] NEW — `privacy.astro` and `terms.astro` `dateModified` contradicts stated content date**  
+- [x] **[10] NEW — `privacy.astro` and `terms.astro` `dateModified` contradicts stated content date** — Changed `dateModified` to `"2026-05-05"` in both files to match the stated "Last updated" date (Session O).  
   Both pages have `"dateModified": "2026-06-30"` in their `WebPage` schemas, but their visible content says "Last updated May 05, 2026." The schema reports a date *later* than the actual content date, which is misleading to crawlers. Neither page has been updated through any audit session.  
   - **Files:** [`src/pages/privacy.astro:42`](../src/pages/privacy.astro), [`src/pages/terms.astro:53`](../src/pages/terms.astro)  
   - **Fix:** Change `dateModified` to `"2026-05-05"` in both files to match the stated "Last updated" date.
 
-- [ ] **[11] NEW — `BlogPostLayout` publisher logo `ImageObject` missing `width`/`height`**  
+- [x] **[11] NEW — `BlogPostLayout` publisher logo `ImageObject` missing `width`/`height`** — Added `width: 1024, height: 1024` to `publisher.logo` inside `blogPostingJsonLd` in `BlogPostLayout.astro` (Session O).  
   The `publisher.logo` `ImageObject` inside `blogPostingJsonLd` (lines 50–55) has only `@type` and `url`. The site-wide `Organization` schema correctly includes `width: 1024, height: 1024`; the per-post `BlogPosting` publisher logo does not. Google's structured data validator flags logo `ImageObject` entries without dimensions for `BlogPosting` rich results.  
   - **File:** [`src/layouts/BlogPostLayout.astro:50`](../src/layouts/BlogPostLayout.astro)  
   - **Fix:** Add `width: 1024, height: 1024` to the `publisher.logo` object inside `blogPostingJsonLd`.
@@ -93,7 +93,7 @@
     - [`src/pages/blog/tag/[tag].astro:62`](../src/pages/blog/tag/%5Btag%5D.astro), [`:64`](../src/pages/blog/tag/%5Btag%5D.astro), [`~:106`](../src/pages/blog/tag/%5Btag%5D.astro) (3×)  
   - **Fix:** Change all 10 instances from `aria-hidden` to `aria-hidden="true"`.
 
-- [ ] **[14] NEW — No custom 404 error page**  
+- [x] **[14] NEW — No custom 404 error page** — Created `src/pages/404.astro` using `BaseLayout` with header, footer, friendly heading, and links to Home, Blog, FAQ (Session O).  
   No `src/pages/404.astro` exists. Astro serves its default 404, which has no site branding, header/footer, or helpful navigation links. A custom 404 keeps users on the site when they hit broken links and is consistent with every other page.  
   - **File:** `src/pages/404.astro` (new file)  
   - **Fix:** Create `src/pages/404.astro` using `BaseLayout` with the site header/footer; include a friendly heading, a brief message, and links to Home, Blog, and FAQ.
@@ -108,7 +108,7 @@
   - **Files:** [`src/components/Header.astro:39`](../src/components/Header.astro), [`src/pages/faq.astro:146`](../src/pages/faq.astro), [`src/pages/index.astro:73`](../src/pages/index.astro) (and several more lines in each file — see description above)  
   - **Fix:** Add `aria-hidden="true"` to each decorative `<svg>` element listed above.
 
-- [ ] **[18] NEW — CSP missing `object-src 'none'` and `base-uri 'none'`**  
+- [x] **[18] NEW — CSP missing `object-src 'none'` and `base-uri 'none'`** — Appended `; object-src 'none'; base-uri 'none'` to the CSP `value` string in `vercel.json` (Session O).  
   The `Content-Security-Policy` in `vercel.json` (line 28) omits two directives the `security` guide classifies as mandatory: `object-src 'none'` (blocks Flash and other plugin-based code execution via `<object>`/`<embed>`) and `base-uri 'none'` (blocks `<base>` tag hijacking of relative URLs). Current CSP: `default-src 'self'; script-src 'self' 'unsafe-inline' …; connect-src …; img-src …; style-src …; font-src 'self'; frame-ancestors 'none'`. Neither `object-src` nor `base-uri` is in the policy. These two are safe to add immediately — they block attack vectors the site does not use — and do not require the Phase 2 CSP remediation.  
   - **File:** [`vercel.json:28`](../../vercel.json)  
   - **Fix:** Append `; object-src 'none'; base-uri 'none'` to the existing CSP `value` string.
