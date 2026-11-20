@@ -30,7 +30,7 @@
   - **Files:** [`src/pages/release-notes.astro:138`](../src/pages/release-notes.astro), [`src/data/releaseNotes.ts`](../src/data/releaseNotes.ts)  
   - **Fix:** Add optional `width?: number` and `height?: number` to `ReleaseEntry.heroImage` in `releaseNotes.ts`; populate the existing entry; add `width={entry.heroImage.width}` / `height={entry.heroImage.height}` on the `<img>`.
 
-- [ ] **[4] RETURNING — Production CSP uses `'unsafe-inline'` in `script-src`**  
+- [x] **[4] RETURNING — Production CSP uses `'unsafe-inline'` in `script-src`** — Moved all three `is:inline` scripts to `/public/js/` (`posthog.js`, `header.js`, `faq.js`); replaced inline blocks with `<script src="…" defer>`; removed `'unsafe-inline'` from enforced `script-src`; added `Content-Security-Policy-Report-Only` with the tight policy for post-deploy violation monitoring (Session P).  
   Carry-forward from previous audit item [6]. Root cause: PostHog `is:inline` snippet in `BaseLayout.astro`, plus `is:inline` scripts in `Header.astro` (mobile menu) and `faq.astro` (accordion + search). `'unsafe-inline'` in `script-src` largely defeats XSS protection.  
   - **Files:** [`vercel.json:28`](../../vercel.json), [`src/layouts/BaseLayout.astro:167`](../src/layouts/BaseLayout.astro), [`src/components/Header.astro:64`](../src/components/Header.astro), [`src/pages/faq.astro:237`](../src/pages/faq.astro)  
   - **Fix (Phase 2):** Rewrite three `is:inline` scripts as external `<script>` modules; load PostHog via `<script src="…" async>`; remove `'unsafe-inline'` from `script-src`. Keep `Content-Security-Policy-Report-Only` during migration.
